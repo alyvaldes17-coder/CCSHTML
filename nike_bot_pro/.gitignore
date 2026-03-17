@@ -1,0 +1,43 @@
+# ── Perfiles Chrome (NUNCA subir — contienen cookies/sesiones) ──
+auth/*/profile_login/
+auth/*/profile_pw/
+auth/*/profile_run/
+profile_pw/
+profile_login/
+profile_run/
+
+# ── Datos sensibles de cuentas ──
+auth/*/*.json
+auth/*/.login_ok
+auth/*/tokens.json
+auth/*/cookies.json
+session_token.json
+settings.json
+
+# ── Discord webhook y secrets ──
+.env
+*.env
+
+# ── Python cache ──
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# ── Logs y archivos temporales ──
+*.log
+start_idx
+test_output.txt
+
+# ── VS Code ──
+.vscode/
+.idea/
+
+# ── Virtual environment ──
+.venv/
+venv/
+env/
+
+# ── Windows ──
+Thumbs.db
+desktop.ini
