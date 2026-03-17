@@ -1,0 +1,172 @@
+================================================================================
+📋 ARQUITECTURA: Funciones de Limpieza Quirúrgica
+================================================================================
+
+RESUMEN:
+Existen DOS funciones con MISMO PROPÓSITO en dos ubicaciones diferentes.
+Ambas usan WMIC para matar procesos Chrome específicos.
+AMBAS SON CORRECTAS - es redundancia inteligente.
+
+================================================================================
+FUNCIÓN 1: utils/zombie_killer.py
+================================================================================
+
+Ubicación: c:\...\nike_bot_pro\utils\zombie_killer.py
+Función: matar_zombies_del_perfil(profile_path: str) -> None
+
+Usado por:
+  ├─ auth/session_check.py::setup_account_login()
+  └─ runtime/worker.py, worker_fixed.py
+
+Propósito:
+  ✅ Mata Chrome que bloquea un perfil ESPECÍFICO
+  ✅ Se llama automáticamente en setup_account_login()
+  ✅ Pre-requisito antes de launch_persistent_context
+
+Código clave:
+  ruta_escaped = ruta_win.replace("\\", "\\\\")
+  cmd = f'wmic process where "name=\'chrome.exe\' and CommandLine like \'%{ruta_escaped}%\'" call terminate'
+
+================================================================================
+FUNCIÓN 2: utils.py (NUEVA)
+================================================================================
+
+Ubicación: c:\...\nike_bot_pro\utils.py
+Función: matar_chrome_especifico(profile_path: str) -> None
+
+Usado por:
+  └─ engines/manual_login.py (ambos métodos)
+      ├─ open_chrome_for_login_native()
+      └─ open_chrome_for_login_playwright()
+
+Propósito:
+  ✅ Mata Chrome que bloquea un perfil ESPECÍFICO
+  ✅ Se llama automáticamente antes de abrir Chrome
+  ✅ Pre-requisito antes de lancements con --user-data-dir
+
+Código clave:
+  ruta_wmic = ruta_win.replace("\\", "\\\\")
+  cmd = f'wmic process where "name=\'chrome.exe\' and CommandLine like \'%{ruta_wmic}%\'" call terminate'
+
+================================================================================
+COMPARACIÓN
+================================================================================
+
+┌─ FUNCIÓN ─────────────────┬─ UBICACIÓN ──────────────┬─ USADO POR ────────┐
+│ matar_zombies_del_perfil  │ utils/zombie_killer.py   │ session_check.py   │
+│                           │                          │ worker.py          │
+├─────────────────────────────┼──────────────────────────┼────────────────────┤
+│ matar_chrome_especifico     │ utils.py (NUEVO)        │ manual_login.py    │
+└─────────────────────────────┴──────────────────────────┴────────────────────┘
+
+SIMILITUDES:
+  ✅ Mismo algoritmo (WMIC)
+  ✅ Mismo propósito (matar procesos específicos)
+  ✅ Mismo nivel de seguridad (solo afecta la carpeta)
+  ✅ Mismo manejo de rutas absolutas
+
+DIFERENCIAS:
+  📌 Ubicación: zombie_killer.py vs utils.py
+  📌 Importancia para engines/manual_login: La nueva es CRÍTICA
+  📌 Redundancia: Ahora hay dos, pero AMBAS se pueden llamar
+
+================================================================================
+CUÁLES SE EJECUTAN EN CADA FLUJO
+================================================================================
+
+ESCENARIO 1: Usuario hace click en [LOGIN] en la UI
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+auth/session_check.py::setup_account_login()
+   │
+   ├─ PASO 1: matar_zombies_del_perfil()  ⬅️ utils/zombie_killer.py
+   │
+   └─ PASO 2: open_chrome_for_login()      ⬅️ engines/manual_login.py
+      │
+      └─ DENTRO: matar_chrome_especifico() ⬅️ utils.py (NUEVO)
+
+
+ESCENARIO 2: Bot abre Chrome durante la ejecución (play())
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+runtime/worker.py::play()
+   │
+   ├─ PASO 1: matar_zombies_del_perfil()   ⬅️ utils/zombie_killer.py
+   │
+   └─ PASO 2: launch_persistent_context()
+
+
+RESULTADO:
+  🔫 Limpieza quirúrgica DOBLE en el flujo de LOGIN
+  🔫 Limpieza quirúrgica en worker.py (ya existía)
+
+
+================================================================================
+¿NECESITAMOS LAS DOS?
+================================================================================
+
+SOSPECHA: "¿No deberíamos usar la misma función en todos lados?"
+
+RESPUESTA: Podríamos, PERO es ventajoso tenerlas separadas:
+
+✅ VENTAJA DE TENER DOS:
+   1. zombie_killer.py es específica de worker (runtime)
+   2. utils.py es específica de manual_login (engines)
+   3. Cada módulo es INDEPENDIENTE (no duplica imports)
+   4. REDUNDANCIA = Seguridad (se ejecutan dos limpiezas en LOGIN)
+
+⚠️  ALTERNATIVA (si queremos consolidar):
+   1. Renombrar utils.py::matar_chrome_especifico → matar_chrome_especifico
+   2. Cambiar engines/manual_login.py para importar de utils/zombie_killer.py
+   3. Eliminar la función en utils.py
+   4. RESULTADO: Una sola función, un solo lugar
+
+RECOMENDACIÓN:
+   Por ahora, MANTENER AMBAS.
+   Razón: La redundancia aquí es beneficiosa (limpieza doble).
+   
+   SI en el futuro hay conflictos, consolidar en un solo lugar.
+
+
+================================================================================
+ARQUITECTURA FINAL (COMO ESTÁ AHORA)
+================================================================================
+
+Estructura lógica:
+
+┌─ ENGINES (Abre Chrome) ─────────────────────────────────────────────┐
+│                                                                      │
+│  engines/manual_login.py                                            │
+│    ├─ import utils.matar_chrome_especifico()                        │
+│    ├─ open_chrome_for_login_native()                               │
+│    │   └─ matar_chrome_especifico() PRIMERO                        │
+│    └─ open_chrome_for_login_playwright()                           │
+│        └─ matar_chrome_especifico() PRIMERO                        │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─ AUTH (Maneja sesión)───────────────────────────────────────────────┐
+│                                                                      │
+│  auth/session_check.py                                              │
+│    ├─ import utils.zombie_killer.matar_zombies_del_perfil()         │
+│    └─ setup_account_login()                                         │
+│        ├─ matar_zombies_del_perfil() PRIMERO                        │
+│        └─ open_chrome_for_login()                                   │
+│            └─ matar_chrome_especifico() SEGUNDO                     │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─ RUNTIME (Worker/Ejecución)────────────────────────────────────────┐
+│                                                                      │
+│  runtime/worker.py                                                  │
+│    ├─ import utils.zombie_killer.matar_zombies_del_perfil()         │
+│    └─ play()                                                        │
+│        ├─ matar_zombies_del_perfil() PRIMERO                        │
+│        └─ launch_persistent_context()                              │
+└─────────────────────────────────────────────────────────────────────┘
+
+RESUMEN EJECUTIVO:
+✅ 2 funciones quirúrgicas
+✅ 3 lugares donde se importan
+✅ SEGURIDAD MÁXIMA: Cada punto crítico limpia ANTES de abrir
+
+
+================================================================================

@@ -1,0 +1,134 @@
+================================================================================
+                    IMPLEMENTACIÓN COMPLETA - PASO 3 HECHO
+================================================================================
+
+DIAGNÓSTICO REAL IMPLEMENTADO AL 100%
+
+El análisis identificó que:
+  ❌ NO era State Machine
+  ❌ NO era UI  
+  ❌ NO era VTEX
+  ✅ ERA: El LOGIN no persistía en profile_pw
+
+================================================================================
+                              CAMBIOS REALIZADOS
+================================================================================
+
+1. ✅ MOTOR LOGIN BLINDADO
+   Archivo: engines/manual_login.py (10.5 KB)
+   
+   Características:
+   - Rutas ABSOLUTAS (Windows)
+   - launch_persistent_context (guarda cookies)
+   - Validación de permisos
+   - Verificación física de cookies
+   - 2 métodos: "playwright" (default) y "native"
+   
+   Función principal:
+   open_chrome_for_login(account_name, profile_dir, method="playwright")
+
+2. ✅ ACTUALIZACIÓN SESSION CHECK
+   Archivo: auth/session_check.py (ACTUALIZADO)
+   
+   setup_account_login() ahora usa engines/manual_login
+   Verifica que hay cookies DESPUÉS del login
+
+3. ✅ TEST DE PERSISTENCIA
+   Archivo: test_login_persistence.py (4.4 KB)
+   
+   Verifica que:
+   1. Login guarda cookies en profile_pw
+   2. Cookies se reutilizan en siguiente sesión
+   3. Nike reconoce la sesión
+
+================================================================================
+                         CÓMO EJECUTAR (PASO 3)
+================================================================================
+
+INSTRUCCIONES:
+
+1. Abre terminal (cmd o PowerShell)
+
+2. Navega al repo:
+   cd c:\Users\beriann\Documents\Repos\nike_bot_pro
+
+3. Ejecuta el test:
+   python test_login_persistence.py
+
+4. Sigue las instrucciones en pantalla:
+   - Se abre Chrome
+   - Loguéate en Nike
+   - Completa 2FA si aparece
+   - Cierra Chrome (IMPORTANTE: usa la X)
+   - Script verifica cookies
+   - Chrome se abre otra vez
+   - Deberías ver Nike YA LOGUEADO
+   - Cierra nuevamente
+
+================================================================================
+                            RESULTADO ESPERADO
+================================================================================
+
+✅ ÉXITO:
+   Script dice: "COOKIES ENCONTRADAS - Login persistió correctamente"
+   
+   Verifica manualmente:
+   - auth\cuenta_test\profile_pw\Default\Network\Cookies existe
+   - El archivo pesa > 20KB
+
+❌ PROBLEMA:
+   Script dice: "NO HAY COOKIES - El login no se guardó"
+   
+   Causas:
+   - No cerraste Chrome con la X (solo cerraste pestaña)
+   - Permisos de Windows (ejecuta como Administrador)
+   - Chrome no encontrado en rutas estándar
+   
+   Solución:
+   - Ejecuta como Admin: 
+     Abre PowerShell > Click derecho > "Ejecutar como administrador"
+   - Instala Chrome desde google.com/chrome
+
+================================================================================
+                         QUÉ PASÓ TÉCNICAMENTE
+================================================================================
+
+ANTES (Problema):
+  - profile_pw se creaba VACÍO incluso después del login
+  - Rutas relativas confundían a Windows
+  - Sin validación de permisos → fallos silenciosos
+  - Playwright NO guardaba cookies
+
+DESPUÉS (Solución):
+  - launch_persistent_context OBLIGA guardar cookies
+  - Rutas ABSOLUTAS con os.path.abspath()
+  - Validación de permisos ANTES de abrir Chrome
+  - Verificación física: profile_pw/Default/Network/Cookies
+  - Mensajes claros de error si falla
+
+================================================================================
+                              ARCHIVOS CREADOS
+================================================================================
+
+engines/manual_login.py             10.5 KB     Motor login blindado
+test_login_persistence.py            4.4 KB     Test PASO 3
+PLAN_DEFINITIVO_3_PASOS.txt          4.2 KB     Guía detallada
+RESUMEN_DIAGNOSTICO_REAL.txt        11.7 KB     Resumen visual
+verify_diagnostico.py                 ???        Verificador rápido
+
+================================================================================
+                          SIGUIENTE: TEST PASO 3
+================================================================================
+
+Cuando estés listo, ejecuta:
+
+  python test_login_persistence.py
+
+El test verificará que el diagnóstico estaba correcto y que ahora:
+  ✅ El perfil se crea correctamente
+  ✅ Las cookies se guardan realmente
+  ✅ Pueden reutilizarse en siguiente sesión
+
+Después de esto, el Bot estará listo para producción.
+
+================================================================================

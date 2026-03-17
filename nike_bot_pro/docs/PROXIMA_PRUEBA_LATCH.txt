@@ -1,0 +1,77 @@
+🎬 PRÓXIMA PRUEBA - LATCH + AUTO CHECKOUT
+
+════════════════════════════════════════════════════════════════
+
+PASOS:
+
+1. El bot ya está corriendo (main.py)
+2. Click PLAY en la UI
+3. Observa los logs en tiempo real
+
+════════════════════════════════════════════════════════════════
+
+QUÉ DEBERÍAS VER:
+
+[cuenta2] 1️⃣ Extrayendo cookies...
+[cuenta2]    ✅ Cookies del perfil: 3 items
+
+[cuenta2] 2️⃣ Cliente VTEX (TLS spoofed)...
+[cuenta2]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+
+[cuenta2] 4️⃣ Ejecutando frontend add_to_cart...
+[cuenta2]    🎯 Frontend Add-to-Cart: GET https://www.nike.cl/checkout/cart/add?sku=134427&qty=1&seller=1&sc=1
+[cuenta2]    ✅ Carrito creado. Redirección: https://www.nike.cl/checkout/#/cart
+[cuenta2]    📡 Verificando estado del carrito (API)...
+[cuenta2]    ✅ ¡BINGO! 1 items en el carro.
+[cuenta2]    🛒 Producto: Nike Tech Talla: XL - Color: Gris
+
+[cuenta2] 5️⃣ Verificando precio del item...
+[cuenta2]    ⏳ Precio aún no disponible (0.2s de 25s)
+[cuenta2]    ⏳ Precio aún no disponible (1.5s de 25s)
+[cuenta2]    ⏳ Precio aún no disponible (2.3s de 25s)
+
+[cuenta2]    🔒 PRECIO LATCHED: $92990.00 CLP         ← ¡AQUÍ ENTRA LA MAGIA!
+[cuenta2]    ⚡ AUTO CHECKOUT ACTIVADO (HOT PATH)      ← Intenta pagar automáticamente
+[cuenta2]    ⏱️ Intentando pagar en 4 segundos...
+
+[cuenta2]    ✅ Pago aceptado: status=authorized, total=$92990.00
+[cuenta2]    ⏱️ Checkout intentado en 1.23s
+
+[cuenta2]    🎉 CHECKOUT EXITOSO                      ← ¡VICTORIA!
+[cuenta2]    ✅ Checkout completado exitosamente
+
+════════════════════════════════════════════════════════════════
+
+ESCENARIO ALTERNATIVO (SI FALLA EL PAGO):
+
+[cuenta2]    🔒 PRECIO LATCHED: $92990.00 CLP
+[cuenta2]    ⚡ AUTO CHECKOUT ACTIVADO (HOT PATH)
+[cuenta2]    ⏱️ Intentando pagar en 4 segundos...
+
+[cuenta2]    ⚠️ Precio mismatch: esperado $92990.00, obtuvo $0.00
+[cuenta2]    ⏱️ Checkout intentado en 0.34s
+
+[cuenta2]    ❌ CHECKOUT FALLÓ (FAIL FAST)
+[cuenta2]    ❌ Checkout falló - Listo para humano
+
+════════════════════════════════════════════════════════════════
+
+PUNTOS CLAVE:
+
+✅ El latch evita múltiples intentos
+✅ El timeout (4s) es agresivo
+✅ La validación de precio bloquea engaños
+✅ Fail fast = sin loops infinitos
+
+════════════════════════════════════════════════════════════════
+
+ESTADO ESPERADO:
+
+✅ account.state = PAYMENT_READY
+✅ account.last_status = "CHECKOUT_SUCCESS"
+✅ Sin errores
+✅ Log dice: "✅ Checkout completado exitosamente"
+
+════════════════════════════════════════════════════════════════
+
+¡Dale PLAY y mira! 🚀

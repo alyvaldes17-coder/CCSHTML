@@ -1,0 +1,207 @@
+════════════════════════════════════════════════════════════════════════════════
+                      FLUJO DE VALIDACIÓN - DIAGNÓSTICO REAL
+════════════════════════════════════════════════════════════════════════════════
+
+
+                          ┌─────────────────────┐
+                          │   Bot Ejecuta       │
+                          │   [PLAY]            │
+                          └──────────┬──────────┘
+                                     │
+                                     ▼
+                          ┌─────────────────────┐
+                          │ Bot valida que      │
+                          │ valid_tokens=True   │
+                          └──────────┬──────────┘
+                                     │
+                    ┌────────────────┴────────────────┐
+                    │                                 │
+                    ▼                                 ▼
+        ✅ DICE: "OK"              ❌ PERO EN REALIDAD:
+        valid_tokens=True          El perfil está VACÍO
+                    │                                 │
+                    │           ┌─────────────────────┘
+                    │           │
+                    │     [DIAGNÓSTICO REAL]
+                    │           │
+                    └───────────┘
+                          │
+                          ▼
+                ┌─────────────────────────┐
+                │ "El bot confunde lo que │
+                │ DICE con lo que ES"     │
+                │                         │
+                │ Solución:               │
+                │ Necesitas poder abrir   │
+                │ el capó y mirar el      │
+                │ motor (perfil Chrome)   │
+                └──────────┬──────────────┘
+                           │
+               ┌───────────┴───────────┐
+               │                       │
+               ▼                       ▼
+         MODO JEFE              FORCE_CHECK
+    (Botón sin bloqueos)    (Diagnóstico físico)
+               │                       │
+               │ [LOGIN]               │ python force_check.py
+               │ Abre Chrome           │ Chrome abre directamente
+               │ Tú logueas            │
+               │ Guarda cookies        │
+               │                       │ ┌────────────────┐
+               │                       ├─┤ ¿VES COOKIES?  │
+               │                       │ └────────┬───────┘
+               │                       │          │
+               │          ┌────────────┴──────────┴─────────┐
+               │          │                                 │
+               │          ▼                                 ▼
+               │      ✅ SÍ                            ❌ NO
+               │      "Hola, [Tu Nombre]"            "Login o vacío"
+               │          │                              │
+               │          ▼                              ▼
+               │    Perfil VIVO                   Perfil MUERTO
+               │    (Cookies presentes)           (Sin cookies)
+               │          │                              │
+               └──────────┼──────────────────────────────┘
+                          │
+                    [DECISIÓN]
+                          │
+        ┌─────────────────┴─────────────────┐
+        │                                   │
+        ▼                                   ▼
+    ✅ IMPLEMENTAR              ❌ LOGUÉA AHORA
+    CAMBIOS A,B,C              EN ESE CHROME
+    (Bot → Perfil)             (Guarda cookies)
+        │                           │
+        │                           ▼
+        │                      Cierra Chrome
+        │                           │
+        │                           ▼
+        │                    Corre force_check
+        │                           │
+        │                           ▼
+        │                      ✅ DEBERÍAS VER
+        │                      "Hola, [Tu Nombre]"
+        │                           │
+        └───────────────┬───────────┘
+                        │
+                        ▼
+                ┌──────────────────┐
+                │ ✅ DIAGNÓSTICO   │
+                │    CONFIRMADO    │
+                │                  │
+                │ Perfil VIVO      │
+                │ Bot LISTO        │
+                └──────────────────┘
+
+
+════════════════════════════════════════════════════════════════════════════════
+                            DECISIÓN EN ÁRBOL
+════════════════════════════════════════════════════════════════════════════════
+
+
+                    python force_check.py
+                            │
+                ┌───────────┴───────────┐
+                │                       │
+                ▼                       ▼
+         ¿VES COOKIES?           No se abre
+         (Hola, [Tu])            (Error)
+                │                       │
+        ┌───────┴──────┐                │
+        │              │                │
+     ✅ SÍ          ❌ NO          Ejecutar
+     │              │            como Admin
+     │              │                  │
+     │              ▼                  │
+     │          Loguéa ahora      Reinstala
+     │          en ese Chrome     Chrome
+     │          (Guarda)          │
+     │          │                 │
+     │          ▼                 ▼
+     │    Cierra Chrome    Reintentar
+     │          │          force_check
+     │          ▼          │
+     │    Corre de nuevo   ▼
+     │          │     ¿Se abre?
+     │          ▼      │
+     │    ¿Ahora SÍ?    ├─→ Sí → Continúa con flujo
+     │          │       │
+     │       ┌──┴──┐    └──→ No → Permiso denegado
+     │       │     │
+     │      ✅SÍ  ❌NO
+     │      │     │
+     │      │     ▼
+     │      │  Intenta de nuevo
+     │      │  Asegúrate:
+     │      │  • Loguear bien
+     │      │  • Ver "Hola, [Tu Nombre]"
+     │      │  • CERRAR con X
+     │      │
+     └──────┴────────→ ✅ PERFIL VIVO
+                          │
+                          ▼
+                  Implementar CAMBIOS A,B,C
+                  (si Bot aún falla)
+                          │
+                          ▼
+                      ✅ LISTO
+
+
+════════════════════════════════════════════════════════════════════════════════
+                            CASOS DE USO
+════════════════════════════════════════════════════════════════════════════════
+
+CASO 1: Bot dice "READY" pero falla al ejecutar
+  → python force_check.py
+  → Si ves "Hola, [Tu Nombre]" → Implementar CAMBIOS A,B,C
+  → Si ves login → Loguéa ahora y reintentas
+
+CASO 2: Perfil nuevo, nunca se loguéó
+  → [LOGIN] button en UI
+  → Loguéate en Chrome que se abre
+  → Cierra Chrome
+  → force_check.py verifica que se guardó
+
+CASO 3: Perfil antiguo, no sabes su estado
+  → force_check.py dice la verdad
+  → ¿Vivo? Listo para Bot
+  → ¿Muerto? Loguéa ahora
+
+CASO 4: Bot falla pero force_check muestra perfil OK
+  → Diagnóstico: Problema en code, no en perfil
+  → Acción: Implementar CAMBIOS A,B,C
+  → Estos cambios hacen que Bot lea cookies correctamente
+
+
+════════════════════════════════════════════════════════════════════════════════
+                        PUNTO CLAVE (La Verdad)
+════════════════════════════════════════════════════════════════════════════════
+
+force_check.py es la FUENTE DE VERDAD porque:
+
+  ✅ No tiene lógica de estado
+  ✅ No lee valid_tokens
+  ✅ No consulta tokens.json
+  ✅ No valida nada
+  
+  Solo:
+  ✅ Abre Chrome puro
+  ✅ Usa la ruta del perfil
+  ✅ TÚ VES el resultado real
+
+Si force_check muestra cookies → El perfil TIENE cookies (verdad)
+Si force_check no muestra → El perfil está vacío (verdad)
+
+No hay "falsas positivas" como valid_tokens=True.
+Es físico. Es real. Es la verdad.
+
+
+════════════════════════════════════════════════════════════════════════════════
+
+                        EJECUTA AHORA:
+
+                      python force_check.py
+
+                La verdad en 5 minutos. Sin espera.
+
+════════════════════════════════════════════════════════════════════════════════

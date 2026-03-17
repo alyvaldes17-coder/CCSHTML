@@ -1,0 +1,56 @@
+[06:07:43] WORKER INICIADO (live=True)
+[06:07:43] 1️⃣ Extrayendo cookies...
+[06:07:43]    ✅ Cookies cargadas desde tokens.json (3 items)
+[06:07:43]       auth_cookie: 0 chars
+[06:07:43]       vtex_session: 0 chars
+[06:07:43]       vtex_segment: 0 chars
+[06:07:43] 2️⃣ Cliente VTEX (TLS spoofed)...
+[06:07:43]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[06:07:43]    ✅ Headers sincronizados
+[06:07:43] 4️⃣ CAPA 1: Agregando al carrito...
+[06:07:43]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[06:07:44]    📡 Verificando estado del carrito...
+[06:07:44]    ✅ CARRITO OK: 1 items
+[06:07:44]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[06:07:44]    🏷️  SKU: UNKNOWN
+[06:07:44]    💰 Precio: $122,990 CLP
+[06:07:44]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[06:07:44]       Esperado: 188834
+[06:07:44]       Recibido: UNKNOWN
+[06:07:44]    🔒 CART_LOCKED - No se tocará más el carrito
+[06:07:44] 5️⃣ CAPA 2: Esperando precio...
+[06:07:44]    🔒 PRECIO CAPTURADO
+[06:07:44]       💰 $122,990 CLP
+[06:07:44]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[06:07:44]       🏷️  SKU: UNKNOWN
+[06:07:44]    🧱 CART_LOCK activado - Carrito congelado
+[06:07:44]    🎛️ HANDOVER MODE activado - Backend desconectado
+[06:07:44]    ✅ PRICE_LOCKED - Abriendo navegador...
+[06:07:44] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[06:07:44]    🚀 Intento 1/2
+[06:07:44]    🖥️ Lanzando navegador...
+[06:07:44]    🍪 Cookies calientes capturadas: 5 items
+[06:07:44]    🖥️ MODE B – Checkout con click real
+[06:07:48]    Buscando zombies en: c:\users\beriann\documents\repos\nike_bot_pro\auth\cuenta1
+[06:07:48]    No había zombies (ok)
+[06:07:49]    Lanzando Chromium...
+[06:07:49]    ✅ Cookies: 5 items
+[06:07:49]    1️⃣ Navegando a /checkout/#/cart...
+[06:07:53]    2️⃣ Inyectando CSS kill...
+[06:07:53]    ✅ Modales bloqueados
+[06:07:53]    3️⃣ Esperando RUNTIME VTEX...
+[06:07:53]    ✅ RUNTIME listo
+[06:07:53]    4️⃣ Buscando botón de avance...
+[06:07:53]    ✅ Click ejecutado - VTEX avanzando...
+[06:07:53] 
+   ════════════════════════════════════════
+[06:07:53]    ✅ HANDOVER COMPLETADO
+[06:07:53]    ════════════════════════════════════════
+[06:07:53]    💰 Precio CONGELADO
+[06:07:53]    🛒 Carrito CONGELADO
+[06:07:53]    🔌 Backend DESCONECTADO
+[06:07:53]    👤 Tu turno para PAGAR
+[06:07:53]    
+   Completa el pago en el navegador.
+[06:07:53]    Tu Chrome personal está a salvo.
+

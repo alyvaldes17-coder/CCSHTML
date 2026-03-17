@@ -1,0 +1,136 @@
+════════════════════════════════════════════════════════════════════════════════
+                              INDEX DE ARCHIVOS
+════════════════════════════════════════════════════════════════════════════════
+
+¿POR DÓNDE EMPIEZO?
+
+→ Lee ESTO primero:     QUICK_START_TEST.txt       (2 minutos de lectura)
+
+Luego ejecuta:          python test_login_persistence.py
+
+════════════════════════════════════════════════════════════════════════════════
+                          ARCHIVOS EN ORDEN DE LECTURA
+════════════════════════════════════════════════════════════════════════════════
+
+🔴 URGENTE - LEE PRIMERO:
+───────────────────────────────────────────────────────────────────────────────
+
+  1. QUICK_START_TEST.txt
+     ¿Qué es?     Guía rápida para ejecutar el test
+     Tiempo:      2 minutos
+     Acción:      python test_login_persistence.py
+     Propósito:   Verificar que el diagnóstico se arregló
+
+🟡 PARA ENTENDER QUÉ PASÓ:
+───────────────────────────────────────────────────────────────────────────────
+
+  2. RESUMEN_FINAL_IMPLEMENTACION.txt
+     ¿Qué es?     Resumen visual de todo lo que se hizo
+     Tiempo:      5 minutos
+     Propósito:   Visión general de los 3 pasos
+
+  3. HOJA_DE_RUTA_VISUAL.txt
+     ¿Qué es?     Detalle de cada paso con checklist
+     Tiempo:      10 minutos
+     Propósito:   Entender qué cambió y por qué
+
+🟢 PARA PROFUNDIZAR (Opcional):
+───────────────────────────────────────────────────────────────────────────────
+
+  4. PLAN_DEFINITIVO_3_PASOS.txt
+     ¿Qué es?     Análisis detallado de cada paso
+     Tiempo:      15 minutos
+     Propósito:   Entender el plan completo
+
+  5. RESUMEN_DIAGNOSTICO_REAL.txt
+     ¿Qué es?     Análisis técnico del problema original
+     Tiempo:      10 minutos
+     Propósito:   Entender por qué fallaba
+
+  6. IMPLEMENTACION_COMPLETA.txt
+     ¿Qué es?     Listado de cambios específicos
+     Tiempo:      5 minutos
+     Propósito:   Ver qué archivos se crearon/modificaron
+
+════════════════════════════════════════════════════════════════════════════════
+                          ARCHIVOS DE CÓDIGO CREADOS
+════════════════════════════════════════════════════════════════════════════════
+
+  engines/manual_login.py
+    • Motor de login blindado
+    • 350+ líneas de código
+    • Rutas absolutas (Windows)
+    • launch_persistent_context (guarda cookies)
+    • Validación de permisos
+    • 2 métodos: "playwright" y "native"
+
+  test_login_persistence.py
+    • Test para verificar que el diagnóstico funciona
+    • 150+ líneas de código
+    • Abre Chrome 2 veces
+    • Verifica que cookies persisten
+
+  verify_diagnostico.py
+    • Verificador rápido de archivos creados
+    • Script simple para confirmar que todo se instaló
+
+════════════════════════════════════════════════════════════════════════════════
+                          ARCHIVOS ACTUALIZADOS
+════════════════════════════════════════════════════════════════════════════════
+
+  auth/session_check.py
+    • Función setup_account_login() ahora IMPORTA engines/manual_login
+    • Usa open_chrome_for_login() con method="playwright"
+    • Verifica cookies DESPUÉS del login
+    • Mensajes de error mejorados
+
+════════════════════════════════════════════════════════════════════════════════
+                          FLUJO RECOMENDADO
+════════════════════════════════════════════════════════════════════════════════
+
+TIEMPO TOTAL: 30-45 minutos (incluye test)
+
+  1. (2 min)   Lee QUICK_START_TEST.txt
+  2. (20-30)   Ejecuta: python test_login_persistence.py
+               (el test toma 15-25 min porque tu logueas manualmente)
+  3. (5 min)   Lee RESUMEN_FINAL_IMPLEMENTACION.txt
+  4. (5 min)   Lee HOJA_DE_RUTA_VISUAL.txt
+  5. (5 min)   Opcional: Lee documentación adicional
+
+════════════════════════════════════════════════════════════════════════════════
+                          PREGUNTAS FRECUENTES
+════════════════════════════════════════════════════════════════════════════════
+
+P: ¿Qué hizo el diagnóstico real?
+R: Identificó que el LOGIN no guardaba cookies en profile_pw.
+   La solución implementó un motor blindado con validación de permisos.
+
+P: ¿Qué cambió en el código?
+R: Se creó engines/manual_login.py y se actualizó auth/session_check.py
+   para que use el nuevo motor.
+
+P: ¿Tengo que hacer algo?
+R: SÍ - Ejecuta el test: python test_login_persistence.py
+
+P: ¿Cuánto tiempo toma el test?
+R: 15-25 minutos (porque TÚ logueas manualmente en Nike)
+
+P: ¿Qué pasa si el test falla?
+R: Lee las soluciones en QUICK_START_TEST.txt (sección "SI FALLA")
+
+P: ¿Puedo usar el bot sin ejecutar el test?
+R: NO. El test verifica que el diagnóstico se arregló.
+   Sin él, no sabrás si el login persiste cookies.
+
+════════════════════════════════════════════════════════════════════════════════
+                          ESTADO ACTUAL
+════════════════════════════════════════════════════════════════════════════════
+
+  ✅ PASO 1: Blindaje UI              COMPLETADO
+  ✅ PASO 2: Motor login blindado     COMPLETADO
+  ✅ PASO 3: Test persistencia        LISTO PARA EJECUTAR ← TU ESTÁS AQUÍ
+
+  Próximo:   python test_login_persistence.py
+
+════════════════════════════════════════════════════════════════════════════════
+

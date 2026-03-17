@@ -1,0 +1,71 @@
+# ═══════════════════════════════════════════════════════════════════════════
+# NIKE BOT PRO - REQUIREMENTS.TXT
+# Fecha: 21 de febrero, 2026
+# ═══════════════════════════════════════════════════════════════════════════
+
+# 🔵 WEB AUTOMATION (Principal)
+playwright==1.40.0              # Automatización web síncrona (MAIN ENGINE)
+selenium==4.15.2                # Automatización web (respaldo/legacy)
+webdriver-manager==4.0.1        # Management automático de ChromeDriver
+
+# 🌐 HTTP & REQUESTS
+requests==2.31.0                # HTTP requests clásico
+httpx==0.25.2                   # HTTP moderno (async-sync compatible)
+tls-client==1.7.1               # TLS fingerprinting anti-WAF/Cloudflare
+urllib3==2.1.0                  # HTTP robusta (usado por requests)
+
+# 🎨 GUI & INTERFAZ
+customtkinter==5.2.0            # GUI moderna (CustomTkinter - versión mejorada de Tkinter)
+# tkinter es built-in en Python, no necesita pip
+
+# 🔌 WEBSOCKET (Chrome Debugging Protocol)
+websocket-client==1.7.0         # WebSocket para CDP (Chrome Debug Protocol)
+
+# ⚙️ SISTEMA & PROCESOS
+psutil==5.9.6                   # Monitor de procesos (CPU, memoria, gestión de Chrome)
+pywin32>=306                    # Windows API (desencriptar cookies Chrome)
+pycryptodome>=3.19.0            # AES-GCM para cookies Chrome encriptadas
+
+# 📦 UTILIDADES ADICIONALES (built-in, pero documentadas)
+# json - built-in
+# logging - built-in  
+# datetime - built-in
+# random - built-in
+# re - built-in
+# enum - built-in
+# threading - built-in
+# multiprocessing - built-in
+# subprocess - built-in
+# os - built-in
+# sys - built-in
+# shutil - built-in
+# pathlib - built-in
+# dataclasses - built-in (Python 3.7+)
+# typing - built-in
+
+# ═══════════════════════════════════════════════════════════════════════════
+# INSTALACIÓN
+# ═══════════════════════════════════════════════════════════════════════════
+# pip install -r requirements.txt
+#
+# ADEMÁS (post-instalación):
+# playwright install                    # Descargar navegadores
+# playwright install chromium           # O solo chromium
+#
+# REQUERIMIENTOS DEL SISTEMA:
+# ✅ Python 3.8+
+# ✅ Google Chrome (Windows/Mac/Linux)
+# ✅ cURL (nativo en Windows 10+)
+# ✅ Git (opcional)
+# ═══════════════════════════════════════════════════════════════════════════
+
+# VERSIONES MÍNIMAS RECOMENDADAS:
+# - Python: 3.8.0+
+# - pip: 20.0.0+
+# - Chrome: 100.0+
+
+# VERSIONES MÁXIMAS (compatibilidad):
+# - playwright: ≤1.41.0
+# - selenium: ≤4.16.0
+# - customtkinter: ≤5.2.1
+# - tls-client: ≤1.7.1

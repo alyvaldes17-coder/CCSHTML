@@ -1,0 +1,61 @@
+# 🔧 PLAN DE CONSOLIDACIÓN - RUTA REAL DE EJECUCIÓN
+
+**Objetivo:** Una sola ruta de ejecución: main.py → AccountManager → StateMachine.run()
+
+**Estado Crítico:** runner/state_machine.py existe pero NUNCA se llama
+
+**Decisión:** Usar StateMachine como FUENTE DE VERDAD
+
+---
+
+## CAMBIOS POR HACER (ORDEN EXACTO)
+
+### 1. runtime/worker.py → DEBE LLAMAR StateMachine.run()
+
+**Actual (MALO):**
+```python
+def account_worker(account, live=True):
+    # 736 líneas de lógica directa
+    # ATC inline
+    # Wait pricing inline
+    # Lanzar subprocess
+```
+
+**Nuevo (CORRECTO):**
+```python
+def account_worker(account, live=True):
+    # 1. Crear contexto (cookies, session, page)
+    # 2. StateMachine(session, page).run()
+    # 3. Listo
+```
+
+### 2. runner/account_manager.py → BORRAR (duplicado no usada)
+
+Está en runner/, NO se importa en main.py.
+
+### 3. tools/payment_launcher.py → REEMPLAZAR por checkout_orchestrator
+
+El subprocess es un HACK. Debe integrase en StateMachine.
+
+### 4. manager/account_manager.py → QUITAR lógica de worker actual
+
+Mantener play() pero que SOLO lance StateMachine, no lógica inline.
+
+---
+
+## VALIDACIÓN FINAL
+
+Cuando termines, debe compilar sin warnings:
+```
+main.py
+  → manager/account_manager.py [1 archivo]
+    → runner/state_machine.py [1 archivo]
+      → engines/checkout_orchestrator.py [1 archivo]
+```
+
+Y NADA MÁS.
+
+runner/account_manager.py = BORRADO
+deterministic_checkout.py = BORRADO
+bank_payment_flow.py = BORRADO
+payment_launcher.py = BORRADO

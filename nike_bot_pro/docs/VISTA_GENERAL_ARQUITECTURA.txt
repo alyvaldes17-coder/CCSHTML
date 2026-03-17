@@ -1,0 +1,277 @@
+"""
+VISTA GENERAL - ARQUITECTURA FINAL CON 6 MEJORAS
+=================================================
+
+Este archivo muestra cómo TODO encaja junto.
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# CAPAS DE LA ARQUITECTURA
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                         NIVEL 4: USUARIO FINAL                       ┃
+┃  [LOGIN BUTTON]  [PLAY BUTTON]  [STOP BUTTON]  [STATUS TEXT]        ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                                  │
+                                  │ CustomTkinter UI
+                                  │ (ui/app.py)
+                                  │
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                    NIVEL 3: CONTROLADOR (BotController)              ┃
+┃                                                                       ┃
+┃  Estados Explícitos:  [NO_AUTH] → [LOGIN_IN_PROGRESS] → [READY]     ┃
+┃                            ↓                                          ┃
+┃                    [MONITORING] → [PRICE_LOCKED] → [EXECUTING]      ┃
+┃                                                                       ┃
+┃  Métodos públicos:                                                    ┃
+┃  ├─ handle_btn_login_click() ───► MEJORA #2 (bloqueado mientras login)
+┃  ├─ handle_btn_play_click(sku) ──► MEJORA #3 (valida state == READY) ┃
+┃  ├─ validate_session_real() ─────► MEJORA #1 (headless check)        ┃
+┃  ├─ worker_loop(sku) ────────────► MEJORA #4 (price_lock persistente)┃
+┃  └─ is_login_enabled() / is_play_enabled() ► MEJORA #6 (UI logic)   ┃
+┃                                                                       ┃
+┃  Estado:                                                               ┃
+┃  └─ self.state = AccountState.XXX (NO booleanos)                     ┃
+┃  └─ self.price_lock = {"sku", "price", "ts"} (persistente)           ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                                  │
+                                  │ Python
+                                  │
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                  NIVEL 2: MOTOR DE NAVEGADOR                         ┃
+┃                  (PlaywrightEngine v2)                               ┃
+┃                                                                       ┃
+┃  ├─ launch_manual_login() ──► Abre Chrome, usuario loguea             ┃
+┃  ├─ validate_session_real() ─► Headless check (MEJORA #1)            ┃
+┃  └─ launch_checkout_mission(sku_url) ► MEJORA #5                     ┃
+┃     └─► page.goto(magic_link) + page.goto("/checkout/#/payment")     ┃
+┃                                                                       ┃
+┃  Características:                                                      ┃
+┃  ├─ sync_playwright() (NO asyncio = NO deadlocks)                    ┃
+┃  ├─ launch_persistent_context() (sesión en auth/cuentaX/profile_pw) ┃
+┃  └─ Responsabilidad única: abrir Chrome, nada más                   ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                                  │
+                                  │ sync_playwright()
+                                  │
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃                    NIVEL 1: PLAYWRIGHT SDK                           ┃
+┃  ├─ launch_persistent_context()                                      ┃
+┃  ├─ page.goto()                                                      ┃
+┃  ├─ page.wait_for_event()                                            ┃
+┃  └─ browser.pages[0]                                                 ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+                                  │
+                                  ▼
+                           [Chrome Browser]
+                          (Windows process)
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# FLUJO COMPLETO: LOGIN → PLAY → PAGO
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+USER CLICKS [LOGIN]
+        │
+        ▼
+  controller.handle_btn_login_click()
+        │
+        ├─► state = LOGIN_IN_PROGRESS (MEJORA #2)
+        │   └─► LOGIN button DISABLED
+        │
+        ├─► engine.launch_manual_login()
+        │   └─► with sync_playwright() as p:
+        │       └─► browser = p.chromium.launch_persistent_context(
+        │           user_data_dir="auth/cuenta2/profile_pw"
+        │       )
+        │       └─► page.goto("https://www.nike.cl/account/login")
+        │       └─► [USER LOGUEA MANUALMENTE]
+        │       └─► [USER CIERRA CHROME]
+        │       └─► cookies auto-saved to profile_pw/Default/Cookies
+        │
+        ├─► engine.validate_session_real() (MEJORA #1)
+        │   └─► with sync_playwright() as p:
+        │       └─► browser = p.chromium.launch_persistent_context(headless=True)
+        │       └─► page.goto("https://www.nike.cl/checkout/#/cart")
+        │       └─► current_url = page.url
+        │       └─► if "login" in current_url → FAIL
+        │       └─► else → VALID SESSION ✅
+        │
+        └─► state = READY
+            └─► [PLAY button ENABLED]
+                └─► UI shows: "✅ Listo para PLAY"
+
+---
+
+USER CLICKS [PLAY]
+        │
+        ├─► if state != READY: return (MEJORA #3)
+        │
+        ▼
+  controller.handle_btn_play_click(sku="12345")
+        │
+        ├─► state = MONITORING
+        │   └─► [PLAY button DISABLED]
+        │
+        ├─► worker_loop("12345")
+        │   │
+        │   ├─► [LOOP STARTS - SIN CHROME ABIERTO]
+        │   │
+        │   ├─► iteration 1: price_found = check_price_backend()
+        │   │               │ (solo requests, no Chrome)
+        │   │               └─► False
+        │   │                   └─► sleep(1)
+        │   │
+        │   ├─► iteration 2: check_price_backend()
+        │   │               └─► False
+        │   │                   └─► sleep(1)
+        │   │
+        │   ├─► iteration N: check_price_backend()
+        │   │               └─► True ✅ PRECIO ENCONTRADO
+        │   │
+        │   ├─► self.price_lock = {
+        │   │     "sku": "12345",
+        │   │     "price": 99999,
+        │   │     "ts": 1704282000.5
+        │   │   } (MEJORA #4 - persistente)
+        │   │
+        │   ├─► state = PRICE_LOCKED
+        │   │
+        │   ├─► state = EXECUTING
+        │   │   └─► [EXECUTING button DISABLED]
+        │   │
+        │   └─► engine.launch_checkout_mission(sku_url)
+        │       └─► with sync_playwright() as p:
+        │           └─► browser = p.chromium.launch_persistent_context(
+        │               user_data_dir="auth/cuenta2/profile_pw"
+        │           )
+        │           └─► page.goto(magic_link) (SKU inyectado)
+        │           │   "https://www.nike.cl/checkout/cart/add?sku=12345..."
+        │           │
+        │           └─► page.goto("/checkout/#/payment") (MEJORA #5)
+        │               └─► NAVEGACIÓN EXPLÍCITA (NO confiar en implicit)
+        │
+        │           └─► [CHROME ESPERANDO]
+        │               [USER VE NIKE PAYMENT SCREEN]
+        │               [USER CONFIRMA EN BANCO]
+        │               [USER CIERRA CHROME O PAGO COMPLETA]
+        │
+        └─► worker_loop() termina
+            └─► state = READY (listo para siguiente)
+
+---
+
+RESULTADO:
+├─ ✅ Mejora #1: Session validada con headless check (real, no fake)
+├─ ✅ Mejora #2: LOGIN_IN_PROGRESS bloqueó el botón
+├─ ✅ Mejora #3: Worker confiaba en state == READY
+├─ ✅ Mejora #4: Price lock fue persistente
+├─ ✅ Mejora #5: Navigation a /payment fue explícita
+├─ ✅ Mejora #6: Botones fueron deshabilitados según estado
+└─ ✅ NO DEADLOCK: Usamos sync_playwright, NO asyncio
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# COMPARACIÓN: ANTES vs AHORA
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+╔════════════════════════════════════════════════════════════════════════╗
+║                          ANTES (❌)                                    ║
+╠════════════════════════════════════════════════════════════════════════╣
+║                                                                        ║
+║  if is_logged_in == True:  # ← Booleano débil                         ║
+║      play()                                                           ║
+║                                                                        ║
+║  asyncio.run(do_login_async())  # ← En daemon thread → DEADLOCK!     ║
+║                                                                        ║
+║  # Chrome abriendo/cerrando aleatoriamente                            ║
+║                                                                        ║
+║  # Botones siempre habilitados                                        ║
+║  if can_click_login:  # ← No hay guardia                              ║
+║      do_login()                                                       ║
+║                                                                        ║
+║  # Estados implícitos (confuso)                                       ║
+║  self.state = "compra"  # ← String sin validación                     ║
+║                                                                        ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+╔════════════════════════════════════════════════════════════════════════╗
+║                          AHORA (✅)                                    ║
+╠════════════════════════════════════════════════════════════════════════╣
+║                                                                        ║
+║  if self.state == AccountState.READY:  # ← Enum explícito            ║
+║      play()                                                           ║
+║                                                                        ║
+║  engine.validate_session_real()  # ← Headless check real              ║
+║                                                                        ║
+║  with sync_playwright() as p:  # ← NO asyncio, NO deadlock           ║
+║      browser = p.chromium.launch_persistent_context(...)             ║
+║                                                                        ║
+║  # Chrome solo en 2 momentos: LOGIN y CHECKOUT                        ║
+║  # Determónico, predecible                                            ║
+║                                                                        ║
+║  # Botones bloqueados según estado                                    ║
+║  if self.is_login_enabled():  # ← Guardia real                        ║
+║      button.state = "normal"                                          ║
+║                                                                        ║
+║  # Estados explícitos (Enum)                                          ║
+║  self.state = AccountState.EXECUTING  # ← Type-safe                  ║
+║                                                                        ║
+║  # Price lock persistente                                             ║
+║  self.price_lock = {                                                  ║
+║      "sku": "12345",                                                  ║
+║      "price": 99999,                                                  ║
+║      "ts": time.time()                                                ║
+║  }                                                                     ║
+║                                                                        ║
+╚════════════════════════════════════════════════════════════════════════╝
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# LISTA DE VERIFICACIÓN: ¿ESTÁ LISTO?
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+ANTES DE USAR EN PRODUCCIÓN:
+
+Arquitectura:
+  [  ] 6 mejoras entendidas y documentadas
+  [  ] Estados explícitos (Enum)
+  [  ] NO asyncio (sync_playwright)
+  [  ] Separación LOGIN/PLAY/BACKEND
+
+Archivos:
+  [  ] core/account_state.py ✅
+  [  ] engines/playwright_engine_v2.py ✅
+  [  ] runtime/bot_controller.py ✅
+  [  ] runtime/worker.py (actualizado a sync) ✅
+
+Integración UI:
+  [  ] ui/app.py actualizado con BotController
+  [  ] Botones bloqueados según is_login_enabled() / is_play_enabled()
+  [  ] Status text actualizado con get_status_text()
+  [  ] Refresh loop llama _refresh_single_row()
+
+Testing:
+  [  ] LOGIN funciona sin deadlock
+  [  ] LOGIN abre Chrome UNA sola vez
+  [  ] LOGIN valida sesión real (headless)
+  [  ] PLAY deshabilitado hasta READY
+  [  ] PLAY monitorea sin Chrome
+  [  ] Precio lock se guarda
+  [  ] Chrome abre solo después de price lock
+  [  ] Navegación a /payment explícita
+  [  ] Botones responden al estado
+
+Producción:
+  [  ] Todos los logs están limpios
+  [  ] No hay prints de debug
+  [  ] Manejo de errores en todos lados
+  [  ] Timeout en navegación (30s, 60s)
+  [  ] Sessiones pueden tener múltiples intentos
+  [  ] DROP: GO!
+"""

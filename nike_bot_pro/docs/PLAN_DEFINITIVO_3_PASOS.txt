@@ -1,0 +1,158 @@
+# 🚀 PLAN DE ACCIÓN DEFINITIVO - 3 PASOS
+
+## 🎯 Objetivo
+Arreglar el LOGIN y asegurar que las cookies se guardan REALMENTE en el perfil.
+
+---
+
+## ✅ PASO 1: Verificar que no hay crashe en UI
+
+**Estado:** ✅ **HECHO**
+
+Se revisó `ui/account_editor.py` línea 74. El código ya está correcto:
+```python
+button_frame.pack(fill="x", padx=12, pady=16)
+```
+
+No hay conflictos con `**pad`.
+
+---
+
+## ✅ PASO 2: Motor de Login Blindado Implementado
+
+**Estado:** ✅ **HECHO**
+
+Se creó `engines/manual_login.py` con:
+
+✅ **Rutas ABSOLUTAS** (Windows - crítico)
+✅ **launch_persistent_context** (guarda cookies de verdad)
+✅ **Validación de permisos** (test de escritura en disco)
+✅ **Dos métodos:**
+   - `"playwright"`: Playwright espera a que user cierre Chrome
+   - `"native"`: Chrome puro sin bloquear (subprocess)
+
+✅ **Verificación física** de cookies después del login
+
+La función `setup_account_login()` en `auth/session_check.py` ahora usa este motor.
+
+---
+
+## 🧪 PASO 3: LA PRUEBA DE LA VERDAD (VOS DEBES HACER ESTO)
+
+### Objetivo
+Verificar que el diagnóstico estaba correcto y que ahora:
+1. El perfil se crea ✅
+2. Las cookies se guardan ✅
+3. Se pueden reutilizar después ✅
+
+### ¿Cómo ejecutar?
+
+**OPCIÓN A - Desde Terminal (Recomendado)**
+```bash
+cd c:\Users\beriann\Documents\Repos\nike_bot_pro
+python test_login_persistence.py
+```
+
+**Qué pasará:**
+1. Se abre Chrome
+2. **TÚ LOGUEATE en Nike**
+   - Email
+   - Password
+   - 2FA
+   - Espera a ver "Hola, [Tu Nombre]"
+3. **CIERRA EL NAVEGADOR** (con la X arriba a la derecha)
+4. Script verifica que hay cookies
+5. Se abre Chrome de NUEVO
+6. **DEBERÍAS VER NIKE YA LOGUEADO** (sin pedirte email)
+7. Cierra
+
+### Resultado esperado
+
+**✅ ÉXITO:**
+```
+[TEST] ✅ COOKIES ENCONTRADAS - Login persistió correctamente
+```
+
+**❌ PROBLEMA:**
+```
+[TEST] ❌ NO HAY COOKIES - El login no se guardó
+[TEST] 👉 Revisa:
+  1. ¿Cerraste Chrome con la X?
+  2. ¿Completaste el login en Nike?
+  3. ¿Viste 'Hola, [Tu Nombre]'?
+  4. ¿Hay permisos para escribir en disco?
+```
+
+---
+
+## 🔧 SOLUCIÓN Si falla el Test
+
+### Caso 1: "No hay cookies"
+**Causa más probable:** User no cerró Chrome correctamente
+
+**Solución:**
+1. Ejecuta nuevamente
+2. Asegúrate de cerrar con la **X** (no solo la pestaña)
+3. Espera 2 segundos después de cerrar
+
+### Caso 2: "Permiso denegado" / "Cannot write to directory"
+**Causa:** Windows bloqueó permisos en `auth/`
+
+**Solución:**
+1. Abre PowerShell **COMO ADMINISTRADOR**
+2. Ejecuta:
+```powershell
+cd "c:\Users\beriann\Documents\Repos\nike_bot_pro"
+python test_login_persistence.py
+```
+
+### Caso 3: Chrome no abre
+**Causa:** Chrome no está en rutas estándar
+
+**Solución:**
+1. Instala Chrome desde https://www.google.com/chrome
+2. O verifica que está en `C:\Program Files\Google\Chrome\Application\chrome.exe`
+
+---
+
+## 📋 Checklist Final
+
+Después de que PASO 3 funcione (✅ cookies se guardan):
+
+- [ ] Abre el Bot normalmente
+- [ ] Selecciona una cuenta
+- [ ] Dale click a **[LOGIN]**
+- [ ] Loguéate en Nike
+- [ ] Cierra Chrome
+- [ ] Verifica que el script dice ✅ "COOKIES ENCONTRADAS"
+- [ ] Abre `auth/tu_cuenta/profile_pw/Default/`
+- [ ] Deberías ver: `Network/` (carpeta) con `Cookies` adentro
+- [ ] El archivo `Cookies` pesa > 20KB (tiene datos reales)
+
+Si todo esto funciona → **¡EL BOT ESTÁ LISTO!**
+
+---
+
+## 🎓 Resumen de cambios
+
+| Archivo | Cambio | Propósito |
+|---------|--------|-----------|
+| `engines/manual_login.py` | ✨ NUEVO | Motor de login blindado con rutas absolutas |
+| `auth/session_check.py` | 🔄 ACTUALIZADO | Usa `engines/manual_login` en lugar de código inline |
+| `test_login_persistence.py` | ✨ NUEVO | Test de PASO 3 - verifica persistencia |
+
+---
+
+## 🏆 El diagnóstico tenía razón
+
+> "El problema NO es el State Machine, NO es la UI, NO es VTEX. Es EL LOGIN FLOW + PERFIL."
+
+Exacto. Si `profile_pw` está vacío → todo falla.
+
+Ahora:
+✅ Se usa `launch_persistent_context` (guarda cookies)
+✅ Se valida que el perfil tiene permisos
+✅ Se verifican cookies después del login
+✅ Se detectan permisos de Windows
+
+**Siguiente paso:** Ejecuta `test_login_persistence.py` y confirma que funciona. 🚀

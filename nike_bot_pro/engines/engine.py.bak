@@ -1,0 +1,1253 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+engines/engine.py — NikeBotEngine v11.1
+
+FIXES v11.1:
+  1. evento_handshake: setTimeout 1.0s en vez de 0.1s
+     → Nike genera muchos eventos CDP, 0.1s era demasiado corto
+  2. Concatenar todos los args del console.log
+     → Nike a veces manda texto en múltiples argumentos
+  3. Log.entryAdded como fallback
+     → Algunos contextos browser usan este método en vez de Runtime.consoleAPICalled
+  4. Page.navigatedWithinDocument para detectar orderPlaced
+     → Fintoc puede redirigir directamente sin console.log
+
+FIXES v11:
+  1. EV1 ATC via fetch() — no pierde la tab, ~100ms vs ~500ms
+  2. EV2 nav via hash change — ~100ms vs ~800ms
+  3. Chrome flags optimizados para 13 instancias (16GB RAM)
+  4. Modal detection: cierra modales Nike
+  5. buscarBtn: prioriza "Finalizar compra"
+"""
+
+import json
+import os
+import subprocess
+import threading
+import time
+import urllib.request
+from pathlib import Path
+
+import websocket
+
+
+CHROME_PATHS = [
+    r"C:\Program Files\Google\Chrome\Application\chrome.exe",
+    r"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe",
+    os.path.expandvars(r"%PROGRAMFILES%\Google\Chrome\Application\chrome.exe"),
+]
+
+CHROME_FLAGS = [
+    "--remote-allow-origins=*",
+    "--disable-dev-shm-usage",
+    "--metrics-recording-only",
+    "--no-first-run",
+    "--no-default-browser-check",
+    "--disable-popup-blocking",
+    "--disable-hang-monitor",
+    "--disable-background-networking",
+    "--disable-default-apps",
+    "--disable-extensions",
+    "--disable-sync",
+    "--disable-translate",
+    "--disable-breakpad",
+    "--disable-component-update",
+    "--disable-renderer-backgrounding",
+    "--no-crash-upload",
+    "--safebrowsing-disable-auto-update",
+    "--password-store=basic",
+    "--use-mock-keychain",
+    # ── Optimización RAM para 13 instancias (16GB) ──
+    "--renderer-process-limit=1",
+    "--js-flags=--max-old-space-size=128",
+    "--disable-gpu",
+    "--disable-gpu-compositing",
+    "--disable-software-rasterizer",
+    "--disable-canvas-aa",
+    "--disable-2d-canvas-clip-aa",
+    "--num-raster-threads=1",
+    "--enable-low-end-device-mode",
+    "--disable-backgrounding-occluded-windows",
+    "--mute-audio",
+]
+
+URLS_BLOQUEADAS = [
+    "*.png", "*.jpg", "*.jpeg", "*.gif", "*.svg",
+    "*.webp", "*.ico", "*.bmp",
+    "*.woff", "*.woff2", "*.ttf", "*.otf", "*.eot",
+    "*.mp4", "*.webm",
+    "*google-analytics*", "*googletagmanager*",
+    "*doubleclick*", "*facebook.net*",
+    "*hotjar*", "*newrelic*", "*nr-data*",
+    "*segment.io*", "*mixpanel*", "*amplitude*",
+    "*demdex*", "*omtrdc*", "*2o7.net*",
+    "*nike.com/tracking*", "*s.pinimg*",
+]
+
+PAYMENT_LABELS = {
+    "transfer":    "Transferencia con tu banco",
+    "mercadopago": "Mercado Pago",
+    "etpay":       "Transferencia automática",
+    "debit":       "Tarjeta de débito",
+    "credit_card": "Tarjeta de crédito",
+}
+
+HANDSHAKE_OK   = "FINALIZAR_CLICK_OK"
+HANDSHAKE_CARD = "CARD_CLICK_OK"
+HANDSHAKE_CARD_ERROR = "CARD_CLICK_ERROR"
+
+
+class NikeBotEngine:
+
+    def __init__(self, port: int = 9223, account_name: str = "default"):
+        self.port         = port
+        self.account_name = account_name
+        self.chrome_exe   = self._find_chrome()
+        self.profile_path = self._get_profile_path(account_name)
+
+    def _find_chrome(self) -> str:
+        for p in CHROME_PATHS:
+            if os.path.exists(p):
+                return p
+        raise FileNotFoundError("Chrome no encontrado.")
+
+    def _get_profile_path(self, name: str) -> str:
+        if os.path.isabs(name) and os.path.exists(name):
+            return name
+        auth = os.path.join("auth", name, "profile_login")
+        if os.path.exists(auth):
+            return auth
+        base = Path.home() / "AppData" / "Local" / "Chromium" / "User Data" / name
+        base.mkdir(parents=True, exist_ok=True)
+        return str(base)
+
+    def _get_tabs(self) -> list:
+        """Retorna lista de tabs del Chrome en este puerto."""
+        try:
+            with urllib.request.urlopen(
+                f"http://127.0.0.1:{self.port}/json", timeout=2
+            ) as r:
+                return json.loads(r.read())
+        except Exception:
+            return []
+
+    def _get_tab_url(self) -> str | None:
+        """
+        FIX v10: Prefiere tab de nike.cl sobre cualquier otra.
+        Ignora tabs de nueva pestaña / chrome:// / etc.
+        Reintenta 5 veces.
+        """
+        for _ in range(5):
+            tabs = self._get_tabs()
+
+            # 1. Tab de checkout de nike.cl (la más específica)
+            tab = next((t for t in tabs
+                        if t.get("type") == "page"
+                        and "nike.cl/checkout" in t.get("url", "")
+                        and "webSocketDebuggerUrl" in t), None)
+
+            # 2. Cualquier tab de nike.cl
+            if not tab:
+                tab = next((t for t in tabs
+                            if t.get("type") == "page"
+                            and "nike.cl" in t.get("url", "")
+                            and "webSocketDebuggerUrl" in t), None)
+
+            # 3. Cualquier page con URL http (NO nueva pestaña)
+            if not tab:
+                tab = next((t for t in tabs
+                            if t.get("type") == "page"
+                            and "webSocketDebuggerUrl" in t
+                            and t.get("url", "").startswith("http")), None)
+
+            # 4. Última opción: cualquier page incluyendo nueva pestaña
+            if not tab:
+                tab = next((t for t in tabs
+                            if t.get("type") == "page"
+                            and "webSocketDebuggerUrl" in t), None)
+
+            if tab:
+                return tab["webSocketDebuggerUrl"]
+            time.sleep(0.4)
+        return None
+
+    def _conectar(self) -> websocket.WebSocket | None:
+        url = self._get_tab_url()
+        if not url:
+            return None
+        try:
+            ws = websocket.create_connection(url, timeout=5)
+            for m in ("Network.enable", "Page.enable", "Runtime.enable"):
+                ws.send(json.dumps({"id": 0, "method": m, "params": {}}))
+            
+            # ── Stealth Payload Nivel Dios ──────────────────────────────────
+            # Falsea todo el entorno para evitar detección anti-bot (Shape, DataDome)
+            stealth_js = """
+            Object.defineProperty(navigator, 'webdriver', {get: () => false});
+            window.chrome = { runtime: {} };
+            Object.defineProperty(navigator, 'plugins', {get: () => [1, 2, 3]});
+            Object.defineProperty(navigator, 'languages', {get: () => ['es-CL', 'es', 'en-US', 'en']});
+            const originalQuery = window.navigator.permissions.query;
+            window.navigator.permissions.query = (parameters) => (
+                parameters.name === 'notifications' ? 
+                Promise.resolve({ state: Notification.permission }) : 
+                originalQuery(parameters)
+            );
+            // Ocultar CDP
+            delete window.__HEADLESS_TESTING__;
+            """
+            ws.send(json.dumps({
+                "id": 0,
+                "method": "Page.addScriptToEvaluateOnNewDocument",
+                "params": {"source": stealth_js},
+            }))
+            
+            ws.send(json.dumps({
+                "id": 0,
+                "method": "Network.setBlockedURLs",
+                "params": {"urls": URLS_BLOQUEADAS},
+            }))
+            return ws
+        except Exception as e:
+            print(f"[CDP] Error: {e}")
+            return None
+
+    def _escuchar(self, ws, metodo: str, substring: str = "",
+                  timeout: float = 5.0) -> tuple[bool, float]:
+        t0 = time.time()
+        while True:
+            elapsed = time.time() - t0
+            if elapsed >= timeout:
+                return False, elapsed * 1000
+            try:
+                ws.settimeout(min(1.0, timeout - elapsed))
+                raw = ws.recv()
+                if not raw:
+                    continue
+                msg    = json.loads(raw)
+                actual = msg.get("method", "")
+                if actual != metodo:
+                    continue
+                if metodo == "Network.responseReceived":
+                    url = msg.get("params", {}).get("response", {}).get("url", "")
+                    if substring.lower() in url.lower():
+                        return True, (time.time() - t0) * 1000
+                elif metodo in ("Page.frameStoppedLoading", "Page.loadEventFired"):
+                    return True, (time.time() - t0) * 1000
+                elif metodo == "Runtime.consoleAPICalled":
+                    args  = msg.get("params", {}).get("args", [])
+                    texto = args[0].get("value", "") if args else ""
+                    if substring in texto:
+                        return True, (time.time() - t0) * 1000
+                elif metodo == "Page.navigatedWithinDocument":
+                    nav_url = msg.get("params", {}).get("url", "")
+                    if substring.lower() in nav_url.lower():
+                        return True, (time.time() - t0) * 1000
+            except websocket.WebSocketTimeoutException:
+                continue
+            except Exception:
+                return False, (time.time() - t0) * 1000
+
+    def _js_evaluar(self, ws, js: str, msg_id: int = 50,
+                    timeout: float = 5.0) -> str:
+        try:
+            ws.send(json.dumps({
+                "id": msg_id,
+                "method": "Runtime.evaluate",
+                "params": {"expression": js, "awaitPromise": True, "timeout": int(timeout*1000)},
+            }))
+            deadline = time.time() + timeout + 1
+            while time.time() < deadline:
+                try:
+                    ws.settimeout(0.3)
+                    msg = json.loads(ws.recv())
+                    if msg.get("id") == msg_id:
+                        return msg.get("result", {}).get("result", {}).get("value", "") or ""
+                except websocket.WebSocketTimeoutException:
+                    continue
+                except Exception:
+                    break
+        except Exception:
+            pass
+        return ""
+
+    def _get_current_url(self, ws) -> str:
+        return self._js_evaluar(ws, "window.location.href", msg_id=55, timeout=2.0)
+
+    def _poll_url(self, substring: str, timeout: float = 120.0) -> bool:
+        """
+        FIX v10: Poll de URL abriendo nueva conexión CDP cada 2s.
+        No depende del ws anterior (que se cierra en finally).
+        Úsalo para esperar orderPlaced después de que el usuario paga en Fintoc.
+        """
+        t0 = time.time()
+        print(f"[EV5] Polling URL '{substring}' (max {timeout}s)...")
+        while time.time() - t0 < timeout:
+            try:
+                tab_url = self._get_tab_url()
+                if not tab_url:
+                    time.sleep(2.0)
+                    continue
+                ws = websocket.create_connection(tab_url, timeout=3)
+                url = self._js_evaluar(ws, "window.location.href", msg_id=91, timeout=2.0)
+                ws.close()
+                if substring in url:
+                    elapsed = int((time.time() - t0) * 1000)
+                    print(f"[EV5] ✅ Detectado '{substring}' en {elapsed}ms")
+                    return True
+            except Exception:
+                pass
+            time.sleep(2.0)
+        print(f"[EV5] Timeout {timeout}s — no se detectó '{substring}'")
+        return False
+
+    # =========================================================================
+    # MODO MONITOR
+    # =========================================================================
+
+    def modo_monitor(self, ws, skus: list[str],
+                     intervalo_ms: int = 150,
+                     stop_event: threading.Event = None) -> bool:
+        sku       = skus[0]
+        intentos  = 0
+        t0        = time.time()
+        intervalo = intervalo_ms / 1000.0
+
+        # URL absoluta en el fetch — funciona desde cualquier tab
+        js_atc_validar = f"""
+        (() => {{
+            return new Promise((resolve) => {{
+                fetch('https://www.nike.cl/checkout/cart/add?sku={sku}&qty=1&seller=1&sc=1', {{
+                    credentials: 'include',
+                    redirect: 'follow',
+                }})
+                .then(() => fetch('https://www.nike.cl/api/checkout/pub/orderForm', {{
+                    credentials: 'include',
+                    headers: {{'Accept': 'application/json'}}
+                }}))
+                .then(r => r.json())
+                .then(data => {{
+                    const items = data?.items || [];
+                    const item  = items.find(i =>
+                        String(i.id) === '{sku}' ||
+                        String(i.productId) === '{sku}'
+                    ) || (items.length ? items[0] : null);
+                    if (!item) {{ resolve('ATC_FAIL'); return; }}
+                    const a = item.availability || '';
+                    if (a === 'available') {{
+                        resolve('AVAILABLE');
+                    }} else if (a === 'withoutStock' || a === 'cannotBeDelivered') {{
+                        resolve('WITHOUT_STOCK');
+                    }} else {{
+                        resolve(item.quantity > 0 ? 'AVAILABLE' : 'ATC_FAIL');
+                    }}
+                }})
+                .catch(e => resolve('ERROR:' + e.message));
+            }});
+        }})();
+        """
+
+        print(f"[Monitor] 🔫 SKU {sku} — polling cada {intervalo_ms}ms")
+
+        while not (stop_event and stop_event.is_set()):
+            intentos += 1
+            resultado = self._js_evaluar(ws, js_atc_validar, msg_id=77, timeout=4.0)
+
+            if resultado == "AVAILABLE":
+                elapsed = time.time() - t0
+                print(f"[Monitor] ✅ STOCK en intento {intentos} ({elapsed:.1f}s)")
+                return True
+            elif resultado == "WITHOUT_STOCK":
+                if intentos % 10 == 0:
+                    print(f"[Monitor] sin stock físico (#{intentos})")
+            elif resultado == "ATC_FAIL":
+                if intentos % 30 == 0:
+                    elapsed = time.time() - t0
+                    print(f"[Monitor] sin stock ({elapsed:.0f}s | #{intentos})")
+            else:
+                time.sleep(0.5)
+                continue
+
+            time.sleep(intervalo)
+
+        return False
+
+    # =========================================================================
+    # EVENTOS
+    # =========================================================================
+
+    def pre_vuelo(self) -> websocket.WebSocket | None:
+        t0 = time.time()
+        print(f"[EV0] Pre-vuelo {self.account_name}...")
+        ws = self._conectar()
+        if not ws:
+            print(f"[EV0] FALLO — Chrome no responde")
+            return None
+        print(f"[EV0] Listo en {int((time.time()-t0)*1000)}ms")
+        return ws
+
+    def evento_atc(self, ws, skus: list[str]) -> bool:
+        """EV1: ATC via fetch() — no pierde la tab actual."""
+        t0 = time.time()
+        sku = skus[0]
+        print(f"[EV1] ATC fetch: SKU {sku}...")
+
+        js_atc = f"""
+        (() => {{
+            return new Promise(async (resolve) => {{
+                try {{
+                    await fetch('https://www.nike.cl/checkout/cart/add?sku={sku}&qty=1&seller=1&sc=1', {{
+                        credentials: 'include', redirect: 'follow'
+                    }});
+                    const r = await fetch('https://www.nike.cl/api/checkout/pub/orderForm', {{
+                        credentials: 'include',
+                        headers: {{'Accept': 'application/json'}}
+                    }});
+                    const data = await r.json();
+                    const items = data?.items || [];
+                    if (!items.length) {{ resolve('EMPTY'); return; }}
+                    const item = items.find(i =>
+                        String(i.id) === '{sku}' || String(i.productId) === '{sku}'
+                    ) || items[0];
+                    const a = item.availability || 'unknown';
+                    resolve(a + '|' + (item.quantity||0) + '|' + (data.value||0));
+                }} catch(e) {{
+                    resolve('ERROR:' + e.message);
+                }}
+            }});
+        }})();
+        """
+
+        avail_raw = self._js_evaluar(ws, js_atc, msg_id=78, timeout=8.0)
+        ms = int((time.time() - t0) * 1000)
+        print(f"[EV1] Carrito: '{avail_raw}' en {ms}ms")
+
+        if not avail_raw or avail_raw.startswith("ERROR") or avail_raw == "EMPTY":
+            print(f"[EV1] FALLO — carrito vacío o error")
+            return False
+
+        parts = avail_raw.split("|")
+        availability = parts[0]
+        if availability == "available":
+            print(f"[EV1] ✅ Item disponible")
+            return True
+        elif availability in ("withoutStock", "cannotBeDelivered"):
+            print(f"[EV1] ⚠️ Sin stock ({availability})")
+            return False
+        else:
+            print(f"[EV1] Availability: '{availability}' — continuando")
+            return True
+
+    def evento_navegacion(self, ws) -> bool:
+        """EV2: Navega a /#/payment y espera que React monte el formulario."""
+        print("[EV2] Navegando a /#/payment...")
+        ws.send(json.dumps({"id": 20, "method": "Page.navigate",
+                            "params": {"url": "https://www.nike.cl/checkout/#/payment"}}))
+
+        # Esperar orderForm (confirmación VTEX que cargó payment)
+        ok, ms = self._escuchar(ws, "Network.responseReceived", "orderForm", timeout=8.0)
+
+        # Esperar DOM real — mínimo 1.5s para que Nike renderice los radios
+        time.sleep(1.5)
+
+        url_actual = self._get_current_url(ws)
+        print(f"[EV2] URL: {url_actual}")
+
+        if "orderPlaced" in url_actual:
+            print("[EV2] ⚡ Ya en orderPlaced")
+            return True
+
+        # Si sigue en /cart después de 1.5s, forzar navegación directa via JS
+        if "#/payment" not in url_actual:
+            print("[EV2] ⚠️ Forzando via JS hash...")
+            self._js_evaluar(ws, "window.location.hash = '#/payment'", msg_id=22, timeout=2.0)
+            time.sleep(1.0)
+
+        print(f"[EV2] ✅ DOM_READY:{ms:.0f}ms")
+        return True
+
+    def evento_inyeccion(self, ws, payment_mode: str, card_data: dict) -> str:
+        """EV3: Inyecta JS esperando a que VTEX monte completamente el formulario."""
+        print(f"[EV3] Inyectando '{payment_mode}'...")
+
+        if payment_mode in ("credit_card", "debit"):
+            try:
+                from engines.card_payment_js import build_card_js
+                js    = build_card_js(card_data, card_type="debit" if payment_mode == "debit" else "credit")
+                senal = "CARD_CLICK_OK"
+            except ImportError:
+                js    = self._js_pago(payment_mode)
+                senal = "FINALIZAR_CLICK_OK"
+        else:
+            js    = self._js_pago(payment_mode)
+            senal = "FINALIZAR_CLICK_OK"
+
+        # Envolver en listener de orderFormUpdated — VTEX lo dispara cuando
+        # el formulario de pago está 100% montado. Sin esto el setInterval
+        # se inyecta antes y VTEX lo destruye.
+        js_wrapped = f"""
+        (() => {{
+            function _inyectar() {{
+                console.log('[BOT] Inyectando en DOM estable...');
+                {js.strip()}
+            }}
+
+            // Si ya estamos en payment con el DOM listo, inyectar directo
+            const labels = [...document.querySelectorAll('label')];
+            const domListo = labels.some(l => {{
+                const t = l.innerText || '';
+                return t.includes('Transferencia') || t.includes('débito') || t.includes('crédito');
+            }});
+
+            if (domListo) {{
+                console.log('[BOT] DOM ya listo — inyectando directo');
+                _inyectar();
+            }} else {{
+                // Esperar evento VTEX orderFormUpdated
+                console.log('[BOT] Esperando orderFormUpdated...');
+                $(window).on('orderFormUpdated.vtex', function() {{
+                    $(window).off('orderFormUpdated.vtex');
+                    console.log('[BOT] orderFormUpdated recibido — inyectando');
+                    setTimeout(_inyectar, 300);
+                }});
+                // Fallback: inyectar a los 2s si el evento no llega
+                setTimeout(() => {{
+                    const lbl = document.querySelector('label');
+                    if (lbl) {{
+                        console.log('[BOT] Fallback 2s — inyectando');
+                        _inyectar();
+                    }}
+                }}, 2000);
+            }}
+        }})();
+        """
+
+        ws.send(json.dumps({
+            "id": 30,
+            "method": "Runtime.evaluate",
+            "params": {
+                "expression":   js_wrapped,
+                "awaitPromise": False,
+            }
+        }))
+        print(f"[EV3] JS inyectado → señal: {senal}")
+        return senal
+
+    def evento_handshake(self, ws, senal: str, timeout: float = 25.0) -> bool:
+        """
+        EV4: Espera señal de éxito combinando:
+          1. Polling de URL cada 500ms (orderPlaced, fintoc)
+          2. Escucha de console.log CDP
+          3. JS directo para verificar estado del bot
+        """
+        print(f"[EV4] Esperando '{senal}' (max {timeout}s)...")
+        t0 = time.time()
+        last_poll = 0.0
+        last_js_check = 0.0
+
+        # Asegurar Runtime habilitado
+        try:
+            ws.send(json.dumps({"id": 99, "method": "Runtime.enable", "params": {}}))
+            ws.send(json.dumps({"id": 98, "method": "Log.enable", "params": {}}))
+        except Exception:
+            pass
+
+        while True:
+            elapsed = time.time() - t0
+            if elapsed >= timeout:
+                break
+
+            now = time.time()
+
+            # ── Polling de URL cada 500ms ─────────────────────────────────
+            if now - last_poll >= 0.5:
+                last_poll = now
+                try:
+                    url_js = "window.location.href"
+                    ws.send(json.dumps({
+                        "id": 200,
+                        "method": "Runtime.evaluate",
+                        "params": {"expression": url_js, "awaitPromise": False}
+                    }))
+                except Exception:
+                    pass
+
+            # ── JS check del estado del bot cada 3s ──────────────────────
+            if now - last_js_check >= 3.0:
+                last_js_check = now
+                try:
+                    check_js = """
+                    (() => {
+                        const url = window.location.href;
+                        if (url.includes('orderPlaced')) return 'URL:orderPlaced';
+                        // Verificar si Fintoc está abierto
+                        const iframes = [...document.querySelectorAll('iframe')]
+                            .filter(f => f.src && f.src.includes('fintoc'));
+                        if (iframes.length > 0) return 'FINTOC_OPEN';
+                        // Verificar hash
+                        return 'HASH:' + window.location.hash;
+                    })()
+                    """
+                    ws.send(json.dumps({
+                        "id": 201,
+                        "method": "Runtime.evaluate",
+                        "params": {"expression": check_js, "awaitPromise": False}
+                    }))
+                except Exception:
+                    pass
+
+            # ── Recibir mensajes CDP ──────────────────────────────────────
+            try:
+                ws.settimeout(0.1)
+                raw = ws.recv()
+                if not raw:
+                    continue
+                msg = json.loads(raw)
+                method = msg.get("method", "")
+                msg_id = msg.get("id")
+
+                # Respuesta al poll de URL (id=200)
+                if msg_id == 200:
+                    url = msg.get("result", {}).get("result", {}).get("value", "") or ""
+                    if "orderPlaced" in url:
+                        ms = (time.time() - t0) * 1000
+                        print(f"[EV4] ✅ orderPlaced detectado en {ms:.0f}ms")
+                        return True
+
+                # Respuesta al JS check (id=201)
+                elif msg_id == 201:
+                    val = msg.get("result", {}).get("result", {}).get("value", "") or ""
+                    if val:
+                        print(f"[EV4] Estado: {val}")
+                    if "orderPlaced" in val or "FINTOC_OPEN" in val:
+                        ms = (time.time() - t0) * 1000
+                        print(f"[EV4] ✅ {val} en {ms:.0f}ms")
+                        return True
+
+                # Console.log del JS del bot
+                elif method == "Runtime.consoleAPICalled":
+                    args = msg.get("params", {}).get("args", [])
+                    texto = "".join(
+                        str(a.get("value", "") or a.get("description", ""))
+                        for a in args
+                    )
+                    if texto:
+                        if "[BOT]" in texto:
+                            print(f"[JS] {texto}")
+                        if HANDSHAKE_CARD_ERROR in texto:
+                            ms = (time.time() - t0) * 1000
+                            print(f"[EV4] ❌ Pago RECHAZADO en {ms:.0f}ms")
+                            return False
+                        if senal in texto:
+                            ms = (time.time() - t0) * 1000
+                            print(f"[EV4] ✅ HANDSHAKE OK en {ms:.0f}ms")
+                            return True
+
+                # Navegación a orderPlaced
+                elif method == "Page.navigatedWithinDocument":
+                    url = msg.get("params", {}).get("url", "")
+                    if "orderPlaced" in url:
+                        ms = (time.time() - t0) * 1000
+                        print(f"[EV4] ✅ Navegación orderPlaced en {ms:.0f}ms")
+                        return True
+
+            except websocket.WebSocketTimeoutException:
+                continue
+            except Exception as e:
+                if "closed" in str(e).lower():
+                    print(f"[EV4] WebSocket cerrado")
+                    break
+                continue
+
+        print(f"[EV4] FALLO — no confirmado en {timeout}s")
+        return False
+
+    # =========================================================================
+    # ORQUESTADOR COMPLETO v10
+    # =========================================================================
+
+    def ejecutar_ataque_completo(
+        self,
+        skus:                 list[str],
+        payment_mode:         str            = "transfer",
+        card_data:            dict           = None,
+        modo_monitor:         bool           = False,
+        stop_event:           threading.Event = None,
+        esperar_confirmacion: bool           = True,
+    ) -> dict:
+        if card_data is None:
+            card_data = {}
+
+        resultado = {"exito": False, "telemetria": {}, "fallo_en": None}
+        t_global  = time.time()
+
+        # EV0
+        t0 = time.time()
+        ws = self.pre_vuelo()
+        resultado["telemetria"]["ev0_ms"] = int((time.time()-t0)*1000)
+        if not ws:
+            resultado["fallo_en"] = "EV0"
+            return resultado
+
+        try:
+            # PRE-EV1: Limpiar descuentos ANTES de agregar al carrito
+            # Nike aplica descuentos al detectar el ATC — hay que limpiar ANTES
+            print(f"[PRE-EV1] Limpiando descuentos previos...")
+            desc_pre = self._limpiar_descuentos_nuclear(ws)
+            print(f"[PRE-EV1] {desc_pre}")
+
+            # EV1 — ATC
+            t0 = time.time()
+            if modo_monitor:
+                print(f"[EV1] Modo monitor — loop hasta stock...")
+                stock = self.modo_monitor(ws, skus, stop_event=stop_event)
+                if not stock:
+                    resultado["fallo_en"] = "EV1_MONITOR_DETENIDO"
+                    return resultado
+                # ATC final para confirmar item
+                ev1_ok = self.evento_atc(ws, skus)
+                if not ev1_ok:
+                    print(f"[EV1] ATC post-monitor falló, continuando...")
+            else:
+                ev1_ok = self.evento_atc(ws, skus)
+                if not ev1_ok:
+                    resultado["fallo_en"] = "EV1_SIN_STOCK"
+                    resultado["mensaje"]  = (
+                        f"SKU {skus[0]} sin stock.\n"
+                        "Activa 'Modo Monitor' para esperar stock."
+                    )
+                    return resultado
+            resultado["telemetria"]["ev1_ms"] = int((time.time()-t0)*1000)
+
+            # Verificar total — si está en $0 reintentar hasta 3 veces
+            for intento in range(3):
+                desc = self._limpiar_descuentos(ws)
+                if desc.startswith("OK:"):
+                    try:
+                        parts = desc.split(":")
+                        total = int(parts[1])
+                        desc_restantes = parts[2] if len(parts) > 2 else "?"
+                        if total >= 1000:
+                            print(f"[Engine] ✅ Total OK: ${total} | Descuentos restantes: {desc_restantes}")
+                            break
+                        else:
+                            print(f"[Engine] ⚠️ Total ${total} (desc:{desc_restantes}) — reintento {intento+1}/3...")
+                            time.sleep(2.0)
+                    except Exception:
+                        break
+                else:
+                    print(f"[Engine] ⚠️ _limpiar_descuentos: {desc}")
+                    break
+                if intento == 2:
+                    print(f"[Engine] ❌ Descuento persistente — cuenta posiblemente marcada")
+                    resultado["fallo_en"] = "DESCUENTO_INVALIDO"
+                    return resultado
+
+            # PRE-EV2: Confirmar shipping
+            print(f"[PRE-EV2] Confirmando shipping...")
+            shipping_ok = self._confirmar_shipping(ws)
+            print(f"[PRE-EV2] {shipping_ok}")
+
+            # EV2 — payment
+            t0 = time.time()
+            self.evento_navegacion(ws)
+            resultado["telemetria"]["ev2_ms"] = int((time.time()-t0)*1000)
+
+            # Esperar que Nike termine de renderizar el DOM completamente
+            # antes de inyectar el JS del bot (previene que el setInterval se destruya)
+            time.sleep(1.5)
+
+            # EV3 — inyectar JS
+            senal = self.evento_inyeccion(ws, payment_mode, card_data)
+
+            # EV4 — handshake (Fintoc abierto)
+            t0    = time.time()
+            ev4ok = self.evento_handshake(ws, senal, timeout=25.0)
+            resultado["telemetria"]["ev4_ms"] = int((time.time()-t0)*1000)
+
+            if not ev4ok:
+                resultado["fallo_en"] = "EV4"
+                return resultado
+
+            resultado["exito"] = True
+
+        finally:
+            try:
+                ws.close()
+            except Exception:
+                pass
+
+        # EV5 — esperar orderPlaced (FUERA del try/finally, ws ya cerrado)
+        # Usa _poll_url que abre nuevas conexiones CDP
+        if esperar_confirmacion and resultado.get("exito"):
+            t0    = time.time()
+            ev5ok = self._poll_url("orderPlaced", timeout=120.0)
+            resultado["telemetria"]["ev5_ms"] = int((time.time()-t0)*1000)
+            resultado["compra_ok"] = ev5ok
+
+        resultado["telemetria"]["total_ms"] = int((time.time()-t_global)*1000)
+
+        print(f"\n{'='*50}")
+        if resultado.get("compra_ok"):
+            print(f"✅ COMPRA COMPLETADA — {self.account_name}")
+        else:
+            print(f"✅ FINTOC ABIERTO — {self.account_name}")
+        print(f"Tel: {resultado['telemetria']}")
+        print(f"{'='*50}\n")
+
+        return resultado
+
+    # =========================================================================
+    # COMPATIBILIDAD
+    # =========================================================================
+
+    def ataque_backend_cdp(self, skus: list[str] = None) -> bool:
+        if not skus:
+            return False
+        ws = self.pre_vuelo()
+        if not ws:
+            return False
+        ok = self.evento_atc(ws, skus)
+        ws.close()
+        return ok
+
+    def ataque_backend_os(self, skus: list[str] = None) -> bool:
+        if not skus:
+            return False
+        flags = CHROME_FLAGS + [
+            f"--remote-debugging-port={self.port}",
+            f"--user-data-dir={self.profile_path}",
+        ]
+        for idx, sku in enumerate(skus):
+            url = f"https://www.nike.cl/checkout/cart/add?sku={sku}&qty=1&seller=1&sc=1"
+            try:
+                subprocess.Popen([self.chrome_exe] + flags + [url],
+                                 stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            except Exception as e:
+                print(f"[Backend-OS] Error: {e}")
+                return False
+            if idx < len(skus) - 1:
+                time.sleep(0.4)
+        return True
+
+    def ataque_frontend(self, payment_mode: str = "transfer",
+                        card_data: dict = None, skip_cart_verify: bool = False) -> bool:
+        return self.ejecutar_ataque_completo(
+            skus=[], payment_mode=payment_mode, card_data=card_data or {}
+        ).get("exito", False)
+
+    def cleanup(self):
+        pass
+
+    # =========================================================================
+    # JS DE PAGO v10
+    # =========================================================================
+
+    def _js_pago(self, payment_mode: str) -> str:
+        label     = PAYMENT_LABELS.get(payment_mode, "Transferencia con tu banco")
+        handshake = HANDSHAKE_OK
+
+        return f"""
+        (() => {{
+            // Solo clickear el modal correcto
+            const MAX=30000, t0=Date.now();
+            let done=false, sel=false, vtexOk=false, clicked=false, clickTime=0;
+
+            function esBtnError(b) {{
+                const txt = b.textContent?.trim().toLowerCase() || '';
+                return txt.includes('sin el item') ||
+                       txt.includes('sin los item') ||
+                       txt.includes('without the item') ||
+                       txt.includes('verifica los datos');
+            }}
+            function buscarBtn() {{
+                const todos = [...document.querySelectorAll('button')]
+                    .filter(b => !esBtnError(b) && !b.disabled);
+                return (
+                    todos.find(b => b.textContent?.trim()==='Finalizar compra') ||
+                    todos.find(b => b.textContent?.trim()==='Finalizar la compra') ||
+                    document.getElementById('payment-data-submit') ||
+                    document.querySelector('[data-testid="place-order-button"]') ||
+                    todos.find(b => b.textContent?.trim().toLowerCase().startsWith('finalizar'))
+                );
+            }}
+
+            function esVisible(el) {{
+                if (!el) return false;
+                const r = el.getBoundingClientRect();
+                if (r.width < 50 || r.height < 50) return false;
+                const s = getComputedStyle(el);
+                return s.display !== 'none' && s.visibility !== 'hidden' && s.opacity !== '0';
+            }}
+            function fintocAbierto() {{
+                const iframes = [...document.querySelectorAll('iframe')]
+                    .filter(f => f.src && f.src.includes('fintoc'));
+                if (iframes.some(f => esVisible(f))) return true;
+                const w = document.querySelector('[class*="fintoc-widget"]') ||
+                          document.querySelector('[id*="fintoc-widget"]');
+                if (w) {{
+                    const r = w.getBoundingClientRect();
+                    if (r.height > 200 && esVisible(w)) return true;
+                }}
+                return false;
+            }}
+
+            function estaEnCart() {{
+                return window.location.hash === '#/cart' ||
+                       window.location.hash.startsWith('#/cart');
+            }}
+
+            function scrollAbajo() {{
+                window.scrollTo({{top: document.body.scrollHeight, behavior: 'smooth'}});
+            }}
+
+            function seleccionarMetodo() {{
+                if (sel) return true;
+                if (estaEnCart()) {{ window.location.hash = '#/payment'; return false; }}
+
+                const lbl = [...document.querySelectorAll('label')]
+                    .find(l => l.innerText?.trim() === 'Transferencia con tu banco');
+                if (!lbl) return false;
+
+                const radioId = lbl.getAttribute('for');
+                const inp = document.getElementById(radioId);
+                if (!inp) return false;
+
+                if (inp.checked) {{ vtexOk = true; sel = true; return true; }}
+
+                // Usar jQuery click en el label — dispara selectPaymentGroup de VTEX
+                $(lbl).trigger('click');
+
+                console.log('[BOT] Metodo: {label}');
+                sel = true;
+                setTimeout(() => {{ vtexOk = true; }}, 800);
+                return true;
+            }}
+
+            const iv = setInterval(() => {{
+                if (done) {{ clearInterval(iv); return; }}
+                const elapsed = Date.now()-t0;
+                if (elapsed > MAX) {{ clearInterval(iv); return; }}
+
+                if (window.location.href.includes('orderPlaced')) {{
+                    done=true;
+                    clearInterval(iv); return;
+                }}
+
+                // Solo clickear el modal correcto
+                const modal = [...document.querySelectorAll('button')]
+                    .find(b => b.textContent?.trim() === 'Continuar con la compra');
+                if (modal) {{
+                    modal.click(); return;
+                }}
+
+                const modalError = [...document.querySelectorAll('button')]
+                    .find(b => {{
+                        const t = b.textContent?.trim().toLowerCase() || '';
+                        return t.includes('verifica los datos') ||
+                               t.includes('seleccione cuotas') ||
+                               t.includes('intente nuevamente');
+                    }});
+                if (modalError) {{
+                    modalError.click(); return;
+                }}
+
+                if (!clicked) {{
+                    if (!seleccionarMetodo()) return;
+                    const btn = buscarBtn();
+                    if (!btn) return;
+                    if (!vtexOk && elapsed < 1200) return;
+                    if (!vtexOk) {{
+                        vtexOk=true;
+                    }}
+
+                    // ── ESCUDO ANTI-$0 ───────────────────────────────────────
+                    const nodoTotal = document.querySelector(
+                        '.summary-totalizers__total-value, .monetary, ' +
+                        '[class*="totalizer"] [class*="value"]'
+                    );
+                    const precioTxt = nodoTotal ? nodoTotal.textContent.replace(/[^0-9]/g, '') : '99999';
+                    const precioActual = parseInt(precioTxt || '99999');
+                    if (precioActual > 0 && precioActual < 1000) {{
+                        console.log('[BOT] ⚠️ PRECIO $0 — purgando VTEX...');
+                        fetch('/api/checkout/pub/orderForm')
+                            .then(r => r.json())
+                            .then(d => {{
+                                const id = d.orderFormId;
+                                fetch('/api/checkout/pub/orderForm/' + id + '/attachments/marketingData', {{
+                                    method: 'POST', credentials: 'include',
+                                    headers: {{'Content-Type': 'application/json'}},
+                                    body: JSON.stringify({{attachmentId: 'marketingData', marketingTags: [], utmCampaign: null}})
+                                }});
+                                fetch('/api/checkout/pub/orderForm/' + id + '/coupons', {{
+                                    method: 'POST', credentials: 'include',
+                                    headers: {{'Content-Type': 'application/json'}},
+                                    body: JSON.stringify({{text: ''}})
+                                }});
+                                if (window.vtexjs?.checkout?.removeDiscount)
+                                    window.vtexjs.checkout.removeDiscount();
+                            }});
+                        clicked = false; clickTime = 0; vtexOk = false;
+                        setTimeout(() => {{ vtexOk = true; }}, 2500);
+                        return;
+                    }}
+                    // ─────────────────────────────────────────────────────────
+
+                    btn.scrollIntoView({{behavior:'auto',block:'center'}});
+                    btn.dispatchEvent(new MouseEvent('mousedown', {{bubbles:true,cancelable:true}}));
+                    btn.dispatchEvent(new MouseEvent('mouseup', {{bubbles:true,cancelable:true}}));
+                    btn.dispatchEvent(new MouseEvent('click', {{bubbles:true,cancelable:true}}));
+                    btn.click();
+                    clicked=true;
+                    clickTime=Date.now();
+                    setTimeout(scrollAbajo, 400);
+                    return;
+                }}
+
+                const postClick = Date.now() - clickTime;
+                if (postClick < 800) return;
+                if (fintocAbierto()) {{
+                    scrollAbajo();
+                    done=true;
+                    clearInterval(iv); return;
+                }}
+                if (postClick % 1000 < 150) scrollAbajo();
+                if (postClick > 4000 && !fintocAbierto()) {{
+                    clicked=false;
+                    clickTime=0;
+                    vtexOk=true;
+                }}
+            }}, 100);
+        }})();
+        """
+
+    # =========================================================================
+    # LIMPIAR DESCUENTOS
+    # =========================================================================
+
+    def _limpiar_descuentos(self, ws) -> str:
+        """Elimina cupones/marketingData del orderForm VTEX — versión nuclear.
+        Usa 4 capas: coupons API, marketingData attachment, vtexjs nativo, messages clear.
+        Retorna 'OK:<total>:<descuentos_restantes>' o 'ERROR:<mensaje>'.
+        """
+        from engines.limpiar_rastro import js_limpiar_descuentos
+        resultado = self._js_evaluar(ws, js_limpiar_descuentos(), msg_id=95, timeout=15.0)
+        if not resultado:
+            return "ERROR:empty_response"
+        return resultado
+
+    def _confirmar_shipping(self, ws) -> str:
+        """Confirma el shipping via API VTEX antes de navegar a payment.
+        Retorna 'SHIPPING_OK:<dirección>' si ya está confirmado,
+        'SHIPPING_CONFIRMED:<sla>' si se confirma un SLA,
+        'SHIPPING_MISSING:<detalles>' si faltan datos,
+        o 'ERROR:<mensaje>' si hay error.
+        """
+        js = """
+        (() => {
+            return new Promise(async (resolve) => {
+                try {
+                    const r = await fetch('https://www.nike.cl/api/checkout/pub/orderForm', {
+                        credentials: 'include',
+                        headers: {'Accept': 'application/json', 'Cache-Control': 'no-cache'}
+                    });
+                    const d = await r.json();
+                    const id = d.orderFormId;
+                    
+                    // Verificar si ya tiene shipping completo
+                    const addr = d.shippingData?.address;
+                    const logistic = d.shippingData?.logisticsInfo;
+                    const shippingOk = addr && addr.street && 
+                                       logistic && logistic.length > 0 &&
+                                       logistic[0].selectedSla;
+                    
+                    if (shippingOk) {
+                        resolve('SHIPPING_OK:' + addr.street);
+                        return;
+                    }
+                    
+                    // Intentar confirmar el primer SLA disponible
+                    if (logistic && logistic.length > 0 && !logistic[0].selectedSla) {
+                        const slas = logistic[0].slas || [];
+                        if (slas.length > 0) {
+                            const slaId = slas[0].id;
+                            await fetch('https://www.nike.cl/api/checkout/pub/orderForm/' + id + '/attachments/shippingData', {
+                                method: 'POST',
+                                credentials: 'include',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({
+                                    attachmentId: 'shippingData',
+                                    logisticsInfo: logistic.map((l, i) => ({
+                                        itemIndex: i,
+                                        selectedSla: slaId,
+                                        selectedDeliveryChannel: 'delivery'
+                                    }))
+                                })
+                            });
+                            resolve('SHIPPING_CONFIRMED:' + slaId);
+                            return;
+                        }
+                    }
+                    
+                    resolve('SHIPPING_MISSING:' + JSON.stringify({
+                        hasAddr: !!addr,
+                        hasLogistic: !!(logistic && logistic.length),
+                        hasSla: !!(logistic && logistic[0]?.selectedSla)
+                    }));
+                } catch(e) {
+                    resolve('ERROR:' + e.message);
+                }
+            });
+        })();
+        """
+        return self._js_evaluar(ws, js, msg_id=85, timeout=8.0)
+
+    def _limpiar_descuentos_nuclear(self, ws) -> str:
+        """
+        Elimina descuentos ANTES del ATC (PRE-EV1).
+        Capas:
+          1. Limpiar cupón
+          2. Limpiar marketingData (UTMs + promo tracking)
+          3. vtexjs.checkout.removeDiscount() nativo
+          4. Limpiar clientProfileData marketing fields
+          5. Verificar total final
+        """
+        js = """
+        (() => {
+            return new Promise(async (resolve) => {
+                const B = 'https://www.nike.cl';
+                try {
+                    const r0 = await fetch(B + '/api/checkout/pub/orderForm', {
+                        credentials: 'include',
+                        headers: {'Accept': 'application/json', 'Cache-Control': 'no-cache'}
+                    });
+                    const d0 = await r0.json();
+                    const id = d0.orderFormId;
+                    if (!id) { resolve('ERROR:NO_ORDERFORM'); return; }
+
+                    const totalAntes = d0.value || 0;
+                    const nDesc = (d0.ratesAndBenefitsData?.rateAndBenefitsIdentifiers || []).length;
+                    console.log('[BOT] PRE-ATC total: $' + totalAntes + ' desc: ' + nDesc);
+
+                    // Capa 1: Limpiar cupón
+                    await fetch(B + '/api/checkout/pub/orderForm/' + id + '/coupons', {
+                        method: 'POST', credentials: 'include',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({text: ''})
+                    }).catch(() => {});
+
+                    // Capa 2: Limpiar marketingData completo
+                    await fetch(B + '/api/checkout/pub/orderForm/' + id + '/attachments/marketingData', {
+                        method: 'POST', credentials: 'include',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            attachmentId: 'marketingData',
+                            utmSource: null, utmMedium: null, utmCampaign: null,
+                            utmiPage: null, utmiPart: null, utmiCampaign: null,
+                            coupon: null, marketingTags: []
+                        })
+                    }).catch(() => {});
+
+                    // Capa 3: vtexjs nativo
+                    if (window.vtexjs?.checkout?.removeDiscount) {
+                        await new Promise(res => {
+                            window.vtexjs.checkout.removeDiscount()
+                                .done(res).fail(res);
+                        });
+                    }
+
+                    // Capa 4: Limpiar clientProfileData marketing fields
+                    await fetch(B + '/api/checkout/pub/orderForm/' + id + '/attachments/clientProfileData', {
+                        method: 'POST', credentials: 'include',
+                        headers: {'Content-Type': 'application/json'},
+                        body: JSON.stringify({
+                            attachmentId: 'clientProfileData',
+                            marketingOptIn: false
+                        })
+                    }).catch(() => {});
+
+                    // Verificar total final
+                    const r1 = await fetch(B + '/api/checkout/pub/orderForm', {
+                        credentials: 'include',
+                        headers: {'Accept': 'application/json', 'Cache-Control': 'no-cache'}
+                    });
+                    const d1 = await r1.json();
+                    const totalFinal = d1.value || 0;
+                    const nDescFinal = (d1.ratesAndBenefitsData?.rateAndBenefitsIdentifiers || []).length;
+
+                    console.log('[BOT] POST-limpieza total: $' + totalFinal + ' desc: ' + nDescFinal);
+                    resolve('OK:' + totalFinal + ':' + nDescFinal);
+
+                } catch(e) {
+                    resolve('ERROR:' + e.message);
+                }
+            });
+        })();
+        """
+        resultado = self._js_evaluar(ws, js, msg_id=94, timeout=10.0)
+
+        if resultado.startswith("OK:"):
+            try:
+                total = int(resultado.split(":")[1])
+                if total < 1000:
+                    print(f"[Engine] ⚠️ Cuenta con descuento forzado — continuando de todas formas")
+                else:
+                    print(f"[Engine] ✅ Descuentos limpiados PRE-ATC — total ${total}")
+            except Exception:
+                pass
+        return resultado
+
+    # =========================================================================
+    # LIMPIAR CARRITO
+    # =========================================================================
+
+    def _limpiar_carrito(self, _retry: bool = False) -> str:
+        print(f"[Engine] Limpiando carrito ({self.account_name})...")
+        tab_url = self._get_tab_url()
+        if not tab_url:
+            return "NO_TAB"
+        try:
+            ws = websocket.create_connection(tab_url, timeout=5)
+            ws.send(json.dumps({"id": 0, "method": "Runtime.enable", "params": {}}))
+            js = """
+            (() => {
+                return new Promise((resolve) => {
+                    fetch('https://www.nike.cl/api/checkout/pub/orderForm', {
+                        credentials: 'include',
+                        headers: {'Accept': 'application/json'}
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        const id    = data.orderFormId;
+                        const items = data.items || [];
+                        if (!items.length) { resolve('EMPTY'); return; }
+                        const oi = items.map((_,i) => ({index:i, quantity:0}));
+                        return fetch(
+                            'https://www.nike.cl/api/checkout/pub/orderForm/' + id + '/items/removeAll',
+                            {
+                                method: 'POST',
+                                credentials: 'include',
+                                headers: {'Content-Type': 'application/json'},
+                                body: JSON.stringify({orderItems: oi})
+                            }
+                        ).then(() => resolve('CLEARED'));
+                    })
+                    .catch(e => resolve('ERROR:' + e.message));
+                });
+            })();
+            """
+            resultado = self._js_evaluar(ws, js, msg_id=98, timeout=6.0)
+            ws.close()
+            print(f"[Engine] Carrito: {resultado}")
+            return resultado
+        except Exception as e:
+            return f"ERROR:{e}"
+
+
+# Aliases
+HybridAssassinUltra   = NikeBotEngine
+HybridAssassinV6      = NikeBotEngine
+HybridAssassin        = NikeBotEngine
+HybridAssassinFusion  = NikeBotEngine
+HybridAssassinStealth = NikeBotEngine

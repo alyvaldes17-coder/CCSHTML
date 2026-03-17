@@ -1,0 +1,18 @@
+{
+  "bot_settings": {
+    "sku_default": "184016",
+    "chrome_path": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+    "chrome_port_base": 9222
+  },
+  "timings": {
+    "kill_spy_wait": 3.0,
+    "injection_delay": 0.5,
+    "turbo_interval_ms": 50,
+    "turbo_max_duration_ms": 60000
+  },
+  "urls": {
+    "cart_add": "https://www.nike.cl/checkout/cart/add?sku={sku}&qty=1&seller=1&sc=1",
+    "checkout_pay": "https://www.nike.cl/checkout/#/payment",
+    "cart_clean": "https://www.nike.cl/checkout/#/cart"
+  }
+}

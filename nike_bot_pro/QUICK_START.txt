@@ -1,0 +1,90 @@
+╔═══════════════════════════════════════════════════════════════════════════╗
+║                    NIKE BOT PRO - INICIO RÁPIDO                           ║
+║                      🚀 INYECCIÓN FRANKENSTEIN 🚀                          ║
+╚═══════════════════════════════════════════════════════════════════════════╝
+
+⚡ 3 PASOS PARA COMENZAR EN 5 MINUTOS:
+
+1️⃣  LEE ESTO PRIMERO:
+    → docs/FRANKENSTEIN_START_HERE.md (5 minutos)
+
+2️⃣  INSTALA DEPENDENCIAS:
+    pip install websocket-client requests
+
+3️⃣  VERIFICA QUE TODO FUNCIONE:
+    python test_frankenstein.py
+    (Deberías ver: 6/6 PASS ✅)
+
+═══════════════════════════════════════════════════════════════════════════
+
+📊 ESTADO ACTUAL:
+
+✅ Código Frankenstein:          COMPLETO (dirty_tools.py)
+✅ Integración BotController:    COMPLETA (5 métodos nuevos)
+✅ Tests:                        6/6 PASSING
+✅ Documentación:                COMPLETA (11 archivos en /docs)
+✅ Orquestación multi-cuenta:    LISTA (frankenstein_army.py)
+✅ Ejemplos y demos:             LISTOS
+
+═══════════════════════════════════════════════════════════════════════════
+
+🎯 LOS 5 COMANDOS QUE MÁS USARÁS:
+
+┌─ PRE-DROP (10 min antes)
+│  python docs/frankenstein_army.py prepare --count 10 --start-port 9222
+│  → Abre 10 Chrome Zombies listos
+
+├─ VERIFICAR (2 min antes)
+│  python docs/frankenstein_army.py check --count 10 --start-port 9222
+│  → Verifica que todo esté listo
+
+├─ DROP (En el momento)
+│  python docs/frankenstein_army.py drop --count 10 --start-port 9222 --magic-link-file links.txt
+│  → ⚡ Inyecta URLs en < 10ms
+
+├─ LIMPIAR
+│  python docs/frankenstein_army.py cleanup --count 10 --start-port 9222
+│  → Cierra todos gracefully
+
+└─ DEMO INTERACTIVA
+   python docs/frankenstein_demo.py cuenta2 9222
+   → Aprende paso a paso
+
+═══════════════════════════════════════════════════════════════════════════
+
+📂 ESTRUCTURA (Ya Organizada):
+
+nike_bot_pro/
+├── engines/
+│   └── dirty_tools.py               ← Motor CDP (corazón de Frankenstein)
+├── runtime/
+│   └── bot_controller.py            ← Controlador (integrado con Frankenstein)
+├── docs/                             ← 📚 TODA LA DOCUMENTACIÓN
+│   ├── FRANKENSTEIN_START_HERE.md   ← COMIENZA AQUÍ
+│   ├── FRANKENSTEIN_QUICK_START.md
+│   ├── frankenstein_army.py         ← Orquestador multi-cuenta
+│   ├── frankenstein_demo.py         ← Demo interactiva
+│   └── ... (10 archivos más)
+├── test_frankenstein.py              ← Suite de tests (6/6 PASS)
+└── README.md                         ← Este proyecto
+
+═══════════════════════════════════════════════════════════════════════════
+
+💡 TIPS IMPORTANTES:
+
+✓ El código está en:        engines/dirty_tools.py
+✓ Tests están en:           test_frankenstein.py (root)
+✓ TODO lo demás está en:    docs/ (limpio y ordenado)
+✓ Siempre irá así:          Código en root, Docs en /docs
+
+═══════════════════════════════════════════════════════════════════════════
+
+🔗 SIGUIENTE:
+
+Abre esto ahora:  → docs/FRANKENSTEIN_START_HERE.md
+
+═══════════════════════════════════════════════════════════════════════════
+
+¿Preguntas? Todo está documentado en los archivos de /docs
+
+GOOD LUCK! 🚀

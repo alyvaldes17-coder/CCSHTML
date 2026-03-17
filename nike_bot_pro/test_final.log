@@ -1,0 +1,13 @@
+
+
+Traceback (most recent call last):
+  File "c:\Users\beriann\Documents\Repos\nikebotprofuncionalv1\nike_bot_pro\test_frankenstein.py", line 335, in <module>
+    sys.exit(main())
+             ~~~~^^
+  File "c:\Users\beriann\Documents\Repos\nikebotprofuncionalv1\nike_bot_pro\test_frankenstein.py", line 283, in main
+    print("\U0001f52c" * 35)
+    ~~~~~^^^^^^^^^^^
+  File "C:\Python314\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode characters in position 0-34: character maps to <undefined>

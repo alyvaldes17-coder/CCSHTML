@@ -1,0 +1,16 @@
+{
+    "name": "Nike Token Sync",
+    "description": "Sincroniza tokens VTEX de Nike.cl con el bot.",
+    "version": "1.0",
+    "manifest_version": 3,
+    "permissions": [
+        "cookies",
+        "storage"
+    ],
+    "host_permissions": [
+        "https://www.nike.cl/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    }
+}

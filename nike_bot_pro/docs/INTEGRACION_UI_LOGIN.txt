@@ -1,0 +1,109 @@
+INTEGRACIÓN UI: SESSION CHECK + LOGIN GATE
+=============================================
+
+Esto es lo que FALTA en la UI para que el bot sea ganador.
+
+🎯 OBJETIVO
+Bloquear PLAY si no hay sesión Nike logueada.
+
+🧩 CÓDIGO PARA INTEGRAR EN LA UI
+-----------------------------------
+
+En el archivo que maneja cada cuenta (probablemente ui/app.py):
+
+1️⃣ IMPORTAR LAS FUNCIONES
+
+    from auth.session_check import check_session_nike, login_from_ui
+
+
+2️⃣ ESTADO NUEVO DE CUENTA
+
+Agregar a los estados:
+
+    LOGIN_REQUIRED = "LOGIN_REQUIRED"
+
+
+3️⃣ VERIFICAR SESIÓN AL CARGAR CADA CUENTA
+
+    def update_account_state(account):
+        account.is_logged_in = check_session_nike(account.account_path)
+        
+        if account.is_logged_in:
+            account.state = "READY"
+        else:
+            account.state = "LOGIN_REQUIRED"
+
+
+4️⃣ BOTÓN LOGIN (visible solo si LOGIN_REQUIRED)
+
+    def show_login_button(account):
+        if account.state == "LOGIN_REQUIRED":
+            # Mostrar botón
+            button = tk.Button(
+                text="Login Nike",
+                command=lambda: on_login_clicked(account)
+            )
+            button.pack()
+
+
+5️⃣ HANDLER DEL BOTÓN LOGIN
+
+    def on_login_clicked(account):
+        print("[UI] Abriendo login para {}".format(account.name))
+        
+        login_from_ui(account.account_path, account.name)
+        
+        # Después de que cierre Chrome, verificar de nuevo
+        update_account_state(account)
+        
+        print("[UI] Sesión verificada nuevamente")
+
+
+6️⃣ BLOQUEAR PLAY SI NO HAY LOGIN
+
+    def on_play_clicked(account):
+        if account.state == "LOGIN_REQUIRED":
+            show_error("Requiere LOGIN antes de PLAY")
+            return
+        
+        # ... código de PLAY normal
+
+
+🔍 VISUAL EN LA UI (CONCEPTUAL)
+
+┌─ CUENTA 1 ────────────────┐
+│ Estado: LOGIN_REQUIRED    │
+│ [ Login Nike ] [ Play ]   │
+│ ^ visible     ^ deshabilitado
+└───────────────────────────┘
+
+┌─ CUENTA 2 ────────────────┐
+│ Estado: READY             │
+│           [ Play ]        │
+│           ^ habilitado
+└───────────────────────────┘
+
+
+📋 CHECKLIST DE INTEGRACIÓN
+
+✅ Importar check_session_nike, login_from_ui
+✅ Agregar estado LOGIN_REQUIRED
+✅ Verificar sesión al cargar cuentas
+✅ Mostrar botón Login solo si LOGIN_REQUIRED
+✅ Handler on_login_clicked
+✅ Bloquear PLAY si LOGIN_REQUIRED
+
+Listo. Una vez hecho esto:
+
+1. Inicia la UI
+2. Cada cuenta muestra "Login Nike" si no está logueada
+3. Click en "Login Nike"
+4. Te logueas en Nike (visible)
+5. Cierras Chrome
+6. Vuelve a READY automáticamente
+7. PLAY habilitado
+8. Bot corre
+9. Precio OK → Payment abierto con sesión real
+10. Pagas
+
+FIN. El bot es ganador.

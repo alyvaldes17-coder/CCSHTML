@@ -1,0 +1,129 @@
+==============================================================================
+                    🚀 QUICK START - EJECUTA ESTO AHORA
+==============================================================================
+
+¿Qué pasó?
+
+El diagnóstico real identificó que el problema NO era la arquitectura,
+sino que el LOGIN no estaba guardando cookies en profile_pw.
+
+Se implementaron los 3 pasos del plan:
+  ✅ PASO 1: Blindaje UI (ya estaba bien)
+  ✅ PASO 2: Motor login blindado (engines/manual_login.py)
+  ✅ PASO 3: Test de persistencia (test_login_persistence.py)
+
+==============================================================================
+                           EJECUTA AHORA:
+==============================================================================
+
+1. Abre una terminal (cmd o PowerShell)
+
+2. Ve al directorio:
+   cd c:\Users\beriann\Documents\Repos\nike_bot_pro
+
+3. Ejecuta el test:
+   python test_login_persistence.py
+
+4. Sigue las instrucciones que aparecen en pantalla
+
+==============================================================================
+                        QUÉ SUCEDE EN EL TEST:
+==============================================================================
+
+📍 PRIMERA APERTURA DE CHROME:
+   • Se abre Google Chrome
+   • Tú ingresas EMAIL de Nike
+   • Tú ingresas PASSWORD
+   • Completas 2FA (si aparece)
+   • Esperas a ver "Hola, [Tu Nombre]"
+   • CIERRAS Chrome con la X (IMPORTANTE - no solo la pestaña)
+
+📍 VERIFICACIÓN:
+   • Script verifica que las cookies se guardaron
+   • DEBE mostrar: ✅ COOKIES ENCONTRADAS
+
+📍 SEGUNDA APERTURA DE CHROME:
+   • Chrome se abre NUEVAMENTE
+   • DEBERÍAS VER NIKE YA LOGUEADO (sin pedir email)
+   • Esto confirma que las cookies se reutilizaron
+   • Cierras Chrome
+
+==============================================================================
+                          RESULTADO ESPERADO:
+==============================================================================
+
+✅ SI VES ESTO = ÉXITO:
+   [TEST] ✅ COOKIES ENCONTRADAS - Login persistió correctamente
+
+❌ SI VES ESTO = PROBLEMA:
+   [TEST] ❌ NO HAY COOKIES - El login no se guardó
+
+==============================================================================
+                       SI FALLA - SOLUCIONA ESTO:
+==============================================================================
+
+PROBLEMA 1: "NO HAY COOKIES"
+
+Causas posibles:
+  • No cerraste Chrome correctamente (solo cerraste la pestaña)
+  • Permisos de Windows bloqueados
+  • Chrome no está en la ruta esperada
+
+Soluciones:
+  • Intenta nuevamente
+  • Asegúrate de usar la X para cerrar Chrome
+  • Ejecuta como Administrador:
+    - PowerShell > Click derecho > "Ejecutar como administrador"
+    - Corre: python test_login_persistence.py
+
+
+PROBLEMA 2: "Chrome no abre"
+
+Causa: Chrome no instalado en rutas estándar
+
+Solución:
+  • Instala Chrome desde google.com/chrome
+  • O verifica que está en: C:\Program Files\Google\Chrome\Application\chrome.exe
+
+
+PROBLEMA 3: "Error de sintaxis / ImportError"
+
+Causa: Archivo dañado o Python antiguo
+
+Solución:
+  • Verifica: python --version (debe ser 3.8+)
+  • Reinstala dependencias: pip install -r requirements.txt
+
+==============================================================================
+                      DESPUÉS DE QUE FUNCIONE:
+==============================================================================
+
+Una vez que el test muestre ✅ COOKIES ENCONTRADAS:
+
+1. El diagnóstico ESTÁ CONFIRMADO COMO CORRECTO
+2. El problema ESTÁ RESUELTO
+3. El Bot está LISTO PARA PRODUCCIÓN
+
+Verifica manualmente:
+  • Abre Explorador de Archivos
+  • Ve a: auth\test_cuenta\profile_pw\Default\Network\
+  • Busca el archivo "Cookies"
+  • Debe pesar > 20 KB (tiene datos reales)
+
+==============================================================================
+                       ARCHIVOS DOCUMENTACIÓN:
+==============================================================================
+
+Para entender más a fondo qué se cambió y por qué:
+
+  HOJA_DE_RUTA_VISUAL.txt          ← Inicio aquí (visión general)
+  PLAN_DEFINITIVO_3_PASOS.txt      ← Detalles de cada paso
+  RESUMEN_DIAGNOSTICO_REAL.txt     ← Análisis técnico
+  IMPLEMENTACION_COMPLETA.txt      ← Lo que se cambió
+
+==============================================================================
+                           ¡LISTO! 🚀
+==============================================================================
+
+python test_login_persistence.py
+

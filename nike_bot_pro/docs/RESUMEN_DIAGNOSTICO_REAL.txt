@@ -1,0 +1,134 @@
+╔════════════════════════════════════════════════════════════════════╗
+║                   🎯 RESUMEN EJECUTIVO - 3 PASOS                    ║
+║                     Diagnóstico Real Implementado                   ║
+╚════════════════════════════════════════════════════════════════════╝
+
+┌─ SITUACIÓN ACTUAL ─────────────────────────────────────────────────┐
+│                                                                      │
+│ El diagnóstico identificó la CAUSA REAL del problema:              │
+│                                                                      │
+│  ❌ NO es State Machine                                            │
+│  ❌ NO es UI                                                       │
+│  ❌ NO es VTEX                                                     │
+│  ✅ ES el LOGIN que no persiste en profile_pw                      │
+│                                                                      │
+│ Log probatorio:                                                     │
+│  [LOGIN] Cookies will be saved to: auth\cuenta2\profile_pw         │
+│  ...                                                                │
+│  [cuenta2] ❌ ERROR: No hay cookies válidas                        │
+│  [cuenta2] profile_pw vacío                                         │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─ ACCIÓN 1: Blindaje del UI (account_editor.py) ───────────────────┐
+│                                                                      │
+│ STATUS: ✅ VERIFICADO                                              │
+│                                                                      │
+│ El archivo ya tiene el código correcto (sin conflictos pack/pady).  │
+│ No hay cambios necesarios.                                          │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─ ACCIÓN 2: Motor de Login Blindado (engines/manual_login.py) ─────┐
+│                                                                      │
+│ STATUS: ✅ CREADO E IMPLEMENTADO                                   │
+│                                                                      │
+│ Características:                                                    │
+│  ✅ Rutas ABSOLUTAS (Windows - crítico)                            │
+│  ✅ launch_persistent_context (guarda cookies realmente)           │
+│  ✅ Validación de permisos (test de escritura)                     │
+│  ✅ verify_profile_has_cookies() - verificación física             │
+│  ✅ Dos métodos: "playwright" (default) y "native"                 │
+│                                                                      │
+│ Ubicación: c:\...\nike_bot_pro\engines\manual_login.py             │
+│                                                                      │
+│ Funciones públicas:                                                 │
+│  • open_chrome_for_login(account_name, profile_dir, method)        │
+│  • verify_profile_has_cookies(profile_dir)                         │
+│                                                                      │
+│ Actualización en auth/session_check.py:                            │
+│  setup_account_login() ahora IMPORTA y USA este motor              │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─ ACCIÓN 3: Test de Persistencia (test_login_persistence.py) ──────┐
+│                                                                      │
+│ STATUS: ✅ CREADO - LISTO PARA EJECUTAR                            │
+│                                                                      │
+│ Ubicación: c:\...\nike_bot_pro\test_login_persistence.py           │
+│                                                                      │
+│ EJECUTAR:                                                           │
+│  python test_login_persistence.py                                  │
+│                                                                      │
+│ FLUJO:                                                              │
+│  1. Se abre Chrome                                                  │
+│  2. Tú logueas manualmente en Nike                                  │
+│  3. Cierras Chrome (importante: con la X)                          │
+│  4. Script verifica que hay cookies guardadas ✅                    │
+│  5. Se abre Chrome OTRA VEZ                                         │
+│  6. Deberías ver Nike YA LOGUEADO                                   │
+│  7. Cierras nuevamente                                              │
+│                                                                      │
+│ RESULTADO ESPERADO:                                                 │
+│  ✅ COOKIES ENCONTRADAS - Login persistió correctamente            │
+│                                                                      │
+│ SI FALLA:                                                           │
+│  ❌ NO HAY COOKIES                                                 │
+│  → Revisa permisos en Windows (ejecutar como Admin)                │
+│  → Verifica que cerraste Chrome con la X                           │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+
+╔════════════════════════════════════════════════════════════════════╗
+║                     📊 CAMBIOS IMPLEMENTADOS                        ║
+╠════════════════════════════════════════════════════════════════════╣
+║                                                                     ║
+║ ARCHIVO                   │ ESTADO        │ PROPÓSITO               ║
+║ ─────────────────────────┼──────────────┼─────────────────────── ║
+║ engines/manual_login.py   │ ✨ NUEVO      │ Motor login blindado   ║
+║ auth/session_check.py     │ 🔄 ACTUALIZADO│ Usa nuevo motor        ║
+║ test_login_persistence.py │ ✨ NUEVO      │ Verifica persistencia  ║
+║ PLAN_DEFINITIVO_3_PASOS.* │ ✨ NUEVO      │ Guía de ejecución      ║
+║                                                                     ║
+╚════════════════════════════════════════════════════════════════════╝
+
+┌─ 🧪 PRÓXIMO PASO: EJECUTA EL TEST ────────────────────────────────┐
+│                                                                      │
+│ Abre terminal y ejecuta:                                            │
+│                                                                      │
+│  cd c:\Users\beriann\Documents\Repos\nike_bot_pro                  │
+│  python test_login_persistence.py                                  │
+│                                                                      │
+│ Sigue las instrucciones de pantalla.                                │
+│                                                                      │
+│ Si sale ✅ COOKIES ENCONTRADAS → TODO FUNCIONA                     │
+│ Si sale ❌ NO HAY COOKIES → Lee el diagnóstico de problemas        │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+
+┌─ 🎓 RESUMEN TÉCNICO ──────────────────────────────────────────────┐
+│                                                                      │
+│ EL PROBLEMA ORIGINAL (Diagnóstico Real):                           │
+│  • profile_pw estaba vacío INCLUSO después del login               │
+│  • Playwright NO estaba guardando cookies                           │
+│  • Rutas relativas causaban problemas en Windows                    │
+│  • Sin validación de permisos → errores silenciosos                │
+│                                                                      │
+│ LA SOLUCIÓN (Los 3 pasos):                                          │
+│  1. Usar launch_persistent_context (obligatorio)                   │
+│  2. RUTAS ABSOLUTAS (Windows necesita esto)                        │
+│  3. Validar que disco es escribible ANTES de abrir Chrome          │
+│  4. Verificar físicamente que cookies existen                       │
+│  5. Mostrar instrucciones claras al usuario                         │
+│                                                                      │
+│ ESPERADO DESPUÉS DE FIX:                                            │
+│  ✅ profile_pw/Default/Network/Cookies > 0 KB                      │
+│  ✅ Bot puede reutilizar cookies en siguientes ejecuciones         │
+│  ✅ Nike reconoce la sesión (loggedIn: true)                       │
+│  ✅ PLAY funciona sin pedir login nuevamente                       │
+│                                                                      │
+└─────────────────────────────────────────────────────────────────────┘
+
+═══════════════════════════════════════════════════════════════════════
+
+                          ¡LISTO PARA TESTEAR! 🚀

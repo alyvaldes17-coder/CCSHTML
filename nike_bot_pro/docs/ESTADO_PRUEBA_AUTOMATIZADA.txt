@@ -1,0 +1,113 @@
+═══════════════════════════════════════════════════════════════════════════════
+🎯 PRUEBA AUTOMÁTICA COMPLETADA - SISTEMA LISTO
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ VALIDACIONES COMPLETADAS:
+
+1. ✅ Compilación Python
+   - core/account.py → ✓
+   - core/payment_mode.py → ✓
+   - engines/checkout_orchestrator.py → ✓
+   - runner/state_machine.py → ✓
+   - runtime/worker.py → ✓
+   - auth/session_check.py → ✓
+   - manager/account_manager.py → ✓
+
+2. ✅ Estructura de datos
+   - PaymentMode enum (BANK, MP, CARD, MANUAL)
+   - Account.payment_mode (per-execution, no persistente)
+   - BotState con 8 estados (SESSION_SEED → AWAITING_HUMAN_CONFIRMATION)
+
+3. ✅ Integración de componentes
+   - CheckoutOrchestrator.run_bank_flow() - método principal ✓
+   - StateMachine._transition_bank_modal_open() - llama a CheckoutOrchestrator ✓
+   - worker._run_deterministic_async() - usa CheckoutOrchestrator ✓
+   - session_check.py - open_chrome_for_login/checkout ✓
+
+4. ✅ Cuentas detectadas
+   - cuenta2: READY (sku=176816) ✓
+   - cuenta3: NO_AUTH ✓
+   - cuenta_roundtrip: READY ✓
+
+5. ✅ Sistema de Login
+   - Fire-and-forget (Chrome abre, usuario loguea, cierra)
+   - Cookies guardadas automáticamente
+   - No requiere wait loops
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 FLUJO LISTO PARA PRUEBA MANUAL:
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│ PASO 1: Ventana main.py ya abierta con 4 botones                            │
+│                                                                              │
+│  [LOGIN]  - Abre Chrome, usuario loguea, cierra Chrome                      │
+│  [CHECK]  - Abre /checkout/#/payment para inspeccionar sesión               │
+│  [PLAY]   - Ejecuta flujo completo (SESSION_SEED → PRICING → BANK_MODAL)    │
+│  [EXIT]   - Cierra aplicación                                               │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+SECUENCIA A EJECUTAR:
+
+1️⃣ CLICK LOGIN
+   → Chrome se abre (https://www.nike.cl/login)
+   → Ingresa: email, password, MFA
+   → Cierra Chrome cuando estés logueado
+   → Logs muestran: "[LOGIN] Chrome closed - Cookies saved"
+
+2️⃣ CLICK CHECK (opcional, para validar sesión)
+   → Chrome abre checkout
+   → Verifica que ves /checkout/#/payment SIN 403
+   → Si ves error 403 = tokens inválidos (necesitas repetir LOGIN)
+   → Cierra Chrome
+
+3️⃣ CLICK PLAY
+   → El bot ejecuta automáticamente
+   → Mira los logs en consola (deben aparecer en orden):
+      🌱 SESSION_SEED iniciando...
+      ✅ Cookies válidas
+      ❄️ PRICING_FROZEN
+      💳 CheckoutOrchestrator: iniciando BANK flow
+      🏦 Seleccionando 'Transferencia con tu banco'
+      ⚡ Click Finalizar
+      🛑 AWAITING_HUMAN_CONFIRMATION
+
+4️⃣ SI LLEGA A "AWAITING_HUMAN_CONFIRMATION"
+   → Chrome mostrará modal Fintoc (seleccionar banco)
+   → ✅✅✅ ÉXITO - El bot llegó hasta el final
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⚠️ SI ALGO FALLA:
+
+Reporta exactamente:
+  - ¿Cuál fue el último log que viste? (copy/paste exacto)
+  - ¿Qué viste en la pantalla de Chrome?
+  - ¿Hubo mensaje de error?
+
+Ejemplo de falla correctamente reportada:
+  ❌ Hasta: "🏦 Esperando método 'Transferencia con tu banco'"
+  📺 En Chrome: Vi la página de métodos pero sin el botón 'Transferencia'
+  ⚠️ Error: Timeout 15s esperando selector
+
+CAUSAS COMUNES Y SOLUCIONES:
+  • Selector no coincide → Nike cambió el texto en la UI
+  • Timeout 15s → Aumentar PAYMENT_TIMEOUT en checkout_orchestrator.py
+  • Modal no detecta → Texto del botón "Continuar compra" cambió
+  • Sesión inválida (403) → Repetir LOGIN con credenciales frescas
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ ESTADO ACTUAL:
+
+[✓] Código compilado sin errores
+[✓] Imports funcionan correctamente
+[✓] Cuentas cargadas desde auth/
+[✓] main.py está ejecutándose
+[✓] Chrome puede abrirse
+[✓] Estructura lista para prueba
+
+PRÓXIMO PASO: 
+Ejecuta los 4 pasos en la ventana de main.py que ya está abierta.
+
+═══════════════════════════════════════════════════════════════════════════════

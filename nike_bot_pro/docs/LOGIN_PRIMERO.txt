@@ -1,0 +1,51 @@
+INSTRUCCIONES PARA LOGUEAR CUENTA EN PLAYWRIGHT
+================================================
+
+El bot necesita que Nike esté logueado EN PLAYWRIGHT, no en Chrome normal.
+
+PASO 1: Abre una terminal
+-------
+
+cd c:\Users\beriann\Documents\Repos\nike_bot_pro
+
+PASO 2: Ejecuta el login script
+-------
+
+python tools/playwright_login.py
+
+
+PASO 3: Loguéate manualmente
+-------
+
+1. Se abrirá una ventana Chrome
+2. Ve a https://www.nike.cl/login
+3. Ingresa tu usuario (email)
+4. Ingresa tu contraseña
+5. Completa cualquier verificación 2FA/SMS si aparece
+6. Cuando veas tu nombre/cuenta logueado ARRIBA DE LA PANTALLA
+7. Vuelve a esta terminal
+8. Presiona ENTER
+
+
+PASO 4: Listo
+-------
+
+El perfil quedará logueado en:
+  auth/cuenta2/profile_pw/
+
+Y el bot lo usará automáticamente.
+
+
+IMPORTANTE:
+-----------
+
+❌ NO vuelvas a loguear en Chrome normal después de esto
+✅ Solo usa Playwright (el bot)
+
+Si necesitas cambiar cuenta, ejecuta de nuevo:
+  python tools/playwright_login.py
+
+
+¿LISTO? Ejecuta ahora:
+
+  python tools/playwright_login.py

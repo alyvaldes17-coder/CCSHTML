@@ -1,0 +1,9 @@
+{
+  "base_url": "https://www.nike.cl",
+  "sku": "180680",
+  "seller": "1",
+  "headless": false,
+  "PROFILE_PATH": "C:/Users/beriann/Documents/Repos/nike/chrome_profiles/bot_9222",
+  "timeout_seconds": 30,
+  "log_level": "INFO"
+}

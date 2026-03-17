@@ -1,0 +1,166 @@
+================================================================================
+🔫 SOLUCIÓN QUIRÚRGICA - Eliminar SOLO procesos fantasma del bot
+================================================================================
+
+PROBLEMA ORIGINAL:
+━━━━━━━━━━━━━━━━━━
+Si hay un proceso "fantasma" de Chrome usando auth/cuenta2/profile_pw:
+❌ Windows BLOQUEA esa carpeta
+❌ Si intentas abrir login nuevamente, nada pasa (carpeta bloqueada)
+❌ Solución anterior: taskkill /F /IM chrome.exe
+   ⚠️  INACEPTABLE: mata TODO Chrome (tu trabajo, YouTube, Gmail, TODO)
+
+SOLUCIÓN QUIRÚRGICA:
+━━━━━━━━━━━━━━━━━━
+Mata SOLO el Chrome que está usando ESA carpeta específica.
+✅ Tu Chrome personal (trabajo, YouTube, Gmail) está 100% a salvo
+✅ Solo muere el Chrome del bot si está "colgado"
+✅ Windows libera la carpeta auth/cuenta2/profile_pw
+
+IMPLEMENTACIÓN:
+━━━━━━━━━━━━━━━━━━
+
+📄 ARCHIVO 1: utils.py (NUEVO)
+   ├─ Función: matar_chrome_especifico(profile_path)
+   ├─ Cómo funciona:
+   │  1. Convierte profile_path a ruta ABSOLUTA (Windows necesita esto)
+   │  2. Usa comando WMIC para buscar:
+   │     • "chrome.exe" 
+   │     • Cuya línea de comando CONTIENE nuestra ruta
+   │  3. Termina SOLO esos procesos (otros Chrome ignorados)
+   │  4. Espera 1 segundo a que Windows libere archivos
+   ├─ Que NO hace:
+   │  ❌ No mata chrome.exe en general
+   │  ❌ No toca tu Chrome personal
+   │  ❌ No mata procesos que no usen auth/cuenta2/profile_pw
+   └─ Utilizado por: engines/manual_login.py
+
+📄 ARCHIVO 2: engines/manual_login.py (ACTUALIZADO)
+   ├─ Cambios:
+   │  1. Línea 6: Añadido import: from utils import matar_chrome_especifico
+   │  2. Función open_chrome_for_login_native():
+   │     • PASO 1: matar_chrome_especifico(abs_profile_path)
+   │     • PASO 2-5: (resto igual)
+   │  3. Función open_chrome_for_login_playwright():
+   │     • PASO 1: matar_chrome_especifico(abs_profile_path)
+   │     • PASO 2-6: (resto igual)
+   ├─ Ventaja:
+   │  ✅ Ahora SIEMPRE ejecuta limpieza antes de abrir
+   │  ✅ Usa WMIC para ser específico
+   │  ✅ No toca tu Chrome
+   └─ Usuarios afectados: Cualquiera que haga click en LOGIN
+
+FLUJO DE EJECUCIÓN:
+━━━━━━━━━━━━━━━━━━
+
+Usuario hace click en "LOGIN" → ui/app.py → state_machine.py → 
+engines/manual_login.py::open_chrome_for_login()
+   │
+   ├─ PASO 1: matar_chrome_especifico(auth/cuenta2/profile_pw)
+   │  └─ Si hay Chrome "colgado" usando esa carpeta → MUERE
+   │  └─ Tu Chrome personal → INTACTO (no usa esa carpeta)
+   │
+   ├─ PASO 2: Convertir a ruta ABSOLUTA
+   │  └─ auth/cuenta2/profile_pw → C:\Users\...\nike_bot_pro\auth\cuenta2\profile_pw
+   │
+   ├─ PASO 3: Validar carpeta (existe, escribible)
+   │
+   ├─ PASO 4: Buscar Chrome en el sistema
+   │
+   ├─ PASO 5: Lanzar Chrome con --user-data-dir=RUTA_ABSOLUTA
+   │  └─ Ahora la carpeta está LIBRE (no bloqueada por procesos fantasma)
+   │  └─ Chrome abre exitosamente
+   │
+   └─ PASO 6: Mostrar instrucciones
+
+
+COMANDO WMIC (EXPLICADO):
+━━━━━━━━━━━━━━━━━━━━━━━
+
+wmic process where "name='chrome.exe' and CommandLine like '%AUTH%CUENTA2%PROFILE_PW%'" call terminate
+
+Desglose:
+  wmic = Windows Management Instrumentation Command-line
+  process where = "dame procesos DONDE se cumplan estas condiciones"
+  name='chrome.exe' = el proceso se llama chrome.exe
+  and = AND lógico
+  CommandLine like '%...%' = la línea de comando CONTIENE (like = like SQL)
+  %AUTH%CUENTA2%PROFILE_PW% = nuestra ruta específica (los % son comodines)
+  call terminate = termina el proceso
+
+Ejemplo real:
+  Si hay: C:\Users\beriann\...\nike_bot_pro\auth\cuenta2\profile_pw\chrome.exe ...
+  WMIC dice: "¡Ese cumple! Termina."
+  
+  Si hay: C:\Program Files\Google\Chrome\... (tu Chrome normal)
+  WMIC dice: "Ese NO usa auth\cuenta2. Lo dejo vivo."
+
+
+POR QUÉ FUNCIONA:
+━━━━━━━━━━━━━━━━━
+
+1. Windows bloquea carpetas cuando procesos las tienen "abiertas"
+   └─ Si profile_pw está bloqueada, no se puede abrir de nuevo
+
+2. El bot puede dejar procesos "fantasma" (que siguen vivos pero invisibles)
+   └─ Logs dicen "Chrome abierto" pero procesos no están de verdad unidos
+
+3. WMIC puede identificar procesos por su línea de comando exacta
+   └─ Es cómo Windows sabe QUÉ proceso está usando QUÉ recurso
+
+4. Solo matamos procesos de Chrome que contengan nuestra ruta específica
+   └─ Tu Chrome personal NO tiene esa ruta en su línea de comando
+   └─ Por lo tanto, NO MUERE
+
+
+CUÁNDO SE EJECUTA:
+━━━━━━━━━━━━━━━━
+
+AUTOMÁTICO:
+✅ Cada vez que haces click en "LOGIN"
+✅ Antes de abrir Chrome
+✅ Sin intervención del usuario
+
+MANUAL (si lo necesitas):
+```python
+from utils import matar_chrome_especifico
+matar_chrome_especifico("auth/cuenta2/profile_pw")
+```
+
+
+QUÉ HACER SI ALGO FALLA:
+━━━━━━━━━━━━━━━━━━━━━━
+
+1. Si Chrome no abre:
+   → Primero: Verifica que WMIC esté disponible (debería estar en Windows 10+)
+   → Abre CMD y prueba: wmic process list brief
+   → Si no funciona: Ejecuta como Administrador
+
+2. Si WMIC causa problemas:
+   → El archivo utils.py ya tiene try/except
+   → Si falla WMIC, solo se loguea en nivel DEBUG
+   → Chrome intentará abrir IGUAL (aunque sin limpieza)
+
+3. Si sigues teniendo procesos bloqueados:
+   → Abre Task Manager (Ctrl+Shift+Esc)
+   → Busca chrome.exe
+   → Verifica si hay procesos "huérfanos" (sin ventana visible)
+   → Mata manualmente si es necesario (serán de tu cuenta de bot)
+
+
+DIFERENCIA vs ALTERNATIVA:
+━━━━━━━━━━━━━━━━━━━━━━━━
+
+ANTES:
+  kill_chrome.bat → taskkill /F /IM chrome.exe
+  ❌ Mata TODOS los Chrome
+  ❌ Tu trabajo desaparece
+  ❌ Inaceptable
+
+AHORA:
+  matar_chrome_especifico(auth/cuenta2/profile_pw)
+  ✅ Mata SOLO el Chrome de ESTA carpeta
+  ✅ Tu Chrome personal intacto
+  ✅ Quirúrgico y seguro
+
+================================================================================

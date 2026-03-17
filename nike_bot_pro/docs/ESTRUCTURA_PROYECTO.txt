@@ -1,0 +1,184 @@
+📁 ESTRUCTURA DEL PROYECTO - SOLUCIÓN ORD002
+═══════════════════════════════════════════════════════════════════════════════
+
+nike_bot_pro/
+│
+├─ 📚 DOCUMENTACIÓN (CARPETA DEDICADA)
+│  └─ docs/
+│     ├─ INDEX.md                                    ← 👈 TABLA DE CONTENIDOS
+│     ├─ 00_COMIENZA_AQUI.txt                        (Visual ASCII summary)
+│     ├─ SALIDA_RAPIDA_ORD002.md                     (Guía ejecutable)
+│     ├─ CHECKLIST_EJECUTABLE.md                     (6 fases paso a paso)
+│     ├─ TRES_AJUSTES_QUIRURGICOS.md                 (Técnico detallado)
+│     ├─ CAMBIOS_IMPLEMENTADOS_AUDITORIA.md          (Code review)
+│     ├─ RESUMEN_EJECUTIVO_FINAL.md                  (Executive summary)
+│     ├─ GUIA_LECTURA.md                             (Navega según tu caso)
+│     ├─ INDICE_COMPLETO.md                          (Mapa técnico)
+│     ├─ ROADMAP.txt                                 (Visión global)
+│     └─ PAQUETE_ENTREGA.txt                         (Qué se entregó)
+│
+├─ 🚀 SCRIPTS NUEVOS (Raíz del proyecto)
+│  ├─ pdp_seeder.py                                  (Seeder Playwright)
+│  ├─ HANDOVER_CONTRACT.py                           (Validador)
+│  ├─ BOOTSTRAP_GOLDEN_SESSION.py                    (Orquestador)
+│  ├─ PRE_FLIGHT_CHECK.py                            (Pre-flight validation)
+│  └─ QUICK_START.txt                                (Punto de entrada)
+│
+├─ 📄 README Y REFERENCIAS
+│  ├─ README_ORD002_SOLUTION.md                       (Lee esto primero)
+│  └─ QUICK_START.txt                                (TL;DR)
+│
+├─ 🔧 CÓDIGO MODIFICADO
+│  └─ runtime/
+│     └─ worker.py                                   (3 ajustes quirúrgicos)
+│
+├─ 🗂️ ESTRUCTURA ORIGINAL (sin cambios)
+│  ├─ auth/                                          (Carpeta de cuentas)
+│  ├─ runner/                                        (Runners)
+│  ├─ engines/                                       (Engines)
+│  ├─ utils/                                         (Utilities)
+│  ├─ vtex/                                          (VTEX client)
+│  ├─ config/                                        (Config)
+│  ├─ logs/                                          (Logs)
+│  └─ ... (otros directorios)
+│
+└─ 📦 ARCHIVOS ANTIGUOS (sin cambios)
+   ├─ main.py
+   ├─ run.py
+   ├─ setup_golden.py
+   └─ ... (otros)
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+FLUJO DE ENTRADA
+═══════════════════════════════════════════════════════════════════════════════
+
+1️⃣ Llega usuario nuevo
+   └─ Lee: QUICK_START.txt (raíz)
+
+2️⃣ O quiere documentación
+   └─ Va a: docs/INDEX.md
+
+3️⃣ Ejecuta scripts
+   └─ python BOOTSTRAP_GOLDEN_SESSION.py (raíz)
+
+4️⃣ Verifica resultado
+   └─ grep ORD002 logs/*.log
+
+5️⃣ Si quiere aprender
+   └─ Lee: docs/TRES_AJUSTES_QUIRURGICOS.md
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CÓMO ESTÁ ORGANIZADO
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ SCRIPTS: En raíz (fácil de ejecutar)
+   └─ python pdp_seeder.py
+   └─ python BOOTSTRAP_GOLDEN_SESSION.py
+
+✅ DOCUMENTACIÓN: En docs/ (todo junto)
+   └─ docs/INDEX.md (tabla de contenidos)
+   └─ docs/SALIDA_RAPIDA_ORD002.md (guía rápida)
+   └─ docs/TRES_AJUSTES_QUIRURGICOS.md (técnico)
+
+✅ CÓDIGO: En runtime/worker.py (integrado)
+   └─ 3 ajustes quirúrgicos aplicados
+
+✅ REFERENCIA RÁPIDA: En raíz
+   └─ QUICK_START.txt (punto de entrada)
+   └─ README_ORD002_SOLUTION.md (overview)
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+COMPARACIÓN: ANTES vs DESPUÉS
+═══════════════════════════════════════════════════════════════════════════════
+
+ANTES (desorganizado):
+  raíz/
+  ├─ 00_COMIENZA_AQUI.txt
+  ├─ SALIDA_RAPIDA_ORD002.md
+  ├─ CHECKLIST_EJECUTABLE.md
+  ├─ TRES_AJUSTES_QUIRURGICOS.md
+  ├─ pdp_seeder.py
+  ├─ HANDOVER_CONTRACT.py
+  ├─ ... (10+ archivos MD sueltos)
+  └─ 💥 Muy desordenado
+
+DESPUÉS (organizado):
+  raíz/
+  ├─ QUICK_START.txt              ← Punto de entrada
+  ├─ docs/                         ← Documentación centralizada
+  │  ├─ INDEX.md                   (tabla de contenidos)
+  │  ├─ 00_COMIENZA_AQUI.txt
+  │  ├─ SALIDA_RAPIDA_ORD002.md
+  │  ├─ ... (documentación)
+  ├─ pdp_seeder.py                ← Scripts (fácil de ejecutar)
+  ├─ HANDOVER_CONTRACT.py
+  ├─ BOOTSTRAP_GOLDEN_SESSION.py
+  └─ ✅ Limpio y profesional
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+CÓMO NAVEGAR
+═══════════════════════════════════════════════════════════════════════════════
+
+Caso: Usuario nuevo llega al proyecto
+  1. Lee: QUICK_START.txt (raíz)
+  2. Ejecuta: python BOOTSTRAP_GOLDEN_SESSION.py
+  3. Si falla: Lee docs/CHECKLIST_EJECUTABLE.md Troubleshooting
+
+Caso: Hago code review
+  1. Lee: README_ORD002_SOLUTION.md
+  2. Lee: docs/INDEX.md
+  3. Lee: docs/CAMBIOS_IMPLEMENTADOS_AUDITORIA.md
+  4. Revisa: runtime/worker.py
+
+Caso: Necesito documentación técnica
+  1. Va a: docs/INDEX.md
+  2. Selecciona opción según su caso
+  3. Lee el archivo correspondiente
+
+Caso: Estoy perdido
+  1. Lee: QUICK_START.txt
+  2. Va a: docs/INDEX.md
+  3. Lee: docs/GUIA_LECTURA.md
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+PUNTOS CLAVE
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ Documentación CENTRALIZADA en docs/
+   └─ No hay archivos .md sueltos en la raíz
+
+✅ Scripts EJECUTABLES en raíz
+   └─ Fácil de encontrar y ejecutar
+
+✅ QUICK_START.txt como punto de entrada
+   └─ Primer archivo que se lee
+
+✅ docs/INDEX.md como tabla de contenidos
+   └─ Navega toda la documentación desde ahí
+
+✅ Código modificado INTEGRADO
+   └─ runtime/worker.py (3 ajustes aplicados)
+
+✅ Proyecto PROFESIONAL
+   └─ Organizado, limpio, serio 🎯
+
+
+═══════════════════════════════════════════════════════════════════════════════
+
+👉 EMPIEZA AQUÍ:
+
+   1. Lee: QUICK_START.txt
+   2. O lee: docs/INDEX.md
+   3. O ejecuta: python BOOTSTRAP_GOLDEN_SESSION.py
+
+═══════════════════════════════════════════════════════════════════════════════

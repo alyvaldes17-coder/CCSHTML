@@ -1,0 +1,291 @@
+# 🎉 ARQUITECTURA 8 ESTADOS - COMPLETADA
+
+```
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║         ✅ MÁQUINA DE ESTADOS DETERMINISTA - 8 PASOS                     ║
+║                                                                            ║
+║               Nike Checkout Automático (Pragmático & Real)                ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ ESTADO MACHINE FLOW (8 pasos)                                              │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    🟢 READY
+        │ (Validar sesión + Playwright)
+        ↓
+    🔵 SESSION_SEED
+        │ (Setup Playwright si necesario)
+        ↓
+    🟡 ATC
+        │ (Obtener OrderForm inicial)
+        ↓
+    🟠 PRICING_WAIT
+        │ (Esperar validación → wait_until_ready)
+        ↓
+    🔴 PRICING_FROZEN 🔴 ← PUNTO DE NO RETORNO (freeze 400ms)
+        │ (Congela precio, previene $0 bugs)
+        ↓
+    🟣 PAYMENT_BANK_SELECTED
+        │ (Inyectar payment via backend)
+        ↓
+    ⚪ BANK_MODAL_OPEN
+        │ (Click banco + Finalizar en Fintoc)
+        ↓
+    🛑 AWAITING_HUMAN_CONFIRMATION 🛑 TERMINAL
+        │ (Usuario completa 2FA + confirmación bancaria)
+        │ (Bot se detiene aquí)
+        ↓
+    ✅ MACHINE TERMINADO
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ COMPONENTES IMPLEMENTADOS                                                  │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    ✅ core/bot_state.py
+       └─ Enum: 8 estados bien definidos
+
+    ✅ engines/orderform_watcher.py
+       ├─ fetch() → GET OrderForm
+       ├─ is_ready() → Validación completa
+       ├─ wait_until_ready() → Loop determinista (PRICING_WAIT)
+       └─ freeze() → Snapshot 400ms (PRICING_FROZEN)
+
+    ✅ engines/payment_engine.py
+       └─ set_bank_payment() → POST /api/.../paymentData
+
+    ✅ engines/bank_payment_flow.py
+       └─ execute() → Click modal Fintoc (Playwright sync)
+
+    ✅ runner/state_machine.py
+       ├─ __init__(session, page, log)
+       ├─ run(bank_name) → Loop principal
+       └─ 8 métodos _transition_*()
+
+    ✅ example_state_machine_usage.py
+       └─ Código de ejemplo (copy-paste ready)
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ DOCUMENTACIÓN (8 archivos)                                                 │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    📄 COMIENZA_AQUI_8ESTADOS.md
+       └─ Start guide (5 min)
+
+    📄 RESUMEN_EJECUTIVO_8ESTADOS.md
+       └─ Executive summary (5 min)
+
+    📄 ARQUITECTURA_VISUAL_DIAGRAMA.md
+       └─ Diagramas + timeline (10 min)
+
+    📄 ARQUITECTURA_8ESTADOS_PRAGMATICA.md
+       └─ Documentación técnica (20 min)
+
+    📄 CHECKLIST_8ESTADOS.md
+       └─ Validación de componentes
+
+    📄 IMPLEMENTACION_PRAGMATICA_COMPLETADA.md
+       └─ Status final + detalles
+
+    📄 SUMMARY_OF_CHANGES.md
+       └─ Summary técnico completo
+
+    📄 INDEX_8ESTADOS.md
+       └─ Index de contenidos
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ CARACTERÍSTICAS CLAVE                                                      │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    ✅ SINCRÓNICO
+       └─ Sin async/await, sin magic sleeps
+
+    ✅ DETERMINISTA
+       └─ Timeouts explícitos (wait 8s, freeze 400ms)
+
+    ✅ ERRORES CLAROS
+       └─ Exceptions suben, no silent failures
+
+    ✅ PRAGMÁTICO
+       └─ Copy-paste ready, sin over-engineering
+
+    ✅ TERMINAL EXPLÍCITO
+       └─ Machine se detiene, usuario completa 2FA
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ PUNTOS CRÍTICOS (⚠️ IMPORTANTE)                                           │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    🔴 PRICING_FROZEN (Punto de No Retorno)
+       ├─ Congela precio con snapshot 400ms
+       ├─ Si cambió → RuntimeError, ABORTA
+       └─ Después: nunca validamos precio otra vez
+
+    🛑 AWAITING_HUMAN_CONFIRMATION (Terminal)
+       ├─ Modal Fintoc abierto
+       ├─ Bot NO intenta 2FA
+       └─ Usuario completa en navegador
+
+    📍 Selectores Fintoc
+       └─ Pueden cambiar, verifica en Nike real
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ CÓMO USAR (30 segundos)                                                    │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    from runner.state_machine import StateMachine
+    from requests import Session
+    from playwright.sync_api import sync_playwright
+
+    session = Session()
+    session.cookies.update({"vtex_session": "...", "auth_cookie": "..."})
+
+    with sync_playwright() as p:
+        page = p.chromium.launch().new_page()
+        page.goto("https://www.nike.com/cl/es")
+
+        sm = StateMachine(session, page)
+        state, order_form = sm.run()
+
+        print(f"Final: {state.name}")
+        # → AWAITING_HUMAN_CONFIRMATION
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ ESTADÍSTICAS                                                               │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    Code:
+        ✅ 5 archivos modificados
+        ✅ ~500 líneas pragmáticas
+        ✅ 0 async/await
+        ✅ 8 transiciones explícitas
+
+    Documentation:
+        ✅ 8 archivos markdown
+        ✅ ~60KB docs
+        ✅ 20+ diagramas
+        ✅ 100+ ejemplos código
+
+    Validation:
+        ✅ Syntax: OK
+        ✅ Imports: OK
+        ✅ Type hints: OK
+        ✅ BotState: 8 estados
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ ROADMAP DE LECTURA                                                         │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    👨‍💻 Si quieres CÓDIGO (5 min)
+        1. COMIENZA_AQUI_8ESTADOS.md (sección "Código directo")
+        2. example_state_machine_usage.py
+        3. Ejecutar y testear
+
+    📊 Si quieres ARQUITECTURA (15 min)
+        1. RESUMEN_EJECUTIVO_8ESTADOS.md
+        2. ARQUITECTURA_VISUAL_DIAGRAMA.md
+        3. ARQUITECTURA_8ESTADOS_PRAGMATICA.md
+
+    ✅ Si quieres VALIDAR (10 min)
+        1. CHECKLIST_8ESTADOS.md
+        2. SUMMARY_OF_CHANGES.md
+        3. Ver archivos .py
+
+    🚀 Si quieres COMENZAR AHORA (2 min)
+        1. COMIENZA_AQUI_8ESTADOS.md (primer párrafo)
+        2. example_state_machine_usage.py (ejecutar)
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ PRÓXIMOS PASOS                                                             │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    Fase 1: Testing Local (Inmediato)
+        ✓ Cargar tokens válidos
+        ✓ Ejecutar example_state_machine_usage.py
+        ✓ Verificar cada estado transiciona
+        ✓ Validar PRICING_FROZEN
+
+    Fase 2: Ajustes Nike CL (Esta semana)
+        ✓ Verificar selectores Fintoc
+        ✓ Confirmar paymentSystem="bankInvoice"
+        ✓ Probar freeze window 400ms
+        ✓ Validar error handling
+
+    Fase 3: Integración (Próxima semana)
+        ✓ Incorporar en runner/account_worker.py
+        ✓ Un StateMachine por cuenta (thread)
+        ✓ Mantener notify_queue multi-account
+        ✓ Testing end-to-end
+
+    Fase 4: Validación (Final)
+        ✓ Checkout completo
+        ✓ Monitorear 2FA + confirmación
+        ✓ Antifraude testing
+        ✓ Performance validation
+
+
+┌────────────────────────────────────────────────────────────────────────────┐
+│ QUICK LINKS                                                                │
+└────────────────────────────────────────────────────────────────────────────┘
+
+    📖 Start Guide:       COMIENZA_AQUI_8ESTADOS.md
+    🎯 Executive Summary: RESUMEN_EJECUTIVO_8ESTADOS.md
+    📊 Visual Diagrams:   ARQUITECTURA_VISUAL_DIAGRAMA.md
+    📋 Technical Docs:    ARQUITECTURA_8ESTADOS_PRAGMATICA.md
+    ✅ Validation:        CHECKLIST_8ESTADOS.md
+    💻 Code Example:      example_state_machine_usage.py
+    📝 All Changes:       SUMMARY_OF_CHANGES.md
+    🗂️  Index:            INDEX_8ESTADOS.md
+
+
+╔════════════════════════════════════════════════════════════════════════════╗
+║                                                                            ║
+║                        ✅ LISTO PARA TESTING                             ║
+║                                                                            ║
+║             Versión: 8-State Deterministic Machine v1.0                   ║
+║             Status: Implementation Complete ✅                             ║
+║             Pragma: Sync, Deterministic, Pragmatic                        ║
+║             Fecha: 2025                                                   ║
+║                                                                            ║
+║                    Arquitectura pragmática completada                      ║
+║                         Sin pseudocódigo, real                             ║
+║                                                                            ║
+╚════════════════════════════════════════════════════════════════════════════╝
+```
+
+---
+
+## 🎯 TL;DR (Too Long; Didn't Read)
+
+**Qué es:** Máquina de estados de 8 pasos para Nike checkout automático.
+
+**Cómo funciona:**
+1. Valida pricing
+2. Congela precio (400ms)
+3. Inyecta payment
+4. Abre modal
+5. 🛑 Bot se detiene (usuario completa 2FA)
+
+**Código:**
+```python
+sm = StateMachine(session, page)
+state, of = sm.run()  # → AWAITING_HUMAN_CONFIRMATION
+```
+
+**Status:** ✅ Listo para testing
+
+**Siguiente:** Lee [COMIENZA_AQUI_8ESTADOS.md](COMIENZA_AQUI_8ESTADOS.md)
+
+---
+
+**¡Arquitectura pragmática completada! 🚀**

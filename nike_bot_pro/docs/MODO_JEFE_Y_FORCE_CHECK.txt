@@ -1,0 +1,185 @@
+═══════════════════════════════════════════════════════════════════════════════
+                      "MODO JEFE" IMPLEMENTADO + FORCE_CHECK
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ PASO 1: Modo Jefe en UI (ya estaba listo)
+───────────────────────────────────────────────────────────────────────────────
+
+Archivo: ui/app.py (línea 174-178)
+
+Estado: ✅ SIN BLOQUEOS
+
+El botón LOGIN simplemente llama a _login() sin validaciones:
+  • No hay "if account.state == READY: return"
+  • No hay guardias
+  • Puro: "Si hago click, se abre Chrome"
+
+Código actual (CORRECTO):
+```python
+btn_login = ctk.CTkButton(
+    row, text="🔐 LOGIN", width=90, fg_color="orange",
+    command=lambda a=name, ap=acc.account_path: self._login(a, ap)
+)
+btn_login.pack(side="right", padx=3)
+```
+
+✅ PASO 2: force_check.py (creado)
+───────────────────────────────────────────────────────────────────────────────
+
+Archivo: force_check.py (nuevo - 200+ líneas)
+
+Propósito: "La Prueba de la Verdad"
+  • Abre Chrome directamente (sin validaciones)
+  • Navega a checkout cart
+  • TÚ VES si el perfil está vivo o muerto
+
+Cómo funciona:
+  1. Edita CUENTA = "cuenta2" (la que quieras checar)
+  2. python force_check.py
+  3. Chrome se abre en https://www.nike.cl/checkout/#/cart
+  4. Observa:
+     ✅ SI VES "Hola, [Tu Nombre]" → PERFIL VIVO (cookies presentes)
+     ❌ SI VES login → PERFIL MUERTO (sin cookies, necesita login)
+
+═══════════════════════════════════════════════════════════════════════════════
+                            ESCENARIOS Y DIAGNOSIS
+═══════════════════════════════════════════════════════════════════════════════
+
+ESCENARIO A (Más probable):
+─────────────────────────────────────────────────────────────────────────────
+Chrome abre → Ves página de LOGIN sin tu nombre
+
+Diagnóstico:
+  ❌ El bot MENTÍA → Decía valid_tokens=True
+  ❌ Pero el perfil (profile_pw) estaba VACÍO
+
+Acción:
+  1. Loguéate AHORA en ese Chrome que se abrió
+  2. Cierra Chrome
+  3. Corre force_check.py de nuevo
+  4. Segunda vez deberías ver "Hola, [Tu Nombre]"
+
+Explicación:
+  El diagnóstico real estaba correcto: profile_pw estaba vacío.
+  Ahora que loguéaste manualmente, se guardó.
+  Bot puede usarlo en siguiente ejecución.
+
+
+ESCENARIO B:
+─────────────────────────────────────────────────────────────────────────────
+Chrome abre → Ves "Hola, [Tu Nombre]" y carrito con items
+
+Diagnóstico:
+  ✅ El perfil está PERFECTO
+  ❌ El problema es que el Bot no está conectándose a él correctamente
+
+Acción:
+  1. El diagnóstico se confirmó
+  2. Necesita CAMBIOS A, B, C para que Bot lea las cookies
+  3. (El documento CAMBIOS_A_B_C_IMPLEMENTADOS.md describe la solución)
+
+
+ESCENARIO C:
+─────────────────────────────────────────────────────────────────────────────
+Chrome NO ABRE / Error de permiso
+
+Diagnóstico:
+  ❌ Problema de permisos de Windows
+  ❌ O Chrome no está instalado en rutas estándar
+
+Acción:
+  1. Ejecuta como Administrador:
+     - PowerShell > Click derecho > "Ejecutar como administrador"
+     - cd c:\Users\beriann\Documents\Repos\nike_bot_pro
+     - python force_check.py
+  2. O instala Chrome desde google.com/chrome
+
+═══════════════════════════════════════════════════════════════════════════════
+                              CÓMO EJECUTAR
+═══════════════════════════════════════════════════════════════════════════════
+
+Terminal:
+  1. cd c:\Users\beriann\Documents\Repos\nike_bot_pro
+  
+  2. Edita force_check.py línea ~29:
+     CUENTA = "cuenta2"  # ← Cambiar a tu cuenta
+  
+  3. Ejecuta:
+     python force_check.py
+  
+  4. Chrome se abre
+     Observa el resultado
+  
+  5. Si loguéaste:
+     Contesta "s" cuando pregunte
+     Script verifica que se guardaron cookies
+
+═══════════════════════════════════════════════════════════════════════════════
+                         INTERPRETACIÓN DE RESULTADOS
+═══════════════════════════════════════════════════════════════════════════════
+
+Output esperado después de correr force_check.py:
+
+✅ ESCENARIO A (Éxito post-login):
+   [OK] ARCHIVO ENCONTRADO: 45620 bytes
+   [OK] TAMAÑO VÁLIDO (> 1KB) → Cookies SE GUARDARON
+   [OK] ¡ÉXITO! El perfil está VIVO y GUARDÓ las cookies
+   
+   → Significa: Ahora el Bot tiene cookies para usar
+
+❌ ESCENARIO B (Fallo - perfil muerto):
+   [FAIL] ARCHIVO NO ENCONTRADO → Cookies NO se guardaron
+   Posibles causas:
+     1. No loguéaste en Chrome
+     2. No cerraste Chrome correctamente
+     3. Permisos de Windows bloqueados
+   
+   → Significa: Intenta de nuevo, asegúrate de:
+      • Loguear completamente
+      • Ver "Hola, [Tu Nombre]"
+      • CERRAR con la X (no solo pestaña)
+
+═══════════════════════════════════════════════════════════════════════════════
+                            PRÓXIMOS PASOS
+═══════════════════════════════════════════════════════════════════════════════
+
+OPCIÓN 1 (Diagnóstico Rápido):
+  python force_check.py
+  → Verifica si el perfil está vivo
+  → Si no: loguéa y cierra Chrome
+  → Corre de nuevo para confirmar
+  
+OPCIÓN 2 (Test Completo):
+  python test_login_persistence.py
+  → Test más exhaustivo
+  → Abre Chrome 2 veces
+  → Verifica persistencia de sesión
+
+OPCIÓN 3 (Implementar CAMBIOS A, B, C):
+  Si force_check muestra que el perfil está OK pero el Bot sigue fallando:
+  → Implementar los cambios del documento CAMBIOS_A_B_C_IMPLEMENTADOS.md
+  → Esos cambios arreglan la conexión entre el Bot y el perfil
+
+═══════════════════════════════════════════════════════════════════════════════
+                          RESUMEN EJECUTIVO
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ MODO JEFE:  Botón LOGIN sin bloqueos
+✅ FORCE_CHECK: Herramienta diagnóstica definitiva
+✅ LISTO PARA:  Verificación física del estado del perfil
+
+El diagnóstico real decía:
+  "El bot mentía. Decía READY pero el perfil estaba vacío"
+
+Force_check.py es la herramienta que prueba eso directamente:
+  1. Abre Chrome (sin lógica del Bot)
+  2. TÚ VES si el perfil tiene cookies
+  3. Se resuelve la duda de una vez por todas
+
+═══════════════════════════════════════════════════════════════════════════════
+
+PRÓXIMO COMANDO:
+
+  python force_check.py
+
+═══════════════════════════════════════════════════════════════════════════════

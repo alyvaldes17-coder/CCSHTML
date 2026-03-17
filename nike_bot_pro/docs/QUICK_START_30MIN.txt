@@ -1,0 +1,222 @@
+"""
+⚡ QUICK START - Integración en 30 minutos (TL;DR)
+
+Lee ESTO si solo tienes 30 minutos.
+Lee ARQUITECTURA_FINAL_6MEJORAS.md si tienes 1 hora.
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# PASO 1: Verificar que archivos nuevos existen (1 min)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+✅ core/account_state.py - YA CREADO
+✅ engines/playwright_engine_v2.py - YA CREADO  
+✅ runtime/bot_controller.py - YA CREADO
+
+Si no ves estos archivos en el árbol del proyecto, STOP y crea manualmente.
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# PASO 2: Copiar imports a ui/app.py (2 min)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+EN ui/app.py línea 1-15:
+
+ANTES:
+    from manager.account_manager import AccountManager
+    from controller.controller import Controller
+    from core.states import AccountState
+
+AGREGAR ESTO:
+    from runtime.bot_controller import BotController
+    from core.account_state import AccountState as BotAccountState
+    from core.account_state import STATES_LOGIN_BLOCKED, STATES_PLAY_BLOCKED
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# PASO 3: Crear diccionario de controladores en __init__ (3 min)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+EN AppUI.__init__():
+
+AGREGAR DESPUÉS DE self.manager = manager:
+
+    self.controllers = {}  # {account_name: BotController}
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# PASO 4: Actualizar _build_accounts() (5 min)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+EN _build_accounts():
+
+REEMPLAZAR COMPLETAMENTE con:
+
+    def _build_accounts(self):
+        for w in self.container.winfo_children():
+            w.destroy()
+        self.rows = {}
+        
+        for name, acc in self.manager.accounts.items():
+            # Crear controller para esta cuenta
+            profile_path = os.path.join(acc.account_path, "profile_pw")
+            controller = BotController(name, profile_path)
+            self.controllers[name] = controller
+            
+            print(f"[UI] {name}: {controller.get_status_text()}")
+            self._add_account_row(name, acc, controller)
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# PASO 5: Reemplazar _add_account_row() (10 min)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+VER ARCHIVO: INTEGRACION_BOTCONTROLLER.md
+SECCIÓN: _add_account_row_UPDATED()
+
+Copiar TODO el código de esa función.
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# PASO 6: Reemplazar _login() y _play() (5 min)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+VER ARCHIVO: INTEGRACION_BOTCONTROLLER.md
+SECCIÓN: _login_v2() y _play_v2()
+
+Copiar esas dos funciones completas a ui/app.py
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# PASO 7: Agregar _refresh_single_row() (3 min)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+VER ARCHIVO: INTEGRACION_BOTCONTROLLER.md
+SECCIÓN: _refresh_single_row()
+
+Copiar la función completa.
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# PASO 8: Actualizar _refresh_loop() (2 min)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+EN _refresh_loop() (busca en ui/app.py):
+
+DENTRO DEL LOOP:
+    
+    # Actualizar UI de cada cuenta
+    for account_name in self.rows:
+        self._refresh_single_row(account_name)
+    
+    # Logs (mantener lo que ya existe)
+    self._update_logs()
+    
+    self.root.after(1000, self._refresh_loop)
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# TEST RÁPIDO (5 min)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+1. Salva ui/app.py
+2. Terminal: python main.py
+3. Espera a que cargue la UI
+4. Verifica:
+   ├─ Botón LOGIN visible y habilitado
+   ├─ Botón PLAY DESHABILITADO (gris)
+   ├─ Status text dice: "❌ No logueado"
+5. Click LOGIN
+   └─ Debería abrir Chrome con Nike login
+6. Loguéate manualmente
+7. Cierra Chrome
+   └─ Espera a que UI se actualice (10-20s)
+8. Verifica:
+   ├─ Status text ahora dice: "✅ Listo para PLAY"
+   ├─ Botón PLAY está HABILITADO (verde)
+9. Click PLAY
+   └─ Debería monitorear SIN Chrome abierto
+
+¡SI TODO PASÓ = ÉXITO!
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# TROUBLESHOOTING RÁPIDO
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+❌ Problema: "ModuleNotFoundError: No module named 'core.account_state'"
+   ✅ Solución: Verifica que core/account_state.py existe y está en raíz
+
+❌ Problema: LOGIN abre Chrome y se cierra inmediatamente
+   ✅ Solución: Verifica que profile_pw existe: auth/cuenta2/profile_pw/
+
+❌ Problema: PLAY botón está deshabilitado después de LOGIN
+   ✅ Solución: validate_session_real() puede estar fallando
+      └─► Abre terminal: python -c "from auth.session_check import check_session_nike; print(check_session_nike('auth/cuenta2'))"
+      └─► Si retorna False, perfil no tiene cookies válidas
+
+❌ Problema: UI congela cuando presiono LOGIN
+   ✅ Solución: Revisa que _login_v2() está lanzando thread daemon
+      └─► def do_login(): ...
+      └─► thread = threading.Thread(target=do_login, daemon=True)
+      └─► thread.start()
+
+❌ Problema: "AttributeError: 'BotController' has no attribute 'is_login_enabled'"
+   ✅ Solución: Reinicia Python (cached modules)
+      └─► Cierra terminal, abre nueva, python main.py
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# CHECKLIST FINAL
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+Antes de ir a producción:
+
+[  ] Todos los archivos importan sin error
+[  ] ui/app.py tiene todas las funciones (_login_v2, _play_v2, etc)
+[  ] BotController se crea para cada cuenta
+[  ] Botones responden al estado (habilitado/deshabilitado)
+[  ] LOGIN abre Chrome SIN deadlock
+[  ] PLAY monitorea sin Chrome abierto
+[  ] Logs son claros y informativos
+[  ] No hay prints de debug
+[  ] Manejo de excepciones en lugar de crashes
+[  ] Sesión persiste entre LOGIN y PLAY (CRÍTICO)
+
+✅ LISTO PARA DROP
+"""
+
+# ═══════════════════════════════════════════════════════════════════════
+# RESUMEN ARQUITECTURA (1 lectura)
+# ═══════════════════════════════════════════════════════════════════════
+
+"""
+ANTES:          
+    UI → Worker → Chrome (mixto, caos)
+
+AHORA:
+    UI → BotController → [LOGIN pathway] → PlaywrightEngine → Chrome
+         │
+         └─→ [PLAY pathway] → worker_loop (sin Chrome) → cuando PRICE_LOCKED
+             → PlaywrightEngine → Chrome
+
+DIFERENCIA:
+    - Estados explícitos (Enum, no bool)
+    - Separación absoluta LOGIN/PLAY
+    - Validación real de sesión (headless)
+    - Botones bloqueados según estado
+    - Sin asyncio (NO deadlock)
+    - Chrome solo 2 momentos
+    - Determinista y predecible
+"""

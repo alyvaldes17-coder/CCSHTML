@@ -1,0 +1,61 @@
+✅ CHECKLIST FINAL - REFACTOR COMPLETADO
+
+🔐 LOGIN
+✅ Abre Chrome sin bloquear nada
+✅ Usuario loguea manualmente
+✅ No espera señales
+✅ Cookies se guardan automáticamente
+
+🔍 CHECK  
+✅ Abre Chrome en /checkout/#/payment
+✅ Permite inspeccionar estado real
+✅ No ejecuta lógica
+
+▶️ PLAY
+✅ Sin cookies → error claro: "Must login first"
+✅ Con cookies → SESSION_SEED corre
+✅ PRICING_FROZEN ocurre
+✅ Llama CheckoutOrchestrator
+
+💳 CheckoutOrchestrator
+✅ Navega /checkout/#/payment
+✅ Modal "Confirma tus datos" se maneja
+✅ "Transferencia con tu banco" se selecciona
+✅ Botón "Finalizar" se espera y se clickea
+✅ Browser se queda abierto → AWAITING_HUMAN_CONFIRMATION
+✅ Usuario ve Fintoc abierto
+✅ Usuario selecciona banco
+✅ Usuario autoriza transferencia
+
+📋 MODELO DE DATOS
+✅ Account sin WalletConfig
+✅ Account.payment_mode = "manual" (por defecto)
+✅ PaymentMode enum creado
+✅ Config.json sin wallet/fallback
+
+🎛️ UI
+✅ account_editor.py solo SKU + Seller
+✅ Sin opciones de wallet/fallback
+✅ Botones LOGIN, CHECK, PLAY, EDIT
+
+🏗️ ARQUITECTURA
+✅ SessionSeed NO tocado
+✅ PRICING NO tocado
+✅ StateMachine base NO tocado
+✅ LOGIN simplificado (fire-and-forget)
+✅ Checkout_orchestrator es único dueño de pago
+
+📦 ARCHIVOS MODIFICADOS
+1. core/payment_mode.py ✅ CREADO
+2. core/account.py ✅ LIMPIADO
+3. ui/app.py ✅ SIMPLIFICADO
+4. ui/account_editor.py ✅ LIMPIADO
+5. auth/session_check.py ✅ AGREGADAS open_chrome_for_*
+6. engines/checkout_orchestrator.py ✅ REEMPLAZADO (versión limpia)
+7. runtime/worker.py ✅ USA CheckoutOrchestrator
+
+📌 PRÓXIMOS PASOS (NO HACER HOY)
+- Testing con cuenta real
+- Validar selectors en Nike actual
+- Medir tiempos de timeouts
+- Documentar flujos en README

@@ -1,0 +1,2986 @@
+[21:24:32] 🚀 WORKER INICIADO (live=True)
+[21:24:32] account_path = auth\cuenta2
+[21:24:32] 1️⃣ Extrayendo cookies...
+[21:30:25] 🚀 WORKER INICIADO (live=True)
+[21:30:25] account_path = auth\cuenta2
+[21:30:25] 1️⃣ Extrayendo cookies...
+[21:30:25]    Perfil: profile_pw\Default\Network\Cookies
+[21:30:25]    ✅ Cookies del perfil: 0 items
+[21:30:25]    Intenta fallback a tokens.json...
+[21:30:25]    Buscando: auth\cuenta2\tokens.json
+[21:30:25]    ✅ tokens.json cargado
+[21:30:25]    Campos: vtex_session=True, vtex_segment=True
+[21:30:25]    ✅ Sesión cargada con 3 cookies
+[21:30:25] 2️⃣ Cliente VTEX (curl)...
+[21:30:25]    ✅ Cliente inicializado
+[21:31:01] 🚀 WORKER INICIADO (live=True)
+[21:31:01] account_path = auth\cuenta2
+[21:31:01] 1️⃣ Extrayendo cookies...
+[21:31:01]    Perfil: profile_pw\Default\Network\Cookies
+[21:31:01]    ✅ Cookies del perfil: 0 items
+[21:31:01]    Intenta fallback a tokens.json...
+[21:31:01]    Buscando: auth\cuenta2\tokens.json
+[21:31:01]    ✅ tokens.json cargado
+[21:31:01]    Campos: vtex_session=True, vtex_segment=True
+[21:31:01]    ✅ Sesión cargada con 3 cookies
+[21:31:01] 2️⃣ Cliente VTEX (curl)...
+[21:31:01]    ✅ Cliente inicializado
+[21:34:25] 🚀 WORKER INICIADO (live=True)
+[21:34:25] account_path = auth\cuenta2
+[21:34:25] 1️⃣ Extrayendo cookies...
+[21:34:25]    Perfil: profile_pw\Default\Network\Cookies
+[21:34:25]    ✅ Cookies del perfil: 0 items
+[21:34:25]    Intenta fallback a tokens.json...
+[21:34:25]    Buscando: auth\cuenta2\tokens.json
+[21:34:25]    ✅ tokens.json cargado
+[21:34:25]    Campos: vtex_session=True, vtex_segment=True
+[21:34:25]    ✅ Sesión cargada con 3 cookies
+[21:34:25] 2️⃣ Cliente VTEX (curl)...
+[21:34:25]    ✅ Cliente inicializado
+[21:36:53] 🚀 WORKER INICIADO (live=True)
+[21:36:53] account_path = auth\cuenta2
+[21:36:53] 1️⃣ Extrayendo cookies...
+[21:36:53]    Perfil: profile_pw\Default\Network\Cookies
+[21:36:53]    ✅ Cookies del perfil: 0 items
+[21:36:53]    Intenta fallback a tokens.json...
+[21:36:53]    Buscando: auth\cuenta2\tokens.json
+[21:36:53]    ✅ tokens.json cargado
+[21:36:53]    Campos: vtex_session=True, vtex_segment=True
+[21:36:53]    ✅ Sesión cargada con 3 cookies
+[21:36:53] 2️⃣ Cliente VTEX (curl)...
+[21:36:53]    ✅ Cliente inicializado
+[21:36:53] Entrando al loop principal...
+[21:48:18] 🚀 WORKER INICIADO (live=True)
+[21:48:18] account_path = auth\cuenta2
+[21:48:19] 1️⃣ Extrayendo cookies...
+[21:48:19]    Perfil: profile_pw\Default\Network\Cookies
+[21:48:19]    ✅ Cookies del perfil: 0 items
+[21:48:19]    Intenta fallback a tokens.json...
+[21:48:19]    Buscando: auth\cuenta2\tokens.json
+[21:48:19]    ✅ tokens.json cargado
+[21:48:19]    Campos: vtex_session=True, vtex_segment=True
+[21:48:19]    ✅ Sesión cargada con 3 cookies
+[21:48:19] 2️⃣ Cliente VTEX (curl)...
+[21:48:19]    ✅ Cliente inicializado
+[21:48:19] Entrando al loop principal...
+[21:48:19] 3️⃣ get_order_form()...
+[21:48:19]    ✅ OrderForm OK (0 items)
+[21:50:03] 🚀 WORKER INICIADO (live=True)
+[21:50:03] account_path = auth\cuenta2
+[21:50:03] 1️⃣ Extrayendo cookies...
+[21:50:03]    Perfil: profile_pw\Default\Network\Cookies
+[21:50:03]    ✅ Cookies del perfil: 0 items
+[21:50:03]    Intenta fallback a tokens.json...
+[21:50:03]    Buscando: auth\cuenta2\tokens.json
+[21:50:03]    ✅ tokens.json cargado
+[21:50:03]    Campos: vtex_session=True, vtex_segment=True
+[21:50:03]    ✅ Sesión cargada con 3 cookies
+[21:50:03] 2️⃣ Cliente VTEX (curl)...
+[21:50:03]    ✅ Cliente inicializado
+[21:50:03] Entrando al loop principal...
+[21:50:03] 3️⃣ get_order_form()...
+[21:50:03]    ✅ OrderForm OK (0 items)
+[21:50:03] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[21:50:03]    Condición OK, intentando add_to_cart...
+[21:50:03]    should_retry=True, attempts=0/5
+[21:50:03]    Ejecutando add_to_cart...
+[21:50:04]    Respuesta: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': 'c5f07333-f9b6-49fb-9de7-7fcca4548f5b', 'fields': {}}
+[21:50:04]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[21:57:45] 🚀 WORKER INICIADO (live=True)
+[21:57:45] account_path = auth\cuenta2
+[21:57:45] 1️⃣ Extrayendo cookies...
+[21:57:45]    Perfil: profile_pw\Default\Network\Cookies
+[21:57:45]    ✅ Cookies del perfil: 0 items
+[21:57:45]    Intenta fallback a tokens.json...
+[21:57:45]    Buscando: auth\cuenta2\tokens.json
+[21:57:45]    ✅ tokens.json cargado
+[21:57:45]    Campos: vtex_session=True, vtex_segment=True
+[21:57:45]    ✅ Sesión cargada con 3 cookies
+[21:57:45] 2️⃣ Cliente VTEX (curl)...
+[21:57:45]    ✅ Cliente inicializado
+[21:57:45] Entrando al loop principal...
+[21:57:45] 🔥 Warm-up VTEX orderForm...
+[21:57:53]    ✅ Warm-up OK
+[21:57:54] 3️⃣ get_order_form()...
+[21:57:55]    ✅ OrderForm OK (0 items)
+[21:57:55] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[21:57:55]    Condición OK, intentando add_to_cart...
+[21:57:55]    should_retry=True, attempts=0/5
+[21:57:55]    Ejecutando add_to_cart...
+[21:57:55]    Respuesta: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': 'e3d71393-02c1-4141-8f5a-3d1b661887ec', 'fields': {}}
+[21:57:55]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[22:12:37] 🚀 WORKER INICIADO (live=True)
+[22:12:37] account_path = auth\cuenta2
+[22:12:37] 1️⃣ Extrayendo cookies...
+[22:12:37]    Perfil: profile_pw\Default\Network\Cookies
+[22:12:37]    ✅ Cookies del perfil: 0 items
+[22:12:37]    Intenta fallback a tokens.json...
+[22:12:37]    Buscando: auth\cuenta2\tokens.json
+[22:12:37]    ✅ tokens.json cargado
+[22:12:37]    Campos: vtex_session=True, vtex_segment=True
+[22:12:37]    ✅ Sesión cargada con 3 cookies
+[22:12:37] 2️⃣ Cliente VTEX (curl)...
+[22:12:37]    ✅ Cliente inicializado
+[22:12:37] Entrando al loop principal...
+[22:12:37] 🔥 Warm-up VTEX orderForm...
+[22:12:37]    ✅ Warm-up OK
+[22:12:39] 3️⃣ get_order_form()...
+[22:12:39]    ✅ OrderForm OK (0 items)
+[22:12:39] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[22:12:39]    Condición OK, intentando add_to_cart...
+[22:12:39]    should_retry=True, attempts=0/5
+[22:12:39]    Ejecutando add_to_cart...
+[22:12:39]    Respuesta: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': '89aeacd8-1f52-4a27-b86f-e8e707aba6eb', 'fields': {}}
+[22:12:39]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[00:58:06] 🚀 WORKER INICIADO (live=True)
+[00:58:06] account_path = auth\cuenta2
+[00:58:06] 1️⃣ Extrayendo cookies...
+[00:58:06]    Perfil: profile_pw\Default\Network\Cookies
+[00:58:06]    ✅ Cookies del perfil: 3 items
+[00:58:06] 2️⃣ Cliente VTEX (curl)...
+[00:58:06]    ✅ Cliente inicializado
+[00:58:06] Entrando al loop principal...
+[00:58:06] 🔥 Warm-up VTEX orderForm...
+[00:58:07]    ✅ Warm-up OK (orderFormId=None)
+[00:58:09] 3️⃣ get_order_form()...
+[00:58:09]    ✅ OrderForm OK (0 items)
+[00:58:09] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[00:58:09]    Condición OK, intentando add_to_cart...
+[00:58:09]    should_retry=True, attempts=0/5
+[00:58:09]    Ejecutando add_to_cart...
+[00:58:09]    (usando orderFormId=None)
+[00:58:09]    Respuesta: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': 'aa7e4158-7010-498f-8c74-9e5ec15c0136', 'fields': {}}
+[00:58:09]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[01:15:35] 🚀 WORKER INICIADO (live=True)
+[01:15:35] account_path = auth\cuenta2
+[01:15:35] 1️⃣ Extrayendo cookies...
+[01:15:35]    Perfil: profile_pw\Default\Network\Cookies
+[01:15:35]    ✅ Cookies del perfil: 3 items
+[01:15:35] 2️⃣ Cliente VTEX (curl)...
+[01:15:35]    ✅ Cliente inicializado
+[01:15:35] Entrando al loop principal...
+[01:15:35] 🧱 Creando orderForm explícitamente...
+[01:15:35]    ✅ orderForm creado: 3224cb595cda463c909364f9badca431
+[01:15:37] 3️⃣ get_order_form()...
+[01:15:37]    ✅ OrderForm OK (0 items)
+[01:15:37] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[01:15:37]    Condición OK, intentando add_to_cart...
+[01:15:37]    should_retry=True, attempts=0/5
+[01:15:37]    Ejecutando add_to_cart...
+[01:15:37]    (usando orderFormId=None)
+[01:15:38]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[01:23:05] 🚀 WORKER INICIADO (live=True)
+[01:23:05] account_path = auth\cuenta2
+[01:23:05] 1️⃣ Extrayendo cookies...
+[01:23:05]    Perfil: profile_pw\Default\Network\Cookies
+[01:23:05]    ✅ Cookies del perfil: 3 items
+[01:23:05] 2️⃣ Cliente VTEX (curl)...
+[01:23:05]    ✅ Cliente inicializado
+[01:23:05] Entrando al loop principal...
+[01:23:05] 🧱 Creando orderForm explícitamente...
+[01:23:05]    ✅ orderForm creado: e035a5ade5254873b5f14e893ea4f9e8
+[01:23:07] 3️⃣ get_order_form()...
+[01:23:08]    ✅ OrderForm OK (0 items)
+[01:23:08] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[01:23:08]    Condición OK, intentando add_to_cart...
+[01:23:08]    should_retry=True, attempts=0/5
+[01:23:08]    Ejecutando add_to_cart...
+[01:23:08]    usando orderFormId=e035a5ade5254873b5f14e893ea4f9e8
+[01:23:08]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[01:25:31] 🚀 WORKER INICIADO (live=True)
+[01:25:31] account_path = auth\cuenta2
+[01:25:31] 1️⃣ Extrayendo cookies...
+[01:25:31]    Perfil: profile_pw\Default\Network\Cookies
+[01:25:31]    ✅ Cookies del perfil: 3 items
+[01:25:31] 2️⃣ Cliente VTEX (curl)...
+[01:25:31]    ✅ Cliente inicializado
+[01:25:31] Entrando al loop principal...
+[01:25:31] 🧱 Creando orderForm explícitamente...
+[01:25:32]    ✅ orderForm creado: 94cca206536c4860bbde5eeb99da0518
+[01:25:32]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[01:25:33] 3️⃣ get_order_form()...
+[01:25:33]    ✅ OrderForm OK (0 items)
+[01:25:33] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[01:25:33]    Condición OK, intentando add_to_cart...
+[01:25:33]    should_retry=True, attempts=0/5
+[01:25:33]    Ejecutando add_to_cart...
+[01:25:33]    usando orderFormId=94cca206536c4860bbde5eeb99da0518
+[01:25:34]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[01:44:43] 🚀 WORKER INICIADO (live=True)
+[01:44:43] account_path = auth\cuenta2
+[01:44:43] 1️⃣ Extrayendo cookies...
+[01:44:43]    Perfil: profile_pw\Default\Network\Cookies
+[01:44:43]    ✅ Cookies del perfil: 3 items
+[01:44:43] 2️⃣ Cliente VTEX (curl)...
+[01:44:43]    ✅ Cliente inicializado
+[01:44:43] Entrando al loop principal...
+[01:44:43] 🧱 Creando orderForm explícitamente...
+[01:44:43]    ✅ orderForm creado: 7b30e7831f3b45f1939bc4d4ea038011
+[01:44:43]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[01:44:44] 🔥 Warm-up shippingData...
+[01:44:45]    ✅ shippingData warm-up OK
+[01:44:46] 3️⃣ get_order_form()...
+[01:44:46]    ✅ OrderForm OK (0 items)
+[01:44:46] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[01:44:46]    Condición OK, intentando add_to_cart...
+[01:44:46]    should_retry=True, attempts=0/5
+[01:44:46]    Ejecutando add_to_cart...
+[01:44:46]    usando orderFormId=7b30e7831f3b45f1939bc4d4ea038011
+[01:44:46]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': 'c0378262-3cf3-416f-a94f-be9e0d5b8c00', 'fields': {}}
+[01:44:46]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[01:47:26] 🚀 WORKER INICIADO (live=True)
+[01:47:26] account_path = auth\cuenta2
+[01:47:26] 1️⃣ Extrayendo cookies...
+[01:47:26]    Perfil: profile_pw\Default\Network\Cookies
+[01:47:26]    ✅ Cookies del perfil: 3 items
+[01:47:26] 2️⃣ Cliente VTEX (curl)...
+[01:47:26]    ✅ Cliente inicializado
+[01:47:26] Entrando al loop principal...
+[01:47:26] 🧱 Creando orderForm explícitamente...
+[01:47:26]    ✅ orderForm creado: e4aed0154f6d4b7a90699a40d5371917
+[01:47:26]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[01:47:28] 🔥 Warm-up shippingData...
+[01:47:28]    ✅ shippingData warm-up OK
+[01:47:29] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[01:47:29]    ⚠️  Contexto comercial falló, continuando...
+[01:47:30] 3️⃣ get_order_form()...
+[01:47:30]    ✅ OrderForm OK (0 items)
+[01:47:30] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[01:47:30]    Condición OK, intentando add_to_cart...
+[01:47:30]    should_retry=True, attempts=0/5
+[01:47:30]    Ejecutando add_to_cart...
+[01:47:30]    usando orderFormId=e4aed0154f6d4b7a90699a40d5371917
+[01:47:31]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': '9ba12b6c-beca-497a-9e68-794df0fe4134', 'fields': {}}
+[01:47:31]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[02:02:57] 🚀 WORKER INICIADO (live=True)
+[02:02:57] account_path = auth\cuenta2
+[02:02:57] 1️⃣ Extrayendo cookies...
+[02:02:57]    Perfil: profile_pw\Default\Network\Cookies
+[02:02:57]    ✅ Cookies del perfil: 3 items
+[02:02:57] 2️⃣ Cliente VTEX (curl)...
+[02:02:57]    ✅ Cliente inicializado
+[02:02:57] Entrando al loop principal...
+[02:02:57] 🧱 Creando orderForm explícitamente...
+[02:02:57]    ✅ orderForm creado: 69a91dcd2ba749509903ffa4797c5476
+[02:02:57]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[02:02:59] 🔥 Warm-up shippingData...
+[02:02:59]    ✅ shippingData warm-up OK
+[02:03:00] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[02:03:01]    ✅ Contexto comercial OK
+[02:03:02] 3️⃣ get_order_form()...
+[02:03:02]    ✅ OrderForm OK (0 items)
+[02:03:02] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[02:03:02]    Condición OK, intentando add_to_cart...
+[02:03:02]    🧠 PDP-context warm-up (variations)...
+[02:03:02]       ⚠️  PDP-context falló, continuando...
+[02:03:02]    should_retry=True, attempts=0/5
+[02:03:02]    Ejecutando add_to_cart...
+[02:03:02]    usando orderFormId=69a91dcd2ba749509903ffa4797c5476
+[02:03:03]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': '892b3568-f1b6-463a-9578-db71a672a69e', 'fields': {}}
+[02:03:03]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[02:04:12] 🚀 WORKER INICIADO (live=True)
+[02:04:12] account_path = auth\cuenta2
+[02:04:12] 1️⃣ Extrayendo cookies...
+[02:04:12]    Perfil: profile_pw\Default\Network\Cookies
+[02:04:12]    ✅ Cookies del perfil: 3 items
+[02:04:12] 2️⃣ Cliente VTEX (curl)...
+[02:04:12]    ✅ Cliente inicializado
+[02:04:12] Entrando al loop principal...
+[02:04:12] 🧱 Creando orderForm explícitamente...
+[02:04:12]    ✅ orderForm creado: a57fd0238ab74a3d8b37d54d51b3cdef
+[02:04:12]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[02:04:13] 🔥 Warm-up shippingData...
+[02:04:13]    ✅ shippingData warm-up OK
+[02:04:14] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[02:04:15]    ✅ Contexto comercial OK
+[02:04:16] 3️⃣ get_order_form()...
+[02:04:16]    ✅ OrderForm OK (0 items)
+[02:04:16] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[02:04:16]    Condición OK, intentando add_to_cart...
+[02:04:16]    🧠 PDP-context warm-up (variations)...
+[02:04:16]       ⚠️  PDP-context falló, intentando itemMetadata seeding...
+[02:04:16]       ✅ itemMetadata seeded
+[02:04:16]    should_retry=True, attempts=0/5
+[02:04:16]    Ejecutando add_to_cart...
+[02:04:16]    usando orderFormId=a57fd0238ab74a3d8b37d54d51b3cdef
+[02:04:17]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': 'b75e060a-05d3-42b5-8230-3848167a55db', 'fields': {}}
+[02:04:17]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[02:17:15] 🚀 WORKER INICIADO (live=True)
+[02:17:15] account_path = auth\cuenta2
+[02:17:15] 1️⃣ Extrayendo cookies...
+[02:17:15]    Perfil: profile_pw\Default\Network\Cookies
+[02:17:15]    ✅ Cookies del perfil: 3 items
+[02:17:15] 🔒 Inicializando SessionStore...
+[02:17:15]    ✅ SessionStore listo (3 cookies)
+[02:17:15] 2️⃣ Cliente VTEX (curl)...
+[02:17:15]    ✅ Cliente inicializado (con SessionStore)
+[02:17:15] Entrando al loop principal...
+[02:17:15] 🧱 Creando orderForm explícitamente...
+[02:17:15]    ✅ orderForm creado: ac294cc0651149fdb772031259afaaed
+[02:17:15]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[02:17:16] 🔥 Warm-up shippingData...
+[02:17:17]    ✅ shippingData warm-up OK
+[02:17:18] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[02:17:18]    ✅ Contexto comercial OK
+[02:17:19] 3️⃣ get_order_form()...
+[02:17:19]    ✅ OrderForm OK (0 items)
+[02:17:19] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[02:17:19]    Condición OK, intentando add_to_cart...
+[02:17:19]    🧠 PDP-context warm-up...
+[02:17:19]       🌐 Intentando Playwright warm-up (smart waits)...
+[02:18:48] 🚀 WORKER INICIADO (live=True)
+[02:18:48] account_path = auth\cuenta2
+[02:18:48] 1️⃣ Extrayendo cookies...
+[02:18:48]    Perfil: profile_pw\Default\Network\Cookies
+[02:18:48]    ✅ Cookies del perfil: 3 items
+[02:18:48] 🔒 Inicializando SessionStore...
+[02:18:48]    ✅ SessionStore listo (3 cookies)
+[02:18:48] 2️⃣ Cliente VTEX (curl)...
+[02:18:48]    ✅ Cliente inicializado (con SessionStore)
+[02:18:48] Entrando al loop principal...
+[02:18:48] 🧱 Creando orderForm explícitamente...
+[02:18:48]    ✅ orderForm creado: c7ddf7c861ea40c496d5e20be6ef7192
+[02:18:48]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[02:18:50] 🔥 Warm-up shippingData...
+[02:18:50]    ✅ shippingData warm-up OK
+[02:18:51] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[02:18:51]    ✅ Contexto comercial OK
+[02:18:52] 3️⃣ get_order_form()...
+[02:18:53]    ✅ OrderForm OK (0 items)
+[02:18:53] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[02:18:53]    Condición OK, intentando add_to_cart...
+[02:18:53]    🧠 PDP-context warm-up (curl API)...
+[02:18:53]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[02:18:54]       ✅ itemMetadata seeded
+[02:18:54]    should_retry=True, attempts=0/5
+[02:18:54]    Ejecutando add_to_cart...
+[02:18:54]    usando orderFormId=c7ddf7c861ea40c496d5e20be6ef7192
+[02:18:54]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': '7714d1c9-e364-415c-a811-10e9567c7d64', 'fields': {}}
+[02:18:54]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[02:20:00] 🚀 WORKER INICIADO (live=True)
+[02:20:00] account_path = auth\cuenta2
+[02:20:00] 1️⃣ Extrayendo cookies...
+[02:20:00]    Perfil: profile_pw\Default\Network\Cookies
+[02:20:00]    ✅ Cookies del perfil: 0 items
+[02:20:00]    Intenta fallback a tokens.json...
+[02:20:00]    Buscando: auth\cuenta2\tokens.json
+[02:20:00]    ✅ tokens.json cargado
+[02:20:00]    Campos: vtex_session=True, vtex_segment=True
+[02:20:00]    ✅ Sesión cargada con 3 cookies
+[02:20:00] 🔒 Inicializando SessionStore...
+[02:20:00]    ✅ SessionStore listo (3 cookies)
+[02:20:00] 2️⃣ Cliente VTEX (curl)...
+[02:20:00]    ✅ Cliente inicializado (con SessionStore)
+[02:20:00] Entrando al loop principal...
+[02:20:00] 🧱 Creando orderForm explícitamente...
+[02:20:01]    ✅ orderForm creado: 2efcebbdac7b44888b2c3cba711f4e41
+[02:20:01]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[02:20:02] 🔥 Warm-up shippingData...
+[02:20:02]    ✅ shippingData warm-up OK
+[02:20:03] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[02:20:04]    ✅ Contexto comercial OK
+[02:20:05] 3️⃣ get_order_form()...
+[02:20:05]    ✅ OrderForm OK (0 items)
+[02:20:05] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[02:20:05]    Condición OK, intentando add_to_cart...
+[02:20:05]    🧠 PDP-context warm-up (curl API)...
+[02:20:06]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[02:20:06]       ✅ itemMetadata seeded
+[02:20:06]    should_retry=True, attempts=0/5
+[02:20:06]    Ejecutando add_to_cart...
+[02:20:06]    usando orderFormId=2efcebbdac7b44888b2c3cba711f4e41
+[02:20:07]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': '6cf07b00-cb1b-4eff-825c-53e406dc39ed', 'fields': {}}
+[02:20:07]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[02:25:28] 🚀 WORKER INICIADO (live=True)
+[02:25:28] account_path = auth\cuenta2
+[02:25:28] 1️⃣ Extrayendo cookies...
+[02:25:28]    Perfil: profile_pw\Default\Network\Cookies
+[02:25:28]    ✅ Cookies del perfil: 3 items
+[02:25:28] 🔒 Inicializando SessionStore...
+[02:25:28]    ✅ SessionStore listo (3 cookies)
+[02:25:28] 2️⃣ Cliente VTEX (curl)...
+[02:25:28]    ✅ Cliente inicializado (con SessionStore)
+[02:25:28] Entrando al loop principal...
+[02:25:28] 🧱 Creando orderForm explícitamente...
+[02:25:29]    ✅ orderForm creado: a0a186ba0ab94ac6beb5e992fa51ebe4
+[02:25:29]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[02:25:30] 🔥 Warm-up shippingData...
+[02:25:31]    ✅ shippingData warm-up OK
+[02:25:32] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[02:25:32]    ✅ Contexto comercial OK
+[02:25:33] 3️⃣ get_order_form()...
+[02:25:33]    ✅ OrderForm OK (0 items)
+[02:25:33] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[02:25:33]    Condición OK, intentando add_to_cart...
+[02:25:33]    🧠 PDP-context warm-up (curl API)...
+[02:25:34]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[02:25:34]       ✅ itemMetadata seeded
+[02:25:34]    should_retry=True, attempts=0/5
+[02:25:34]    Ejecutando add_to_cart...
+[02:25:34]    usando orderFormId=a0a186ba0ab94ac6beb5e992fa51ebe4
+[02:25:34]    🧭 Simulation pre-flight (validar SKU + logística)...
+[02:25:35]       ⚠️  Simulation falló, pero continuando...
+[02:25:35]    ❌ add_to_cart error: 'CurlVTEXClient' object has no attribute 'add_to_cart'
+[03:31:01] 🚀 WORKER INICIADO (live=True)
+[03:31:01] account_path = auth\cuenta2
+[03:31:01] 1️⃣ Extrayendo cookies...
+[03:31:01]    Perfil: profile_pw\Default\Network\Cookies
+[03:31:01]    ✅ Cookies del perfil: 3 items
+[03:31:01] 🔒 Inicializando SessionStore...
+[03:31:01]    ✅ SessionStore listo (3 cookies)
+[03:31:01] 2️⃣ Cliente VTEX (curl)...
+[03:31:01]    ✅ Cliente inicializado (con SessionStore)
+[03:31:01] Entrando al loop principal...
+[03:31:01] 🧱 Creando orderForm explícitamente...
+[03:31:02]    ✅ orderForm creado: c59a2b297fb94318bc58ef5c62b03b15
+[03:31:02]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[03:31:03] 🔥 Warm-up shippingData...
+[03:31:03]    ✅ shippingData warm-up OK
+[03:31:04] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[03:31:05]    ✅ Contexto comercial OK
+[03:31:06] 3️⃣ get_order_form()...
+[03:31:06]    ✅ OrderForm OK (0 items)
+[03:31:06] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[03:31:06]    Condición OK, intentando add_to_cart...
+[03:31:06]    🧠 PDP-context warm-up (curl API)...
+[03:31:06]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[03:31:07]       ✅ itemMetadata seeded
+[03:31:07]    should_retry=True, attempts=0/5
+[03:31:07]    Ejecutando add_to_cart...
+[03:31:07]    usando orderFormId=c59a2b297fb94318bc58ef5c62b03b15
+[03:31:07]    🧭 Simulation pre-flight (validar SKU + logística)...
+[03:31:07]       ✅ Simulation OK (logística validada)
+[03:31:08]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': '2876ee5d-6b85-4362-8e9e-cd6bbe14e35e', 'fields': {}}
+[03:31:08]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[03:34:04] 🚀 WORKER INICIADO (live=True)
+[03:34:04] account_path = auth\cuenta2
+[03:34:04] 1️⃣ Extrayendo cookies...
+[03:34:04]    Perfil: profile_pw\Default\Network\Cookies
+[03:34:04]    ✅ Cookies del perfil: 3 items
+[03:34:04] 🔒 Inicializando SessionStore...
+[03:34:04]    ✅ SessionStore listo (3 cookies)
+[03:34:04] 2️⃣ Cliente VTEX (curl)...
+[03:34:04]    ✅ Cliente inicializado (con SessionStore)
+[03:34:04] Entrando al loop principal...
+[03:34:04] 💉 Buscando sesión GOLDEN (carrito legítimo pre-generado)...
+[03:34:04]    ⚠️  Sesión golden NO ENCONTRADA (auth\cuenta2\session_golden.json)
+[03:34:04]    Ejecuta primero: python browser_warmup.py
+[03:34:04] 🧱 Creando orderForm explícitamente...
+[03:34:04]    ✅ orderForm creado: 927c6f4426a848b4ad3b35ecb1685059
+[03:34:04]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[03:34:06] 🔥 Warm-up shippingData...
+[03:34:06]    ✅ shippingData warm-up OK
+[03:34:07] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[03:34:07]    ✅ Contexto comercial OK
+[03:34:08] 3️⃣ get_order_form()...
+[03:34:09]    ✅ OrderForm OK (0 items)
+[03:34:09] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[03:34:09]    Condición OK, intentando add_to_cart...
+[03:34:09]    🧠 PDP-context warm-up (curl API)...
+[03:34:09]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[03:34:09]       ✅ itemMetadata seeded
+[03:34:09]    should_retry=True, attempts=0/5
+[03:34:09]    Ejecutando add_to_cart...
+[03:34:09]    usando orderFormId=927c6f4426a848b4ad3b35ecb1685059
+[03:34:09]    🧭 Simulation pre-flight (validar SKU + logística)...
+[03:34:10]       ✅ Simulation OK (logística validada)
+[03:34:11]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': '3401e1a2-c43b-457c-a663-8c20419140d7', 'fields': {}}
+[03:34:11]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[03:23:24] 🚀 WORKER INICIADO (live=True)
+[03:23:24] account_path = auth\cuenta2
+[03:23:24] 1️⃣ Extrayendo cookies...
+[03:23:24]    Perfil: profile_pw\Default\Network\Cookies
+[03:23:24]    ✅ Cookies del perfil: 3 items
+[03:23:24] 🔒 Inicializando SessionStore...
+[03:23:24]    ✅ SessionStore listo (3 cookies)
+[03:23:24] 2️⃣ Cliente VTEX (curl)...
+[03:23:24]    ✅ Cliente inicializado (con SessionStore)
+[03:23:24] Entrando al loop principal...
+[03:23:24] 💉 Buscando sesión GOLDEN (carrito legítimo pre-generado)...
+[03:23:24]    ⚠️  Sesión golden NO ENCONTRADA (auth\cuenta2\session_golden.json)
+[03:23:24]    Ejecuta primero: python browser_warmup.py
+[03:23:24] 🧱 Creando orderForm explícitamente...
+[03:23:25]    ✅ orderForm creado: 8caa3adba18a40a298517a4b889e9416
+[03:23:25]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[03:23:26] 🔥 Warm-up shippingData...
+[03:23:26]    ✅ shippingData warm-up OK
+[03:23:27] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[03:23:28]    ✅ Contexto comercial OK
+[03:23:29] 3️⃣ get_order_form()...
+[03:23:29]    ✅ OrderForm OK (0 items)
+[03:23:29] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[03:23:29]    Condición OK, intentando add_to_cart...
+[03:23:29]    🧠 PDP-context warm-up (curl API)...
+[03:23:29]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[03:23:30]       ✅ itemMetadata seeded
+[03:23:30]    should_retry=True, attempts=0/5
+[03:23:30]    Ejecutando add_to_cart...
+[03:23:30]    usando orderFormId=8caa3adba18a40a298517a4b889e9416
+[03:23:30]    🧭 Simulation pre-flight (validar SKU + logística)...
+[03:23:30]       ✅ Simulation OK (logística validada)
+[03:23:31]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': 'eb468032-6fec-41c6-be34-2547b104d5d0', 'fields': {}}
+[03:23:31]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[03:36:22] 🚀 WORKER INICIADO (live=True)
+[03:36:22] account_path = auth\cuenta2
+[03:36:22] 1️⃣ Extrayendo cookies...
+[03:36:22]    Perfil: profile_pw\Default\Network\Cookies
+[03:36:22]    ✅ Cookies del perfil: 3 items
+[03:36:22] 🔒 Inicializando SessionStore...
+[03:36:22]    ✅ SessionStore listo (3 cookies)
+[03:36:22] 2️⃣ Cliente VTEX (curl)...
+[03:36:22]    ✅ Cliente inicializado (con SessionStore)
+[03:36:22] Entrando al loop principal...
+[03:36:22] 💉 Buscando sesión GOLDEN (carrito legítimo pre-generado)...
+[03:36:22]    ✅ GOLDEN SESSION INYECTADA: None
+[03:36:22]    📦 Cookies golden: 172 items
+[03:36:22] 🧱 Creando orderForm explícitamente...
+[03:36:22]    ✅ orderForm creado: 64144014c34b44cb80e1c3c04aae76b0
+[03:36:22]    ℹ️  Estructura: ['orderFormId', 'salesChannel', 'loggedIn', 'isCheckedIn', 'storeId', 'checkedInPickupPointId', 'allowManualPrice', 'canEditData', 'userProfileId', 'userType', 'ignoreProfileData', 'value', 'messages', 'items', 'selectableGifts', 'totalizers', 'shippingData', 'clientProfileData', 'paymentData', 'marketingData', 'sellers', 'clientPreferencesData', 'commercialConditionData', 'storePreferencesData', 'giftRegistryData', 'openTextField', 'invoiceData', 'customData', 'itemMetadata', 'hooksData', 'ratesAndBenefitsData', 'subscriptionData', 'merchantContextData', 'purchaseAgentsData', 'itemsOrdination']
+[03:36:24] 🔥 Warm-up shippingData...
+[03:36:24]    ✅ shippingData warm-up OK
+[03:36:25] 🎯 Warm-up contexto comercial (salesChannel + expectedSections)...
+[03:36:25]    ✅ Contexto comercial OK
+[03:36:26] 3️⃣ get_order_form()...
+[03:36:27]    ✅ OrderForm OK (0 items)
+[03:36:27] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[03:36:27]    Condición OK, intentando add_to_cart...
+[03:36:27]    🧠 PDP-context warm-up (curl API)...
+[03:36:27]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[03:36:28]       ✅ itemMetadata seeded
+[03:36:28]    should_retry=True, attempts=0/5
+[03:36:28]    Ejecutando add_to_cart...
+[03:36:28]    usando orderFormId=64144014c34b44cb80e1c3c04aae76b0
+[03:36:28]    🧭 Simulation pre-flight (validar SKU + logística)...
+[03:36:28]       ✅ Simulation OK (logística validada)
+[03:36:29]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': '150f2611-a0b2-4994-abaa-f748fcffbd71', 'fields': {}}
+[03:36:29]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[03:44:51] 🚀 WORKER INICIADO (live=True)
+[03:44:51] account_path = auth\cuenta2
+[03:44:51] 1️⃣ Extrayendo cookies...
+[03:44:51]    Perfil: profile_pw\Default\Network\Cookies
+[03:44:51]    ✅ Cookies del perfil: 3 items
+[03:44:51] 🔒 Inicializando SessionStore...
+[03:44:51]    ✅ SessionStore listo (3 cookies)
+[03:44:51] 2️⃣ Cliente VTEX (curl)...
+[03:44:51]    ✅ Cliente inicializado (con SessionStore)
+[03:44:51] Entrando al loop principal...
+[03:44:51] 💉 Buscando sesión GOLDEN (carrito legítimo pre-generado)...
+[03:44:51]    ✅ GOLDEN SESSION ENCONTRADA
+[03:44:51]    📋 OrderFormId: 2421d6b1e0d1479b885688008a99b311
+[03:44:51]    🍪 Cookies golden: 172 items
+[03:44:51]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[03:44:51]    ✅ SessionStore actualizado con 172 cookies golden
+[03:44:51]    🚀 Saltando create_order_form() - Usando carrito legítimo
+[03:44:51] ⏭️  Saltando warm-ups (carrito golden ya está listo)
+[03:44:51] 3️⃣ get_order_form()...
+[03:44:51]    ✅ OrderForm OK (0 items)
+[03:44:51] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[03:44:51]    Condición OK, intentando add_to_cart...
+[03:44:51]    🧠 PDP-context warm-up (curl API)...
+[03:44:51]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[03:44:52]       ⚠️  itemMetadata seeding falló, continuando...
+[03:44:52]    should_retry=True, attempts=0/5
+[03:44:52]    Ejecutando add_to_cart...
+[03:44:52]    usando orderFormId=2421d6b1e0d1479b885688008a99b311
+[03:44:52]    🧭 Simulation pre-flight (validar SKU + logística)...
+[03:44:53]       ✅ Simulation OK (logística validada)
+[03:44:54]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito invÃ¡lido', 'exception': None}, 'operationId': '973bd0c6-2fd9-4faf-9cf1-3e0d5826c203', 'fields': {}}
+[03:44:54]    ❌ add_to_cart error: ORD002: Carrito invÃ¡lido
+[03:58:14] 🚀 WORKER INICIADO (live=True)
+[03:58:14] account_path = auth\cuenta2
+[03:58:14] 1️⃣ Extrayendo cookies...
+[03:58:14]    Perfil: profile_pw\Default\Network\Cookies
+[03:58:15]    ✅ Cookies del perfil: 3 items
+[03:58:15] 🔒 Inicializando SessionStore...
+[03:58:15]    ✅ SessionStore listo (3 cookies)
+[03:58:15] Entrando al loop principal...
+[03:58:15] 💉 Buscando sesión GOLDEN (carrito legítimo pre-generado)...
+[03:58:15]    ✅ GOLDEN SESSION ENCONTRADA
+[03:58:15]    📋 OrderFormId: 2421d6b1e0d1479b885688008a99b311
+[03:58:15]    🍪 Cookies golden: 172 items
+[03:58:15]    🕵️  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
+[03:58:15]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[03:58:15]    ✅ SessionStore actualizado con 172 cookies golden
+[03:58:15] 2️⃣ Cliente VTEX (curl)...
+[03:58:15]    ✅ Cliente inicializado (User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWeb...)
+[03:58:15]    🚀 Saltando create_order_form() - Usando carrito legítimo
+[03:58:15] ⏭️  Saltando warm-ups (carrito golden ya está listo)
+[03:58:15] 3️⃣ get_order_form()...
+[03:58:15]    ✅ OrderForm OK (1 items)
+[03:58:15] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[03:58:15]    Condición OK, intentando add_to_cart...
+[03:58:15]    🧠 PDP-context warm-up (curl API)...
+[03:58:16]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[03:58:16]       ✅ itemMetadata seeded
+[03:58:16]    should_retry=True, attempts=0/5
+[03:58:16]    Ejecutando add_to_cart...
+[03:58:16]    usando orderFormId=2421d6b1e0d1479b885688008a99b311
+[03:58:16]    🧭 Simulation pre-flight (validar SKU + logística)...
+[03:58:17]       ✅ Simulation OK (logística validada)
+[03:58:17]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito inválido', 'exception': None}, 'operationId': '799b6239-dc0a-4e68-bd38-786152fec0d8', 'fields': {}}
+[03:58:17]    ❌ add_to_cart error: ORD002: Carrito inválido
+[04:23:40] 🚀 WORKER INICIADO (live=True)
+[04:23:40] account_path = auth\cuenta2
+[04:23:40] 1️⃣ Extrayendo cookies...
+[04:23:40]    Perfil: profile_pw\Default\Network\Cookies
+[04:23:40]    ✅ Cookies del perfil: 3 items
+[04:23:40] 🔒 Inicializando SessionStore...
+[04:23:40]    ✅ SessionStore listo (3 cookies)
+[04:23:40] Entrando al loop principal...
+[04:23:40] 💉 Buscando sesión GOLDEN (carrito legítimo pre-generado)...
+[04:23:40]    ✅ GOLDEN SESSION ENCONTRADA
+[04:23:40]    📋 OrderFormId: 2421d6b1e0d1479b885688008a99b311
+[04:23:40]    🍪 Cookies golden: 169 items
+[04:23:40]    🕵️  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
+[04:23:40]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[04:23:40]    ✅ SessionStore actualizado con 169 cookies golden
+[04:23:40] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:23:40]    🔐 Cliente TLS: Chrome 124 fingerprint + 169 cookies
+[04:23:40]    🚀 Saltando create_order_form() - Usando carrito legítimo
+[04:23:40] ⏭️  Saltando warm-ups (carrito golden ya está listo)
+[04:23:40] 3️⃣ get_order_form()...
+[04:23:40]    ✅ OrderForm OK (0 items)
+[04:23:40] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[04:23:40]    Condición OK, intentando add_to_cart...
+[04:23:40]    🧠 PDP-context warm-up (curl API)...
+[04:23:40]       ⚠️  PDP-context error: 'TlsVTEXClient' object has no attribute 'pdp_context_warmup'
+[04:23:40]    should_retry=True, attempts=0/5
+[04:23:40]    Ejecutando add_to_cart...
+[04:23:40]    usando orderFormId=2421d6b1e0d1479b885688008a99b311
+[04:23:40]    🧭 Simulation pre-flight (validar SKU + logística)...
+[04:23:40]       ⚠️  Simulation falló, pero continuando...
+[04:23:40]    ❌ add_to_cart error: TlsVTEXClient.add_to_cart() got an unexpected keyword argument 'order_form_id'
+[04:26:45] 🚀 WORKER INICIADO (live=True)
+[04:26:45] account_path = auth\cuenta2
+[04:26:45] 1️⃣ Extrayendo cookies...
+[04:26:45]    Perfil: profile_pw\Default\Network\Cookies
+[04:26:45]    ✅ Cookies del perfil: 3 items
+[04:26:45] 🔒 Inicializando SessionStore...
+[04:26:45]    ✅ SessionStore listo (3 cookies)
+[04:26:45] Entrando al loop principal...
+[04:26:45] 💉 Buscando sesión GOLDEN (carrito legítimo pre-generado)...
+[04:26:45]    ✅ GOLDEN SESSION ENCONTRADA
+[04:26:45]    📋 OrderFormId: 2421d6b1e0d1479b885688008a99b311
+[04:26:45]    🍪 Cookies golden: 169 items
+[04:26:45]    🕵️  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
+[04:26:45]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[04:26:45]    ✅ SessionStore actualizado con 169 cookies golden
+[04:26:45] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:26:45]    🔐 Cliente TLS: Chrome 124 fingerprint + 169 cookies
+[04:26:45]    🚀 Saltando create_order_form() - Usando carrito legítimo
+[04:26:45] ⏭️  Saltando warm-ups (carrito golden ya está listo)
+[04:26:45] 3️⃣ get_order_form()...
+[04:26:45]    ✅ OrderForm OK (1 items)
+[04:26:45] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[04:26:45]    Condición OK, intentando add_to_cart...
+[04:26:45]    🧠 PDP-context warm-up (curl API)...
+[04:26:46]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[04:26:46]       ✅ itemMetadata seeded
+[04:26:46]    should_retry=True, attempts=0/5
+[04:26:46]    Ejecutando add_to_cart...
+[04:26:46]    usando orderFormId=2421d6b1e0d1479b885688008a99b311
+[04:26:46]    🧭 Simulation pre-flight (validar SKU + logística)...
+[04:26:46]       ⚠️  Simulation falló, pero continuando...
+[04:26:47]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito inválido', 'exception': None}, 'operationId': '1f64b09e-3a39-4ae6-a0ce-9e66a45e9c92', 'fields': {}}
+[04:26:47]    ❌ add_to_cart error: ORD002: Carrito inválido
+[22:32:43] 🚀 WORKER INICIADO (live=True)
+[22:32:43] account_path = auth\cuenta2
+[22:32:43] 🚫 VALIDACIÓN PRE-VUELO: session_golden.json
+[22:32:43] ✅ session_golden.json verificado: auth\cuenta2\session_golden.json
+[22:32:43] 1️⃣ Extrayendo cookies...
+[22:32:43]    Perfil: profile_pw\Default\Network\Cookies
+[22:32:43]    ✅ Cookies del perfil: 3 items
+[22:32:43] 🔒 Inicializando SessionStore...
+[22:32:43]    ✅ SessionStore listo (3 cookies)
+[22:32:43] Entrando al loop principal...
+[22:32:43] 💉 Cargando sesión GOLDEN...
+[22:32:43]    ✅ GOLDEN SESSION CARGADA
+[22:32:43]    📋 orderFormId: 2421d6b1e0d1479b885688008a99b311
+[22:32:43]    🍪 cookies golden: 169 items
+[22:32:43]    🕵️  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
+[22:32:43]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[22:32:43]    ✅ SessionStore actualizado con 169 cookies golden
+[22:32:43] 2️⃣ Cliente VTEX (TLS spoofed)...
+[22:32:43]    🔐 Cliente TLS: Chrome 124 fingerprint + 169 cookies
+[22:32:43] ❌ EXCEPTION: 'TlsVTEXClient' object has no attribute 'headers'
+[22:36:10] 🚀 WORKER INICIADO (live=True)
+[22:36:10] account_path = auth\cuenta2
+[22:36:10] 🚫 VALIDACIÓN PRE-VUELO: session_golden.json
+[22:36:10] ✅ session_golden.json verificado: auth\cuenta2\session_golden.json
+[22:36:10] 1️⃣ Extrayendo cookies...
+[22:36:10]    Perfil: profile_pw\Default\Network\Cookies
+[22:36:10]    ✅ Cookies del perfil: 3 items
+[22:36:10] 🔒 Inicializando SessionStore...
+[22:36:10]    ✅ SessionStore listo (3 cookies)
+[22:36:10] Entrando al loop principal...
+[22:36:10] 💉 Cargando sesión GOLDEN...
+[22:36:10]    ✅ GOLDEN SESSION CARGADA
+[22:36:10]    📋 orderFormId: 2421d6b1e0d1479b885688008a99b311
+[22:36:10]    🍪 cookies golden: 169 items
+[22:36:10]    🕵️  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
+[22:36:10]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[22:36:10]    ✅ SessionStore actualizado con 169 cookies golden
+[22:36:10] 2️⃣ Cliente VTEX (TLS spoofed)...
+[22:36:10]    🔐 Cliente TLS: Chrome 124 fingerprint + 169 cookies
+[22:36:10]    ✅ User-Agent sincronizado desde seeder
+[22:36:10]    🚀 Saltando create_order_form() - Usando carrito legítimo
+[22:36:10] ⏭️  Saltando warm-ups (carrito golden ya está listo)
+[22:36:10] 3️⃣ get_order_form()...
+[22:36:11]    ✅ OrderForm OK (1 items)
+[22:36:11] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[22:36:11]    Condición OK, intentando add_to_cart...
+[22:36:11]    🧠 PDP-context warm-up (curl API)...
+[22:36:11]       ⚠️  Variations API falló, intentando itemMetadata seeding...
+[22:36:11]       ✅ itemMetadata seeded
+[22:36:11]    should_retry=True, attempts=0/5
+[22:36:11]    Ejecutando add_to_cart...
+[22:36:11]    usando orderFormId=2421d6b1e0d1479b885688008a99b311
+[22:36:11]    🧭 Simulation pre-flight (validar SKU + logística)...
+[22:36:12]       ⚠️  Simulation falló, pero continuando...
+[22:36:13]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito inválido', 'exception': None}, 'operationId': '3c8edeff-803a-415a-a71d-40602aa61955', 'fields': {}}
+[22:36:13]    ❌ add_to_cart error: ORD002: Carrito inválido
+[22:41:34] 🚀 WORKER INICIADO (live=True)
+[22:41:34] account_path = auth\cuenta2
+[22:41:34] 🚫 VALIDACIÓN PRE-VUELO: session_golden.json
+[22:41:34] ✅ session_golden.json verificado: auth\cuenta2\session_golden.json
+[22:41:34] 1️⃣ Extrayendo cookies...
+[22:41:34]    Perfil: profile_pw\Default\Network\Cookies
+[22:41:34]    ✅ Cookies del perfil: 3 items
+[22:41:34] 🔒 Inicializando SessionStore...
+[22:41:34]    ✅ SessionStore listo (3 cookies)
+[22:41:34] Entrando al loop principal...
+[22:41:34] 💉 Cargando sesión GOLDEN...
+[22:41:34]    ✅ GOLDEN SESSION CARGADA
+[22:41:34]    📋 orderFormId: 2421d6b1e0d1479b885688008a99b311
+[22:41:34]    🍪 cookies golden: 169 items
+[22:41:34]    🕵️  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
+[22:41:34]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[22:41:34]    ✅ SessionStore actualizado con 169 cookies golden
+[22:41:34] 2️⃣ Cliente VTEX (TLS spoofed)...
+[22:41:34]    🔐 Cliente TLS: Chrome 124 fingerprint + 169 cookies
+[22:41:34]    ✅ Headers Sec-Ch-Ua sincronizados (WAF bypass)
+[22:41:34]    🚀 Saltando create_order_form() - Usando carrito legítimo
+[22:41:34] ⏭️  Saltando warm-ups (carrito golden ya está listo)
+[22:41:34] 3️⃣ get_order_form()...
+[22:41:34]    ✅ OrderForm OK (1 items)
+[22:41:34] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[22:41:34]    Condición OK, intentando add_to_cart...
+[22:41:34]    🧠 PDP-context warm-up (curl API)...
+[22:41:34]       ⚠️  PDP-context error: 'TlsVTEXClient' object has no attribute 'pdp_context_warmup'
+[22:41:34]    should_retry=True, attempts=0/5
+[22:41:34]    Ejecutando add_to_cart...
+[22:41:34]    usando orderFormId=2421d6b1e0d1479b885688008a99b311
+[22:41:34]    🧭 Simulation pre-flight (validar SKU + logística)...
+[22:41:34]       ✅ Simulation OK (logística validada)
+[22:41:35]    ❌ add_to_cart error: TlsVTEXClient.add_to_cart() got an unexpected keyword argument 'order_form_id'
+[22:53:15] 🚀 WORKER INICIADO (live=True)
+[22:53:15] account_path = auth\cuenta2
+[22:53:15] 🚫 VALIDACIÓN PRE-VUELO: session_golden.json
+[22:53:15] ✅ session_golden.json verificado: auth\cuenta2\session_golden.json
+[22:53:15] 1️⃣ Extrayendo cookies...
+[22:53:15]    Perfil: profile_pw\Default\Network\Cookies
+[22:53:15]    ✅ Cookies del perfil: 3 items
+[22:53:15] 🔒 Inicializando SessionStore...
+[22:53:15]    ✅ SessionStore listo (3 cookies)
+[22:53:15] Entrando al loop principal...
+[22:53:15] 💉 Cargando sesión GOLDEN...
+[22:53:15]    ✅ GOLDEN SESSION CARGADA
+[22:53:15]    📋 orderFormId: 2421d6b1e0d1479b885688008a99b311
+[22:53:15]    🍪 cookies golden: 169 items
+[22:53:15]    🕵️  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
+[22:53:15]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[22:53:15]    ✅ SessionStore actualizado con 169 cookies golden
+[22:53:15] 2️⃣ Cliente VTEX (TLS spoofed)...
+[22:53:15]    🔐 Cliente TLS: Chrome 124 fingerprint + 169 cookies
+[22:53:15]    ✅ Headers Sec-Ch-Ua sincronizados (WAF bypass)
+[22:53:15]    🚀 Saltando create_order_form() - Usando carrito legítimo
+[22:53:15] ⏭️  Saltando warm-ups (carrito golden ya está listo)
+[22:53:15] 3️⃣ get_order_form()...
+[22:53:16]    ✅ OrderForm OK (1 items)
+[22:53:16] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[22:53:16]    Condición OK, intentando add_to_cart...
+[22:53:16]    🧠 PDP-context warm-up (curl API)...
+[22:53:16]       ✅ Variations API OK
+[22:53:16]    should_retry=True, attempts=0/5
+[22:53:16]    Ejecutando add_to_cart...
+[22:53:16]    usando orderFormId=2421d6b1e0d1479b885688008a99b311
+[22:53:16]    🧭 Simulation pre-flight (validar SKU + logística)...
+[22:53:16]       ✅ Simulation OK (logística validada)
+[22:53:17]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito inválido', 'exception': None}, 'operationId': 'd9ef0f45-0f6d-4dce-8dc2-f47044a4539d', 'fields': {}}
+[22:53:17]    ❌ add_to_cart error: ORD002: Carrito inválido
+[22:59:08] 🚀 WORKER INICIADO (live=True)
+[22:59:08] account_path = auth\cuenta2
+[22:59:08] 🚫 VALIDACIÓN PRE-VUELO: session_golden.json
+[22:59:08] ✅ session_golden.json verificado: auth\cuenta2\session_golden.json
+[22:59:08] 1️⃣ Extrayendo cookies...
+[22:59:08]    Perfil: profile_pw\Default\Network\Cookies
+[22:59:08]    ✅ Cookies del perfil: 3 items
+[22:59:08] 🔒 Inicializando SessionStore...
+[22:59:08]    ✅ SessionStore listo (3 cookies)
+[22:59:08] Entrando al loop principal...
+[22:59:08] 💉 Cargando sesión GOLDEN...
+[22:59:08]    ✅ GOLDEN SESSION CARGADA
+[22:59:08]    📋 orderFormId: 2421d6b1e0d1479b885688008a99b311
+[22:59:08]    🍪 cookies golden: 169 items
+[22:59:08]    🕵️  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
+[22:59:08]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[22:59:08]    ✅ SessionStore actualizado con 169 cookies golden
+[22:59:08] 2️⃣ Cliente VTEX (TLS spoofed)...
+[22:59:08]    🔐 Cliente TLS: Chrome 124 fingerprint + 169 cookies
+[22:59:08]    ✅ Headers Sec-Ch-Ua sincronizados (WAF bypass)
+[22:59:08]    🚀 Saltando create_order_form() - Usando carrito legítimo
+[22:59:08] ⏭️  Saltando warm-ups (carrito golden ya está listo)
+[22:59:08] 3️⃣ get_order_form()...
+[22:59:09]    ✅ OrderForm OK (1 items)
+[22:59:09] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[22:59:09]    Condición OK, intentando add_to_cart...
+[22:59:09]    🧠 PDP-context warm-up (curl API)...
+[22:59:09]       ✅ Variations API OK
+[22:59:09]    should_retry=True, attempts=0/5
+[22:59:09]    Ejecutando add_to_cart...
+[22:59:09]    usando orderFormId=2421d6b1e0d1479b885688008a99b311
+[22:59:09]    🧭 Simulation pre-flight (validar SKU + logística)...
+[22:59:09]       ✅ Simulation OK (logística validada)
+[22:59:10]    🔗 Referer Táctico: None
+[22:59:10]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito inválido', 'exception': None}, 'operationId': '60c95472-eed9-4e06-ac23-6038f82d0994', 'fields': {}}
+[22:59:10]    ❌ add_to_cart error: ORD002: Carrito inválido
+[23:04:30] 🚀 WORKER INICIADO (live=True)
+[23:04:30] account_path = auth\cuenta2
+[23:04:30] 🚫 VALIDACIÓN PRE-VUELO: session_golden.json
+[23:04:30] ✅ session_golden.json verificado: auth\cuenta2\session_golden.json
+[23:04:30] 1️⃣ Extrayendo cookies...
+[23:04:30]    Perfil: profile_pw\Default\Network\Cookies
+[23:04:30]    ✅ Cookies del perfil: 3 items
+[23:04:30] 🔒 Inicializando SessionStore...
+[23:04:30]    ✅ SessionStore listo (3 cookies)
+[23:04:30] Entrando al loop principal...
+[23:04:30] 💉 Cargando sesión GOLDEN...
+[23:04:30]    ⚠️  CRÍTICO: seeded_url NO existe en session_golden.json
+[23:04:30]    ⚠️  Regenera la sesión con: python docs/pdp_seeder.py
+[23:04:30]    ✅ GOLDEN SESSION CARGADA
+[23:04:30]    📋 orderFormId: 2421d6b1e0d1479b885688008a99b311
+[23:04:30]    🍪 cookies golden: 169 items
+[23:04:30]    🕵️  User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36...
+[23:04:30]    🔗 seeded_url: https://www.nike.cl/...
+[23:04:30]    ✅ GOLDEN SESSION INYECTADA: 2421d6b1e0d1479b885688008a99b311
+[23:04:30]    ✅ SessionStore actualizado con 169 cookies golden
+[23:04:30] 2️⃣ Cliente VTEX (TLS spoofed)...
+[23:04:30]    🔐 Cliente TLS: Chrome 124 fingerprint + 169 cookies
+[23:04:30]    ✅ Headers Sec-Ch-Ua sincronizados (WAF bypass)
+[23:04:30]    🚀 Saltando create_order_form() - Usando carrito legítimo
+[23:04:30] ⏭️  Saltando warm-ups (carrito golden ya está listo)
+[23:04:30] 3️⃣ get_order_form()...
+[23:04:30]    ✅ OrderForm OK (1 items)
+[23:04:30] 4️⃣ Chequeo add_to_cart: sku=134427, live=True, added=False
+[23:04:30]    Condición OK, intentando add_to_cart...
+[23:04:30]    🧠 PDP-context warm-up (curl API)...
+[23:04:30]       ✅ Variations API OK
+[23:04:30]    should_retry=True, attempts=0/5
+[23:04:30]    Ejecutando add_to_cart...
+[23:04:30]    usando orderFormId=2421d6b1e0d1479b885688008a99b311
+[23:04:30]    🧭 Simulation pre-flight (validar SKU + logística)...
+[23:04:31]       ✅ Simulation OK (logística validada)
+[23:04:31]    🔗 Referer Táctico: https://www.nike.cl/
+[23:04:31]    Respuesta completa: {'error': {'code': 'ORD002', 'message': 'Carrito inválido', 'exception': None}, 'operationId': 'b10539a5-fa93-41c0-bb6f-33fde8bcbf4b', 'fields': {}}
+[23:04:31]    ❌ add_to_cart error: ORD002: Carrito inválido
+[23:17:47] 🚀 WORKER INICIADO (live=True)
+[23:17:47] account_path = auth\cuenta2
+[23:17:47] 🚫 VALIDACIÓN PRE-VUELO: session_golden.json
+[23:17:47] ❌ FATAL: session_golden.json NO EXISTE
+[23:17:47]    Ruta esperada: auth\cuenta2\session_golden.json
+[23:17:47]    Ejecuta primero: python pdp_seeder.py cuenta2 <SKU>
+[23:17:47] Worker finalizado, state=ERROR
+[23:28:17] 🚀 WORKER INICIADO (live=True)
+[23:28:17] account_path = auth\cuenta2
+[23:28:17] 🚫 VALIDACIÓN PRE-VUELO: session_golden.json
+[23:28:17] ❌ FATAL: session_golden.json NO EXISTE
+[23:28:17]    Ruta esperada: auth\cuenta2\session_golden.json
+[23:28:17]    Ejecuta primero: python pdp_seeder.py cuenta2 <SKU>
+[23:28:17] Worker finalizado, state=ERROR
+[23:53:33] 🚀 WORKER INICIADO (live=True)
+[23:53:33] account_path = auth\cuenta2
+[23:53:33] 🚫 VALIDACIÓN PRE-VUELO: session_golden.json
+[23:53:33] ❌ FATAL: session_golden.json NO EXISTE
+[23:53:33]    Ruta esperada: auth\cuenta2\session_golden.json
+[23:53:33]    Ejecuta primero: python pdp_seeder.py cuenta2 <SKU>
+[23:53:33] Worker finalizado, state=ERROR
+[00:19:02] 🚀 WORKER INICIADO (live=True)
+[00:19:02] 1️⃣ Extrayendo cookies...
+[00:19:02] ❌ WORKER ERROR: extract_cookies_from_chromium_db() got an unexpected keyword argument 'account_path'
+[00:20:40] 🚀 WORKER INICIADO (live=True)
+[00:20:40] 1️⃣ Extrayendo cookies...
+[00:20:40]    ✅ Cookies del perfil: 3 items
+[00:20:40] 2️⃣ Cliente VTEX (TLS spoofed)...
+[00:20:40]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[00:20:40]    ✅ Headers sincronizados
+[00:20:40] Entrando al loop principal...
+[00:20:40] 4️⃣ Ejecutando frontend add_to_cart...
+[00:20:41]    📡 Verificando estado del carrito (API)...
+[00:20:41]    ✅ ¡BINGO! 1 items en el carro.
+[00:20:41]    🛒 Producto: Nike Tech Talla: XL - Color: Gris
+[00:20:41]    ⏳ Esperando a que el precio se estabilice...
+[00:20:42] 5️⃣ Verificando precio del item...
+[00:20:42]    ✅ Precio OK: $92990.00 CLP
+[00:20:42]    ❌ Error verificando precio: type object 'AccountState' has no attribute 'SUCCESS'
+[00:24:10] 🚀 WORKER INICIADO (live=True)
+[00:24:10] 1️⃣ Extrayendo cookies...
+[00:24:10]    ✅ Cookies del perfil: 3 items
+[00:24:10] 2️⃣ Cliente VTEX (TLS spoofed)...
+[00:24:10]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[00:24:10]    ✅ Headers sincronizados
+[00:24:10] Entrando al loop principal...
+[00:24:10] 4️⃣ Ejecutando frontend add_to_cart...
+[00:24:10]    📡 Verificando estado del carrito (API)...
+[00:24:10]    ✅ ¡BINGO! 1 items en el carro.
+[00:24:10]    🛒 Producto: Nike Tech Talla: XL - Color: Gris
+[00:24:10]    ⏳ Esperando a que el precio se estabilice...
+[00:24:11] 5️⃣ Verificando precio del item...
+[00:24:12]    ✅ Precio OK: $92990.00 CLP
+[00:27:28] 🚀 WORKER INICIADO (live=True)
+[00:27:28] 1️⃣ Extrayendo cookies...
+[00:27:28]    ✅ Cookies del perfil: 3 items
+[00:27:28] 2️⃣ Cliente VTEX (TLS spoofed)...
+[00:27:28]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[00:27:28]    ✅ Headers sincronizados
+[00:27:28] Entrando al loop principal...
+[00:27:28] 4️⃣ Ejecutando frontend add_to_cart...
+[00:27:29]    📡 Verificando estado del carrito (API)...
+[00:27:30]    ✅ ¡BINGO! 1 items en el carro.
+[00:27:30]    🛒 Producto: Nike Tech Talla: XL - Color: Gris
+[00:27:30]    ⏳ Esperando a que el precio se estabilice...
+[00:27:31] 5️⃣ Verificando precio del item...
+[00:27:31]    ✅ Precio OK: $92990.00 CLP
+[01:16:21] 🚀 WORKER INICIADO (live=True)
+[01:16:21] 1️⃣ Extrayendo cookies...
+[01:16:21]    ✅ Cookies del perfil: 3 items
+[01:16:21] 2️⃣ Cliente VTEX (TLS spoofed)...
+[01:16:21]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[01:16:21]    ✅ Headers sincronizados
+[01:16:21] Entrando al loop principal...
+[01:16:21] 4️⃣ Ejecutando frontend add_to_cart...
+[01:16:22]    📡 Verificando estado del carrito (API)...
+[01:16:22]    ✅ ¡BINGO! 1 items en el carro.
+[01:16:22]    🛒 Producto: Nike Tech Talla: XL - Color: Gris
+[01:16:22]    ⏳ Esperando a que el precio se estabilice...
+[01:16:23] 5️⃣ Verificando precio del item...
+[01:16:23]    🔒 PRECIO LATCHED: $92990.00 CLP
+[01:16:23]    ⚡ MODE A: Intentando cierre por API (One-Shot)...
+[01:16:23]    ❌ MODE A FAILED: Respuesta no concluyente: {'error': {'code': 'ORD002', 'message': 'Carrito inválido', 'exception': None}, 'operationId': 'df76
+[01:16:23]    🚨 ACTIVANDO MODE B (BROWSER FALLBACK)...
+[01:44:29] 🚀 WORKER INICIADO (live=True)
+[01:44:29] 1️⃣ Extrayendo cookies...
+[01:44:29]    ✅ Cookies del perfil: 3 items
+[01:44:29] 2️⃣ Cliente VTEX (TLS spoofed)...
+[01:44:29]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[01:44:29]    ✅ Headers sincronizados
+[01:44:29] Entrando al loop principal...
+[01:44:29] 4️⃣ Ejecutando frontend add_to_cart...
+[01:44:30]    📡 Verificando estado del carrito (API)...
+[01:44:30]    ✅ ¡BINGO! 1 items en el carro.
+[01:44:30]    🛒 Producto: Nike Tech Talla: XL - Color: Gris
+[01:44:30]    ⏳ Esperando a que el precio se estabilice...
+[01:44:31] 5️⃣ Verificando precio del item...
+[01:44:31]    🔒 PRECIO LATCHED: $92990.00 CLP
+[01:44:31]    ⚡ MODE A: Intentando cierre por API (One-Shot)...
+[01:44:31]    ❌ MODE A FAILED: Respuesta no concluyente: {'error': {'code': 'ORD002', 'message': 'Carrito inválido', 'exception': None}, 'operationId': '8960
+[01:44:31]    🚨 ACTIVANDO MODE B (BROWSER FALLBACK)...
+[02:03:21] 🚀 WORKER INICIADO (live=True)
+[02:03:21] 1️⃣ Extrayendo cookies...
+[02:03:21]    ✅ Cookies del perfil: 3 items
+[02:03:21] 2️⃣ Cliente VTEX (TLS spoofed)...
+[02:03:21]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[02:03:21]    ✅ Headers sincronizados
+[02:03:21] Entrando al loop principal...
+[02:03:21] 4️⃣ Ejecutando frontend add_to_cart...
+[02:03:22]    📡 Verificando estado del carrito (API)...
+[02:03:22]    ✅ ¡BINGO! 1 items en el carro.
+[02:03:22]    🛒 Producto: Nike Tech Talla: XL - Color: Gris
+[02:03:22]    ⏳ Esperando a que el precio se estabilice...
+[02:03:23] 5️⃣ Verificando precio del item...
+[02:03:23]    🔒 PRECIO ASEGURADO: $92,990 CLP
+[02:03:23]    ⚡ MODE B DIRECTO (API SKIPPED - ORD002 RISK)
+[02:03:23]    🖥️ ABRIENDO CHECKOUT PARA PAGO MANUAL...
+[02:29:51] 🚀 WORKER INICIADO (live=True)
+[02:29:51] 1️⃣ Extrayendo cookies...
+[02:29:51]    ✅ Cookies del perfil: 3 items
+[02:29:51] 2️⃣ Cliente VTEX (TLS spoofed)...
+[02:29:51]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[02:29:51]    ✅ Headers sincronizados
+[02:29:51] Entrando al loop principal...
+[02:29:51] 4️⃣ Ejecutando frontend add_to_cart...
+[02:29:54]    📡 Verificando estado del carrito (API)...
+[02:29:54]    ✅ ¡BINGO! 1 items en el carro.
+[02:29:54]    🛒 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[02:29:54]    ⏳ Esperando a que el precio se estabilice...
+[02:29:55] 5️⃣ Verificando precio del item...
+[02:29:55]    🔒 PRECIO ASEGURADO: $122,990 CLP
+[02:29:55]    ⚡ MODE B DIRECTO (API SKIPPED - ORD002 RISK)
+[02:29:55]    🖥️ ABRIENDO CHECKOUT PARA PAGO MANUAL...
+[03:02:58] 🚀 WORKER INICIADO (live=True)
+[03:02:58] 1️⃣ Extrayendo cookies...
+[03:02:58]    ❌ Error: No se extrajeron cookies del perfil
+[03:07:28] 🚀 WORKER INICIADO (live=True)
+[03:07:28] 1️⃣ Extrayendo cookies...
+[03:07:28]    ✅ Cookies del perfil: 3 items
+[03:07:28] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:07:28]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:07:28]    ✅ Headers sincronizados
+[03:07:28] Entrando al loop principal...
+[03:07:28] 4️⃣ Ejecutando frontend add_to_cart...
+[03:07:28]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:07:29]    📡 Verificando estado del carrito (API)...
+[03:07:29]    ✅ ¡BINGO! 1 items en el carro.
+[03:07:29]    📦 Recibido: SKU=UNKNOWN, $122,990 CLP
+[03:07:29]    📛 Nombre: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:07:29]    ⚠️⚠️ ALERTA: SKU NO COINCIDE
+[03:07:29]       Esperado: 188834
+[03:07:29]       Recibido: UNKNOWN
+[03:07:29]    ⏳ Esperando a que el precio se estabilice...
+[03:07:30] 5️⃣ Verificando precio del item...
+[03:07:31]    🔒 PRECIO ASEGURADO: $122,990 CLP
+[03:07:31]    📦 PRODUCTO: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:07:31]    🏷️  SKU: UNKNOWN (ID: 188834)
+[03:07:31]    ⚡ MODE B DIRECTO (API SKIPPED - ORD002 RISK)
+[03:07:31]    🖥️ ABRIENDO CHECKOUT PARA PAGO MANUAL...
+[03:11:20] 🚀 WORKER INICIADO (live=True)
+[03:11:20] 1️⃣ Extrayendo cookies...
+[03:11:20]    ❌ Error: No se extrajeron cookies del perfil
+[03:12:12] 🚀 WORKER INICIADO (live=True)
+[03:12:12] 1️⃣ Extrayendo cookies...
+[03:12:12]    📁 Buscando cookies en: auth\cuenta2\profile_pw/Default/Network/Cookies
+[03:12:12]    ❌ Error: No se extrajeron cookies del perfil
+[03:13:14] 🚀 WORKER INICIADO (live=True)
+[03:13:14] 1️⃣ Extrayendo cookies...
+[03:13:14]    📁 Buscando cookies en: auth\cuenta2\profile_pw/Default/Network/Cookies
+[03:13:14]    ⚠️ No hay cookies en perfil, intentando tokens.json...
+[03:13:14]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:13:14] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:13:14]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:13:14]    ✅ Headers sincronizados
+[03:13:14] 4️⃣ CAPA 1: Agregando al carrito...
+[03:13:14]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:13:15]    📡 Verificando estado del carrito...
+[03:13:15]    ✅ CARRITO OK: 1 items
+[03:13:15]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:13:15]    🏷️  SKU: UNKNOWN
+[03:13:15]    💰 Precio: $122,990 CLP
+[03:13:15]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:13:15]       Esperado: 188834
+[03:13:15]       Recibido: UNKNOWN
+[03:13:15]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:13:15] 5️⃣ CAPA 2: Esperando precio...
+[03:13:15]    🔒 PRECIO CAPTURADO
+[03:13:15]       💰 $122,990 CLP
+[03:13:15]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:13:15]       🏷️  SKU: UNKNOWN
+[03:13:15]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:13:15] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:13:15]    🚀 Intento 1/2
+[03:13:15]    🖥️ Lanzando navegador...
+[03:13:15]    🐛 DEBUG: Ejecutando launch_browser...
+[03:13:15]    📁 Usando perfil: auth\cuenta2\profile_pw
+[03:17:31] 🚀 WORKER INICIADO (live=True)
+[03:17:31] 1️⃣ Extrayendo cookies...
+[03:17:31]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:17:31]       auth_cookie: 0 chars
+[03:17:31]       vtex_session: 474 chars
+[03:17:31]       vtex_segment: 352 chars
+[03:17:31] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:17:31]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:17:31]    ✅ Headers sincronizados
+[03:17:31] 4️⃣ CAPA 1: Agregando al carrito...
+[03:17:31]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:17:33]    📡 Verificando estado del carrito...
+[03:17:33]    ✅ CARRITO OK: 1 items
+[03:17:33]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:17:33]    🏷️  SKU: UNKNOWN
+[03:17:33]    💰 Precio: $122,990 CLP
+[03:17:33]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:17:33]       Esperado: 188834
+[03:17:33]       Recibido: UNKNOWN
+[03:17:33]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:17:33] 5️⃣ CAPA 2: Esperando precio...
+[03:17:33]    🔒 PRECIO CAPTURADO
+[03:17:33]       💰 $122,990 CLP
+[03:17:33]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:17:33]       🏷️  SKU: UNKNOWN
+[03:17:33]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:17:33] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:17:33]    🚀 Intento 1/2
+[03:17:33]    🖥️ Lanzando navegador...
+[03:17:33]    🐛 DEBUG: Iniciando _launch_browser_for_payment
+[03:17:33]    📂 account_path: auth\cuenta2
+[03:17:33]    📁 profile_dir: auth\cuenta2\profile_pw
+[03:17:33]    ✅ Perfil existe
+[03:17:33]    📍 Punto 1: Inicializando Playwright...
+[03:21:49]    ❌ ERROR EN LAUNCH_BROWSER: release unlocked lock
+[03:21:49]    🐛 Tipo: RuntimeError
+[03:21:49]    🐛 Traceback: Traceback (most recent call last):
+  File "C:\Users\beriann\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_context_manager.py", line 42, in __enter__
+    self._loop = asyncio.get_running_loop()
+                 ~~~~~~~~~~~~~~~~~~~~~~~~^^
+RuntimeError: no running event loop
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "c:\Users\beriann\Documents\Repos\nike_bot_pro\runtime\worker.py", line 154, in _launch_browser_for_payment
+  File "C:\Users\beriann\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_context_manager.py", line 84, in start
+    return self.__enter__()
+           ~~~~~~~~~~~~~~^^
+  File "C:\Users\beriann\AppData\Roaming\Python\Python314\site-packages\playwright\sync_api\_context_manager.py", line 44, in __enter__
+    self._loop = asyncio.new_event_loop()
+                 ~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\asyncio\events.py", line 844, in new_event_loop
+    return _get_event_loop_policy().new_event_loop()
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\asyncio\events.py", line 732, in new_event_loop
+    return self._loop_factory()
+           ~~~~~~~~~~~~~~~~~~^^
+  File "C:\Python314\Lib\asyncio\windows_events.py", line 316, in __init__
+    super().__init__(proactor)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Python314\Lib\asyncio\proactor_events.py", line 631, in __init__
+    logger.debug('Using proactor: %s', proactor.__class__.__name__)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\logging\__init__.py", line 1508, in debug
+    self._log(DEBUG, msg, args, **kwargs)
+    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Python314\Lib\logging\__init__.py", line 1665, in _log
+    self.handle(record)
+    ~~~~~~~~~~~^^^^^^^^
+  File "C:\Python314\Lib\logging\__init__.py", line 1681, in handle
+    self.callHandlers(record)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^
+  File "C:\Python314\Lib\logging\__init__.py", line 1737, in callHandlers
+    hdlr.handle(record)
+    ~~~~~~~~~~~^^^^^^^^
+  File "C:\Python314\Lib\logging\__init__.py", line 1026, in handle
+    with self.lock:
+         ^^^^^^^^^
+RuntimeError: release unlocked lock
+
+[03:21:49]    ❌ Error en navegador (intento 1/2): release unlocked lock
+[03:22:08] 🚀 WORKER INICIADO (live=True)
+[03:22:08] 1️⃣ Extrayendo cookies...
+[03:22:08]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:22:08]       auth_cookie: 0 chars
+[03:22:08]       vtex_session: 474 chars
+[03:22:08]       vtex_segment: 352 chars
+[03:22:08] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:22:08]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:22:08]    ✅ Headers sincronizados
+[03:22:08] 4️⃣ CAPA 1: Agregando al carrito...
+[03:22:08]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:22:09]    📡 Verificando estado del carrito...
+[03:22:09]    ✅ CARRITO OK: 1 items
+[03:22:09]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:22:09]    🏷️  SKU: UNKNOWN
+[03:22:09]    💰 Precio: $122,990 CLP
+[03:22:09]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:22:09]       Esperado: 188834
+[03:22:09]       Recibido: UNKNOWN
+[03:22:09]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:22:09] 5️⃣ CAPA 2: Esperando precio...
+[03:22:09]    🔒 PRECIO CAPTURADO
+[03:22:09]       💰 $122,990 CLP
+[03:22:09]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:22:09]       🏷️  SKU: UNKNOWN
+[03:22:09]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:22:09] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:22:09]    🚀 Intento 1/2
+[03:22:09]    🖥️ Lanzando navegador...
+[03:22:09]    📂 Perfil del Bot: c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw
+[03:22:09]    📍 Punto 1: Inicializando Playwright...
+[03:30:04] 🚀 WORKER INICIADO (live=True)
+[03:30:04] 1️⃣ Extrayendo cookies...
+[03:30:04]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:30:04]       auth_cookie: 0 chars
+[03:30:04]       vtex_session: 474 chars
+[03:30:04]       vtex_segment: 352 chars
+[03:30:04] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:30:04]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:30:04]    ✅ Headers sincronizados
+[03:30:04] 4️⃣ CAPA 1: Agregando al carrito...
+[03:30:04]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:30:04]    📡 Verificando estado del carrito...
+[03:30:05]    ✅ CARRITO OK: 1 items
+[03:30:05]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:30:05]    🏷️  SKU: UNKNOWN
+[03:30:05]    💰 Precio: $122,990 CLP
+[03:30:05]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:30:05]       Esperado: 188834
+[03:30:05]       Recibido: UNKNOWN
+[03:30:05]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:30:05] 5️⃣ CAPA 2: Esperando precio...
+[03:30:05]    🔒 PRECIO CAPTURADO
+[03:30:05]       💰 $122,990 CLP
+[03:30:05]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:30:05]       🏷️  SKU: UNKNOWN
+[03:30:05]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:30:05] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:30:05]    🚀 Intento 1/2
+[03:30:05]    🖥️ Lanzando navegador...
+[03:31:25] 🚀 WORKER INICIADO (live=True)
+[03:31:25] 1️⃣ Extrayendo cookies...
+[03:31:25]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:31:25]       auth_cookie: 0 chars
+[03:31:25]       vtex_session: 474 chars
+[03:31:25]       vtex_segment: 352 chars
+[03:31:25] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:31:25]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:31:25]    ✅ Headers sincronizados
+[03:31:25] 4️⃣ CAPA 1: Agregando al carrito...
+[03:31:25]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:31:25]    📡 Verificando estado del carrito...
+[03:31:25]    ✅ CARRITO OK: 1 items
+[03:31:25]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:31:25]    🏷️  SKU: UNKNOWN
+[03:31:25]    💰 Precio: $122,990 CLP
+[03:31:25]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:31:25]       Esperado: 188834
+[03:31:25]       Recibido: UNKNOWN
+[03:31:25]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:31:25] 5️⃣ CAPA 2: Esperando precio...
+[03:31:26]    🔒 PRECIO CAPTURADO
+[03:31:26]       💰 $122,990 CLP
+[03:31:26]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:31:26]       🏷️  SKU: UNKNOWN
+[03:31:26]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:31:26] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:31:26]    🚀 Intento 1/2
+[03:31:26]    🖥️ Lanzando navegador...
+[03:31:26]    🖥️ Lanzando Navegador en MODO ETERNO...
+[03:31:26]    ✅ Chrome del Bot ABIERTO
+[03:31:26]    🌍 Navegando a checkout...
+[03:31:29] 
+   ═════════════════════════════════════════════
+[03:31:29]    🛑 MODO ETERNO ACTIVADO
+[03:31:29]    ═════════════════════════════════════════════
+[03:31:29]    👉 La ventana NO se cerrará sola.
+[03:31:29]    👉 Ciérrala tú con la 'X' cuando termines de pagar.
+[03:31:29]    
+   ⏳ El navegador está CONGELADO esperándote...
+[03:31:29]    🟢 TU CHROME PERSONAL sigue normal.
+
+[03:34:09] 🚀 WORKER INICIADO (live=True)
+[03:34:09] 1️⃣ Extrayendo cookies...
+[03:34:09]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:34:09]       auth_cookie: 0 chars
+[03:34:09]       vtex_session: 474 chars
+[03:34:09]       vtex_segment: 352 chars
+[03:34:09] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:34:09]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:34:09]    ✅ Headers sincronizados
+[03:34:09] 4️⃣ CAPA 1: Agregando al carrito...
+[03:34:09]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:34:10]    📡 Verificando estado del carrito...
+[03:34:10]    ✅ CARRITO OK: 1 items
+[03:34:10]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:34:10]    🏷️  SKU: UNKNOWN
+[03:34:10]    💰 Precio: $122,990 CLP
+[03:34:10]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:34:10]       Esperado: 188834
+[03:34:10]       Recibido: UNKNOWN
+[03:34:10]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:34:10] 5️⃣ CAPA 2: Esperando precio...
+[03:34:10]    🔒 PRECIO CAPTURADO
+[03:34:10]       💰 $122,990 CLP
+[03:34:10]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:34:10]       🏷️  SKU: UNKNOWN
+[03:34:10]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:34:10] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:34:10]    🚀 Intento 1/2
+[03:34:10]    🖥️ Lanzando navegador...
+[03:34:10]    🐛 DEBUG: Iniciando Modo Eterno (No se cierra solo)...
+[03:34:10]    🖥️ Lanzando Navegador en MODO ETERNO...
+[03:34:11]    ✅ Chrome del Bot ABIERTO
+[03:34:11]    🔐 Inyectando cookies (carrito sincronizado)...
+[03:34:11]    ✅ 3 cookies inyectadas
+[03:34:11]    🌍 Navegando a checkout...
+[03:34:13]    ✅ Página de pago cargada
+[03:34:13] 
+   ═════════════════════════════════════════════
+[03:34:13]    🛑 MODO ETERNO ACTIVADO
+[03:34:13]    ═════════════════════════════════════════════
+[03:34:13]    👉 La ventana NO se cerrará sola.
+[03:34:13]    👉 Ciérrala tú con la 'X' cuando termines de pagar.
+[03:34:13]    
+   ⏳ El navegador está CONGELADO esperándote...
+[03:34:13]    🟢 TU CHROME PERSONAL sigue normal.
+
+[03:37:12] 🚀 WORKER INICIADO (live=True)
+[03:37:12] 1️⃣ Extrayendo cookies...
+[03:37:12]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:37:12]       auth_cookie: 0 chars
+[03:37:12]       vtex_session: 474 chars
+[03:37:12]       vtex_segment: 352 chars
+[03:37:12] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:37:12]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:37:12]    ✅ Headers sincronizados
+[03:37:12] 4️⃣ CAPA 1: Agregando al carrito...
+[03:37:12]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:37:13]    📡 Verificando estado del carrito...
+[03:37:13]    ✅ CARRITO OK: 1 items
+[03:37:13]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:37:13]    🏷️  SKU: UNKNOWN
+[03:37:13]    💰 Precio: $122,990 CLP
+[03:37:13]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:37:13]       Esperado: 188834
+[03:37:13]       Recibido: UNKNOWN
+[03:37:13]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:37:13] 5️⃣ CAPA 2: Esperando precio...
+[03:37:13]    🔒 PRECIO CAPTURADO
+[03:37:13]       💰 $122,990 CLP
+[03:37:13]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:37:13]       🏷️  SKU: UNKNOWN
+[03:37:13]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:37:13] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:37:13]    🚀 Intento 1/2
+[03:37:13]    🖥️ Lanzando navegador...
+[03:37:13]    🐛 DEBUG: Iniciando Modo Eterno (No se cierra solo)...
+[03:37:14]    🖥️ Lanzando Navegador en MODO ETERNO...
+[03:37:14]    ✅ Chrome del Bot ABIERTO
+[03:37:14]    🔐 Inyectando cookies (carrito sincronizado)...
+[03:37:14]    ✅ 3 cookies inyectadas
+[03:37:14]    🌍 Navegando a checkout...
+[03:37:16]    ✅ Navegó a checkout
+[03:37:16]    🔍 Buscando botón 'Continuar al pago'...
+[03:37:18]    ℹ️ No se encontró botón de continuar (puede estar en /payment ya)
+[03:37:18]    ✅ Página de pago lista
+[03:37:18] 
+   ═════════════════════════════════════════════
+[03:37:18]    🛑 MODO ETERNO ACTIVADO
+[03:37:18]    ═════════════════════════════════════════════
+[03:37:18]    👉 La ventana NO se cerrará sola.
+[03:37:18]    👉 Ciérrala tú con la 'X' cuando termines de pagar.
+[03:37:18]    
+   ⏳ El navegador está CONGELADO esperándote...
+[03:37:18]    🟢 TU CHROME PERSONAL sigue normal.
+
+[03:38:05] 🚀 WORKER INICIADO (live=True)
+[03:38:05] 1️⃣ Extrayendo cookies...
+[03:38:05]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:38:05]       auth_cookie: 0 chars
+[03:38:05]       vtex_session: 474 chars
+[03:38:05]       vtex_segment: 352 chars
+[03:38:05] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:38:05]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:38:05]    ✅ Headers sincronizados
+[03:38:05] 4️⃣ CAPA 1: Agregando al carrito...
+[03:38:05]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:38:05]    📡 Verificando estado del carrito...
+[03:38:05]    ✅ CARRITO OK: 1 items
+[03:38:05]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:38:05]    🏷️  SKU: UNKNOWN
+[03:38:05]    💰 Precio: $122,990 CLP
+[03:38:05]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:38:05]       Esperado: 188834
+[03:38:05]       Recibido: UNKNOWN
+[03:38:05]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:38:05] 5️⃣ CAPA 2: Esperando precio...
+[03:38:06]    🔒 PRECIO CAPTURADO
+[03:38:06]       💰 $122,990 CLP
+[03:38:06]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:38:06]       🏷️  SKU: UNKNOWN
+[03:38:06]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:38:06] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:38:06]    🚀 Intento 1/2
+[03:38:06]    🖥️ Lanzando navegador...
+[03:38:06]    🐛 DEBUG: Iniciando Modo Eterno (No se cierra solo)...
+[03:38:11]    🖥️ Lanzando Navegador en MODO ETERNO...
+[03:38:11]    ❌ ERROR CRÍTICO: BrowserType.launch_persistent_context: Target page, context or browser has been closed
+Browser logs:
+
+<launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+<launched> pid=17616
+Call log:
+  - <launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+  - <launched> pid=17616
+  - [pid=17616] <gracefully close start>
+  - [pid=17616] <kill>
+  - [pid=17616] <will force kill>
+  - [pid=17616] taskkill stderr: ERROR: no se encontró el proceso "17616".
+  - [pid=17616] <process did exit: exitCode=21, signal=null>
+  - [pid=17616] starting temporary directories cleanup
+  - [pid=17616] finished temporary directories cleanup
+  - [pid=17616] <gracefully close end>
+
+[03:38:11]    🐛 Tipo: TargetClosedError
+[03:38:11]    ✅ BROWSER_OK - Listo.
+[03:39:36] 🚀 WORKER INICIADO (live=True)
+[03:39:36] 1️⃣ Extrayendo cookies...
+[03:39:36]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:39:36]       auth_cookie: 0 chars
+[03:39:36]       vtex_session: 474 chars
+[03:39:36]       vtex_segment: 352 chars
+[03:39:36] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:39:36]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:39:36]    ✅ Headers sincronizados
+[03:39:36] 4️⃣ CAPA 1: Agregando al carrito...
+[03:39:36]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:39:36]    📡 Verificando estado del carrito...
+[03:39:37]    ✅ CARRITO OK: 1 items
+[03:39:37]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:39:37]    🏷️  SKU: UNKNOWN
+[03:39:37]    💰 Precio: $122,990 CLP
+[03:39:37]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:39:37]       Esperado: 188834
+[03:39:37]       Recibido: UNKNOWN
+[03:39:37]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:39:37] 5️⃣ CAPA 2: Esperando precio...
+[03:39:37]    🔒 PRECIO CAPTURADO
+[03:39:37]       💰 $122,990 CLP
+[03:39:37]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:39:37]       🏷️  SKU: UNKNOWN
+[03:39:37]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:39:37] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:39:37]    🚀 Intento 1/2
+[03:39:37]    🖥️ Lanzando navegador...
+[03:39:37]    🐛 DEBUG: Iniciando Modo Eterno (No se cierra solo)...
+[03:39:38]    🖥️ Lanzando Navegador en MODO ETERNO...
+[03:39:38]    ❌ ERROR CRÍTICO: BrowserType.launch_persistent_context: Target page, context or browser has been closed
+Browser logs:
+
+<launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+<launched> pid=2204
+Call log:
+  - <launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+  - <launched> pid=2204
+  - [pid=2204] <gracefully close start>
+  - [pid=2204] <kill>
+  - [pid=2204] <will force kill>
+  - [pid=2204] taskkill stderr: ERROR: no se encontró el proceso "2204".
+  - [pid=2204] <process did exit: exitCode=21, signal=null>
+  - [pid=2204] starting temporary directories cleanup
+  - [pid=2204] finished temporary directories cleanup
+  - [pid=2204] <gracefully close end>
+
+[03:39:38]    🐛 Tipo: TargetClosedError
+[03:39:38]    ✅ BROWSER_OK - Listo.
+[03:40:40] 🚀 WORKER INICIADO (live=True)
+[03:40:40] 1️⃣ Extrayendo cookies...
+[03:40:40]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:40:40]       auth_cookie: 0 chars
+[03:40:40]       vtex_session: 474 chars
+[03:40:40]       vtex_segment: 352 chars
+[03:40:40] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:40:40]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:40:40]    ✅ Headers sincronizados
+[03:40:40] 4️⃣ CAPA 1: Agregando al carrito...
+[03:40:40]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:40:41]    📡 Verificando estado del carrito...
+[03:40:41]    ✅ CARRITO OK: 1 items
+[03:40:41]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:40:41]    🏷️  SKU: UNKNOWN
+[03:40:41]    💰 Precio: $122,990 CLP
+[03:40:41]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:40:41]       Esperado: 188834
+[03:40:41]       Recibido: UNKNOWN
+[03:40:41]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:40:41] 5️⃣ CAPA 2: Esperando precio...
+[03:40:42]    🔒 PRECIO CAPTURADO
+[03:40:42]       💰 $122,990 CLP
+[03:40:42]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:40:42]       🏷️  SKU: UNKNOWN
+[03:40:42]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:40:42] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:40:42]    🚀 Intento 1/2
+[03:40:42]    🖥️ Lanzando navegador...
+[03:40:42]    🐛 MODO ETERNO: Abriendo navegador (NO se cerrará solo)...
+[03:40:42]    ❌ ERROR: BrowserType.launch: Pass user_data_dir parameter to 'browser_type.launch_persistent_context(user_data_dir, **kwargs)' instead of specifying '--user-data-dir' argument
+[03:40:42]    ✅ BROWSER_OK - Listo.
+[03:41:36] 🚀 WORKER INICIADO (live=True)
+[03:41:36] 1️⃣ Extrayendo cookies...
+[03:41:36]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:41:36]       auth_cookie: 0 chars
+[03:41:36]       vtex_session: 474 chars
+[03:41:36]       vtex_segment: 352 chars
+[03:41:36] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:41:36]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:41:36]    ✅ Headers sincronizados
+[03:41:36] 4️⃣ CAPA 1: Agregando al carrito...
+[03:41:36]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:41:37]    📡 Verificando estado del carrito...
+[03:41:37]    ✅ CARRITO OK: 1 items
+[03:41:37]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:41:37]    🏷️  SKU: UNKNOWN
+[03:41:37]    💰 Precio: $122,990 CLP
+[03:41:37]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:41:37]       Esperado: 188834
+[03:41:37]       Recibido: UNKNOWN
+[03:41:37]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:41:37] 5️⃣ CAPA 2: Esperando precio...
+[03:41:38]    🔒 PRECIO CAPTURADO
+[03:41:38]       💰 $122,990 CLP
+[03:41:38]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:41:38]       🏷️  SKU: UNKNOWN
+[03:41:38]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:41:38] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:41:38]    🚀 Intento 1/2
+[03:41:38]    🖥️ Lanzando navegador...
+[03:41:38]    🐛 MODO ETERNO: Navegador va a estar abierto PARA SIEMPRE
+[03:41:38]    🖥️ Lanzando Chrome...
+[03:41:38]    ✅ Chrome ABIERTO
+[03:41:38]    ✅ 3 cookies inyectadas
+[03:41:38]    🌍 Abriendo carrito...
+[03:41:43]    🔍 Buscando botón 'Continuar'...
+[03:41:43]    ℹ️ No encontrado, navegando directo a /payment...
+[03:41:43] 
+   ════════════════════════════════════════
+[03:41:43]    🛑 MODO ETERNO ACTIVADO
+[03:41:43]    ════════════════════════════════════════
+[03:41:43]    ✅ El navegador está ABIERTO
+[03:41:43]    ✅ NO se cerrará solo
+[03:41:43]    ✅ Ciérralo con la X cuando termines
+[03:41:43]    
+   🟢 Tu Chrome personal sigue normal.
+
+[03:47:37] 🚀 WORKER INICIADO (live=True)
+[03:47:37] 1️⃣ Extrayendo cookies...
+[03:47:37]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:47:37]       auth_cookie: 0 chars
+[03:47:37]       vtex_session: 474 chars
+[03:47:37]       vtex_segment: 352 chars
+[03:47:37] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:47:37]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:47:37]    ✅ Headers sincronizados
+[03:47:37] 4️⃣ CAPA 1: Agregando al carrito...
+[03:47:37]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:47:37]    📡 Verificando estado del carrito...
+[03:47:37]    ✅ CARRITO OK: 1 items
+[03:47:37]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:47:37]    🏷️  SKU: UNKNOWN
+[03:47:37]    💰 Precio: $122,990 CLP
+[03:47:37]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:47:37]       Esperado: 188834
+[03:47:37]       Recibido: UNKNOWN
+[03:47:37]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:47:37] 5️⃣ CAPA 2: Esperando precio...
+[03:47:38]    🔒 PRECIO CAPTURADO
+[03:47:38]       💰 $122,990 CLP
+[03:47:38]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:47:38]       🏷️  SKU: UNKNOWN
+[03:47:38]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:47:38] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:47:38]    🚀 Intento 1/2
+[03:47:38]    🖥️ Lanzando navegador...
+[03:47:38]    🐛 MODO ETERNO: Navegador va a estar abierto PARA SIEMPRE
+[03:47:38]    🖥️ Lanzando Chrome...
+[03:47:38]    ✅ Chrome ABIERTO
+[03:47:38]    ✅ 3 cookies inyectadas
+[03:47:38]    🌍 Navegando directo a /payment...
+[03:47:42]    ✅ Estamos en /payment
+[03:47:42]    🔍 Buscando modales para cerrar...
+[03:47:42]    ❌ Modal detectado, intentando cerrar...
+[03:47:44] 
+   ════════════════════════════════════════
+[03:47:44]    🛑 MODO ETERNO ACTIVADO
+[03:47:44]    ════════════════════════════════════════
+[03:47:44]    ✅ Estamos en /payment
+[03:47:44]    ✅ El navegador está ABIERTO
+[03:47:44]    ✅ NO se cerrará solo
+[03:47:44]    ✅ Ciérralo con la X cuando termines
+[03:47:44]    
+   🟢 Tu Chrome personal sigue normal.
+
+[03:52:45] 🚀 WORKER INICIADO (live=True)
+[03:52:45] 1️⃣ Extrayendo cookies...
+[03:52:45]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:52:45]       auth_cookie: 0 chars
+[03:52:45]       vtex_session: 474 chars
+[03:52:45]       vtex_segment: 352 chars
+[03:52:45] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:52:45]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:52:45]    ✅ Headers sincronizados
+[03:52:45] 4️⃣ CAPA 1: Agregando al carrito...
+[03:52:45]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:52:46]    📡 Verificando estado del carrito...
+[03:52:47]    ✅ CARRITO OK: 1 items
+[03:52:47]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:52:47]    🏷️  SKU: UNKNOWN
+[03:52:47]    💰 Precio: $122,990 CLP
+[03:52:47]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:52:47]       Esperado: 188834
+[03:52:47]       Recibido: UNKNOWN
+[03:52:47]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:52:47] 5️⃣ CAPA 2: Esperando precio...
+[03:52:47]    🔒 PRECIO CAPTURADO
+[03:52:47]       💰 $122,990 CLP
+[03:52:47]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:52:47]       🏷️  SKU: UNKNOWN
+[03:52:47]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:52:47] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:52:47]    🚀 Intento 1/2
+[03:52:47]    🖥️ Lanzando navegador...
+[03:52:47]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[03:52:48]    🖥️ Lanzando Chrome...
+[03:52:48]    ✅ Chrome ABIERTO
+[03:52:48]    ✅ 3 cookies inyectadas
+[03:52:48]    🛒 Entrando al Carrito (Zona Segura)...
+[03:52:52]    💉 Inyectando CSS para matar modales...
+[03:52:52]    ✅ CSS Inyectado: Modales asesinados
+[03:52:53]    ⚡ Buscando botón 'Finalizar compra'...
+[03:52:58]    ℹ️ Auto-click: No se encontró botón (ok, manual)
+[03:52:58] 
+   ════════════════════════════════════════
+[03:52:58]    🛑 HANDOVER COMPLETADO
+[03:52:58]    ════════════════════════════════════════
+[03:52:58]    ✅ Navegador listo para PAGAR
+[03:52:58]    ✅ Selecciona método de pago
+[03:52:58]    ✅ Completa datos si es necesario
+[03:52:58]    ✅ Click CONFIRMAR/PAGAR
+[03:52:58]    
+   🟢 Tu Chrome personal sigue normal.
+
+[03:54:55] 🚀 WORKER INICIADO (live=True)
+[03:54:55] 1️⃣ Extrayendo cookies...
+[03:54:55]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:54:55]       auth_cookie: 0 chars
+[03:54:55]       vtex_session: 474 chars
+[03:54:55]       vtex_segment: 352 chars
+[03:54:55] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:54:55]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:54:55]    ✅ Headers sincronizados
+[03:54:55] 4️⃣ CAPA 1: Agregando al carrito...
+[03:54:55]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:54:55]    📡 Verificando estado del carrito...
+[03:54:56]    ✅ CARRITO OK: 1 items
+[03:54:56]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:54:56]    🏷️  SKU: UNKNOWN
+[03:54:56]    💰 Precio: $122,990 CLP
+[03:54:56]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:54:56]       Esperado: 188834
+[03:54:56]       Recibido: UNKNOWN
+[03:54:56]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:54:56] 5️⃣ CAPA 2: Esperando precio...
+[03:54:56]    🔒 PRECIO CAPTURADO
+[03:54:56]       💰 $122,990 CLP
+[03:54:56]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:54:56]       🏷️  SKU: UNKNOWN
+[03:54:56]    🧱 CART_LOCK activado - Carrito congelado
+[03:54:56]    🎛️ HANDOVER MODE activado - Backend desconectado
+[03:54:56]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:54:56] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:54:56]    🚀 Intento 1/2
+[03:54:56]    🖥️ Lanzando navegador...
+[03:54:56]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[03:54:56]    🖥️ Lanzando Chrome...
+[03:54:57]    ✅ Chrome ABIERTO
+[03:54:57]    ✅ 3 cookies inyectadas
+[03:54:57]    🛒 Entrando al Carrito (Zona Segura)...
+[03:55:01]    💉 Inyectando CSS para matar modales...
+[03:55:01]    ✅ CSS Inyectado: Modales asesinados
+[03:55:01]    ⚡ Paso 3: Buscando botón 'Continuar'...
+[03:55:04]    ℹ️ Botón no encontrado (ok, espera manual)
+[03:55:04]    ⏳ Paso 4: Esperando navegación a /payment...
+[03:55:12]    ℹ️ Timeout esperando /payment: Timeout 8000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to "**/checkout/#/payment" until 'load'
+============================================================
+[03:55:12]    💡 Navegando directo...
+[03:55:12] 
+   ════════════════════════════════════════
+[03:55:12]    🏁 HANDOVER COMPLETADO
+[03:55:12]    ════════════════════════════════════════
+[03:55:12]    ✅ Precio CONGELADO
+[03:55:12]    ✅ Carrito CONGELADO
+[03:55:12]    ✅ Backend MUERTO
+[03:55:12]    ✅ Tu turno para PAGAR
+[03:55:12]    
+   🟢 Tu Chrome personal sigue normal.
+
+[03:57:10] 🚀 WORKER INICIADO (live=True)
+[03:57:10] 1️⃣ Extrayendo cookies...
+[03:57:10]    ✅ Cookies cargadas desde tokens.json (3 items)
+[03:57:10]       auth_cookie: 0 chars
+[03:57:10]       vtex_session: 474 chars
+[03:57:10]       vtex_segment: 352 chars
+[03:57:10] 2️⃣ Cliente VTEX (TLS spoofed)...
+[03:57:10]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[03:57:10]    ✅ Headers sincronizados
+[03:57:10] 4️⃣ CAPA 1: Agregando al carrito...
+[03:57:10]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[03:57:10]    📡 Verificando estado del carrito...
+[03:57:11]    ✅ CARRITO OK: 1 items
+[03:57:11]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:57:11]    🏷️  SKU: UNKNOWN
+[03:57:11]    💰 Precio: $122,990 CLP
+[03:57:11]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[03:57:11]       Esperado: 188834
+[03:57:11]       Recibido: UNKNOWN
+[03:57:11]    🔒 CART_LOCKED - No se tocará más el carrito
+[03:57:11] 5️⃣ CAPA 2: Esperando precio...
+[03:57:11]    🔒 PRECIO CAPTURADO
+[03:57:11]       💰 $122,990 CLP
+[03:57:11]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[03:57:11]       🏷️  SKU: UNKNOWN
+[03:57:11]    🧱 CART_LOCK activado - Carrito congelado
+[03:57:11]    🎛️ HANDOVER MODE activado - Backend desconectado
+[03:57:11]    ✅ PRICE_LOCKED - Abriendo navegador...
+[03:57:11] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[03:57:11]    🚀 Intento 1/2
+[03:57:11]    🖥️ Lanzando navegador...
+[03:57:11]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:08:28] 🚀 WORKER INICIADO (live=True)
+[04:08:28] 1️⃣ Extrayendo cookies...
+[04:08:28]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:08:28]       auth_cookie: 0 chars
+[04:08:28]       vtex_session: 474 chars
+[04:08:28]       vtex_segment: 352 chars
+[04:08:28] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:08:28]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:08:28]    ✅ Headers sincronizados
+[04:08:28] 4️⃣ CAPA 1: Agregando al carrito...
+[04:08:28]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:08:29]    📡 Verificando estado del carrito...
+[04:08:29]    ✅ CARRITO OK: 1 items
+[04:08:29]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:08:29]    🏷️  SKU: UNKNOWN
+[04:08:29]    💰 Precio: $122,990 CLP
+[04:08:29]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:08:29]       Esperado: 188834
+[04:08:29]       Recibido: UNKNOWN
+[04:08:29]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:08:29] 5️⃣ CAPA 2: Esperando precio...
+[04:08:29]    🔒 PRECIO CAPTURADO
+[04:08:29]       💰 $122,990 CLP
+[04:08:29]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:08:29]       🏷️  SKU: UNKNOWN
+[04:08:29]    🧱 CART_LOCK activado - Carrito congelado
+[04:08:29]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:08:29]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:08:29] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:08:29]    🚀 Intento 1/2
+[04:08:29]    🖥️ Lanzando navegador...
+[04:08:30]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:15:01] 🚀 WORKER INICIADO (live=True)
+[04:15:01] 1️⃣ Extrayendo cookies...
+[04:15:01]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:15:01]       auth_cookie: 0 chars
+[04:15:01]       vtex_session: 474 chars
+[04:15:01]       vtex_segment: 352 chars
+[04:15:01] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:15:01]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:15:01]    ✅ Headers sincronizados
+[04:15:01] 4️⃣ CAPA 1: Agregando al carrito...
+[04:15:01]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:15:01]    📡 Verificando estado del carrito...
+[04:15:01]    ✅ CARRITO OK: 1 items
+[04:15:01]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:15:01]    🏷️  SKU: UNKNOWN
+[04:15:01]    💰 Precio: $122,990 CLP
+[04:15:01]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:15:01]       Esperado: 188834
+[04:15:01]       Recibido: UNKNOWN
+[04:15:01]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:15:01] 5️⃣ CAPA 2: Esperando precio...
+[04:15:02]    🔒 PRECIO CAPTURADO
+[04:15:02]       💰 $122,990 CLP
+[04:15:02]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:15:02]       🏷️  SKU: UNKNOWN
+[04:15:02]    🧱 CART_LOCK activado - Carrito congelado
+[04:15:02]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:15:02]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:15:02] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:15:02]    🚀 Intento 1/2
+[04:15:02]    🖥️ Lanzando navegador...
+[04:15:02]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:15:05]    🖥️ Lanzando Chrome...
+[04:15:06]    ✅ Chrome ABIERTO
+[04:15:06]    ✅ 3 cookies inyectadas
+[04:15:06]    🛒 Entrando al Carrito (Zona Segura)...
+[04:15:11]    💉 Inyectando CSS para matar modales...
+[04:15:11]    ✅ CSS Inyectado: Modales asesinados
+[04:15:11]    ⏳ Espera humana controlada (evita recálculo)...
+[04:15:13]    🚶 Avance automático a payment...
+[04:15:13]    ❄️ Congelando UI para evitar recálculo...
+[04:15:14]    ✅ UI congelada (solo iframe de pago activo)
+[04:15:14] 
+   ════════════════════════════════════════
+[04:15:14]    🏁 HANDOVER COMPLETADO
+[04:15:14]    ════════════════════════════════════════
+[04:15:14]    ✅ Precio CONGELADO
+[04:15:14]    ✅ Carrito CONGELADO
+[04:15:14]    ✅ Backend MUERTO
+[04:15:14]    ✅ Tu turno para PAGAR
+[04:15:14]    
+   🟢 Tu Chrome personal sigue normal.
+
+[04:16:22] 🚀 WORKER INICIADO (live=True)
+[04:16:22] 1️⃣ Extrayendo cookies...
+[04:16:22]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:16:22]       auth_cookie: 0 chars
+[04:16:22]       vtex_session: 474 chars
+[04:16:22]       vtex_segment: 352 chars
+[04:16:22] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:16:22]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:16:22]    ✅ Headers sincronizados
+[04:16:22] 4️⃣ CAPA 1: Agregando al carrito...
+[04:16:22]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:16:22]    📡 Verificando estado del carrito...
+[04:16:23]    ✅ CARRITO OK: 1 items
+[04:16:23]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:16:23]    🏷️  SKU: UNKNOWN
+[04:16:23]    💰 Precio: $122,990 CLP
+[04:16:23]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:16:23]       Esperado: 188834
+[04:16:23]       Recibido: UNKNOWN
+[04:16:23]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:16:23] 5️⃣ CAPA 2: Esperando precio...
+[04:16:23]    🔒 PRECIO CAPTURADO
+[04:16:23]       💰 $122,990 CLP
+[04:16:23]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:16:23]       🏷️  SKU: UNKNOWN
+[04:16:23]    🧱 CART_LOCK activado - Carrito congelado
+[04:16:23]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:16:23]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:16:23] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:16:23]    🚀 Intento 1/2
+[04:16:23]    🖥️ Lanzando navegador...
+[04:16:23]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:16:24]    🖥️ Lanzando Chrome...
+[04:16:24]    ✅ Chrome ABIERTO
+[04:16:24]    ✅ 3 cookies inyectadas
+[04:16:24]    🛒 Entrando al Carrito (Zona Segura)...
+[04:16:28]    💉 Inyectando CSS para matar modales...
+[04:16:28]    ✅ CSS Inyectado: Modales asesinados
+[04:16:29]    ⏳ Espera humana controlada (evita recálculo)...
+[04:16:30]    🚶 Avance automático a payment...
+[04:16:30]    🔍 Encontrados 22 botones
+[04:16:30]    ✅ Clickeando: Continuar sin autenticación
+[04:17:00]    ℹ️ Click falló: ElementHandle.click: Timeout 30000ms exceeded.
+Call log:
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is not visible
+     - retrying click action
+       - waiting 500ms
+
+[04:17:00]    ⏳ Esperando navegación...
+[04:17:03]    💡 Navegando directo a /payment...
+[04:17:03]    ❄️ Congelando UI para evitar recálculo...
+[04:17:03]    ✅ UI congelada (solo iframe de pago activo)
+[04:17:03] 
+   ════════════════════════════════════════
+[04:17:03]    🏁 HANDOVER COMPLETADO
+[04:17:03]    ════════════════════════════════════════
+[04:17:03]    ✅ Precio CONGELADO
+[04:17:03]    ✅ Carrito CONGELADO
+[04:17:03]    ✅ Backend MUERTO
+[04:17:03]    ✅ Tu turno para PAGAR
+[04:17:03]    
+   🟢 Tu Chrome personal sigue normal.
+
+[04:18:37] 🚀 WORKER INICIADO (live=True)
+[04:18:37] 1️⃣ Extrayendo cookies...
+[04:18:37]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:18:37]       auth_cookie: 0 chars
+[04:18:37]       vtex_session: 474 chars
+[04:18:37]       vtex_segment: 352 chars
+[04:18:37] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:18:37]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:18:37]    ✅ Headers sincronizados
+[04:18:37] 4️⃣ CAPA 1: Agregando al carrito...
+[04:18:37]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:18:38]    📡 Verificando estado del carrito...
+[04:18:38]    ✅ CARRITO OK: 1 items
+[04:18:38]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:18:38]    🏷️  SKU: UNKNOWN
+[04:18:38]    💰 Precio: $122,990 CLP
+[04:18:38]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:18:38]       Esperado: 188834
+[04:18:38]       Recibido: UNKNOWN
+[04:18:38]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:18:38] 5️⃣ CAPA 2: Esperando precio...
+[04:18:38]    🔒 PRECIO CAPTURADO
+[04:18:38]       💰 $122,990 CLP
+[04:18:38]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:18:38]       🏷️  SKU: UNKNOWN
+[04:18:38]    🧱 CART_LOCK activado - Carrito congelado
+[04:18:38]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:18:38]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:18:38] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:18:38]    🚀 Intento 1/2
+[04:18:38]    🖥️ Lanzando navegador...
+[04:18:38]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:18:39]    🖥️ Lanzando Chrome...
+[04:18:39]    ✅ Chrome ABIERTO
+[04:18:39]    ✅ 3 cookies inyectadas
+[04:18:39]    🛒 Entrando al Carrito (Zona Segura)...
+[04:18:43]    💉 Inyectando CSS para matar modales...
+[04:18:43]    ✅ CSS Inyectado: Modales asesinados
+[04:18:44]    ⏳ Espera humana controlada (evita recálculo)...
+[04:18:45]    🚶 Avance automático a payment...
+[04:18:45]    🔍 Encontrados 22 botones
+[04:18:45]    ✅ Clickeando: Continuar sin autenticación
+[04:19:15]    ℹ️ Click falló: ElementHandle.click: Timeout 30000ms exceeded.
+Call log:
+  - attempting click action
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+    - waiting 20ms
+    2 × waiting for element to be visible, enabled and stable
+      - element is not visible
+    - retrying click action
+      - waiting 100ms
+    58 × waiting for element to be visible, enabled and stable
+       - element is not visible
+     - retrying click action
+       - waiting 500ms
+
+[04:19:15]    ⏳ Esperando navegación...
+[04:19:20]    ⚠️ wait_for_url timeout: Timeout 5000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to "**/payment" until 'load'
+============================================================
+[04:19:20]    💡 Navegando directo a /payment...
+[04:19:20]    ✅ Goto exitoso
+[04:19:20]    ❄️ Congelando UI para evitar recálculo...
+[04:19:20]    ✅ UI congelada (solo iframe de pago activo)
+[04:19:20] 
+   ════════════════════════════════════════
+[04:19:20]    🏁 HANDOVER COMPLETADO
+[04:19:20]    ════════════════════════════════════════
+[04:19:20]    ✅ Precio CONGELADO
+[04:19:20]    ✅ Carrito CONGELADO
+[04:19:20]    ✅ Backend MUERTO
+[04:19:20]    ✅ Tu turno para PAGAR
+[04:19:20]    
+   🟢 Tu Chrome personal sigue normal.
+
+[04:20:12] 🚀 WORKER INICIADO (live=True)
+[04:20:12] 1️⃣ Extrayendo cookies...
+[04:20:12]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:20:12]       auth_cookie: 0 chars
+[04:20:12]       vtex_session: 474 chars
+[04:20:12]       vtex_segment: 352 chars
+[04:20:12] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:20:12]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:20:12]    ✅ Headers sincronizados
+[04:20:12] 4️⃣ CAPA 1: Agregando al carrito...
+[04:20:12]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:20:12]    📡 Verificando estado del carrito...
+[04:20:12]    ✅ CARRITO OK: 1 items
+[04:20:12]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:20:12]    🏷️  SKU: UNKNOWN
+[04:20:12]    💰 Precio: $122,990 CLP
+[04:20:12]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:20:12]       Esperado: 188834
+[04:20:12]       Recibido: UNKNOWN
+[04:20:12]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:20:12] 5️⃣ CAPA 2: Esperando precio...
+[04:20:13]    🔒 PRECIO CAPTURADO
+[04:20:13]       💰 $122,990 CLP
+[04:20:13]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:20:13]       🏷️  SKU: UNKNOWN
+[04:20:13]    🧱 CART_LOCK activado - Carrito congelado
+[04:20:13]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:20:13]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:20:13] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:20:13]    🚀 Intento 1/2
+[04:20:13]    🖥️ Lanzando navegador...
+[04:20:13]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:20:13]    🖥️ Lanzando Chrome...
+[04:20:13]    ❌ ERROR: BrowserType.launch_persistent_context: Target page, context or browser has been closed
+Browser logs:
+
+<launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --start-maximized --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+<launched> pid=23404
+Call log:
+  - <launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --start-maximized --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+  - <launched> pid=23404
+  - [pid=23404] <gracefully close start>
+  - [pid=23404] <kill>
+  - [pid=23404] <will force kill>
+  - [pid=23404] taskkill stderr: ERROR: no se encontró el proceso "23404".
+  - [pid=23404] <process did exit: exitCode=21, signal=null>
+  - [pid=23404] starting temporary directories cleanup
+  - [pid=23404] finished temporary directories cleanup
+  - [pid=23404] <gracefully close end>
+
+[04:20:13]    ✅ BROWSER_OK - Listo.
+[04:21:33] 🚀 WORKER INICIADO (live=True)
+[04:21:33] 1️⃣ Extrayendo cookies...
+[04:21:33]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:21:33]       auth_cookie: 0 chars
+[04:21:33]       vtex_session: 474 chars
+[04:21:33]       vtex_segment: 352 chars
+[04:21:33] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:21:33]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:21:33]    ✅ Headers sincronizados
+[04:21:33] 4️⃣ CAPA 1: Agregando al carrito...
+[04:21:33]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:21:34]    📡 Verificando estado del carrito...
+[04:21:35]    ✅ CARRITO OK: 1 items
+[04:21:35]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:21:35]    🏷️  SKU: UNKNOWN
+[04:21:35]    💰 Precio: $122,990 CLP
+[04:21:35]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:21:35]       Esperado: 188834
+[04:21:35]       Recibido: UNKNOWN
+[04:21:35]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:21:35] 5️⃣ CAPA 2: Esperando precio...
+[04:21:35]    🔒 PRECIO CAPTURADO
+[04:21:35]       💰 $122,990 CLP
+[04:21:35]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:21:35]       🏷️  SKU: UNKNOWN
+[04:21:35]    🧱 CART_LOCK activado - Carrito congelado
+[04:21:35]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:21:35]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:21:35] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:21:35]    🚀 Intento 1/2
+[04:21:35]    🖥️ Lanzando navegador...
+[04:21:35]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:21:35]    🖥️ Lanzando Chrome...
+[04:21:35]    ❌ ERROR: BrowserType.launch_persistent_context: Target page, context or browser has been closed
+Browser logs:
+
+<launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+<launched> pid=7948
+Call log:
+  - <launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+  - <launched> pid=7948
+  - [pid=7948] <gracefully close start>
+  - [pid=7948] <kill>
+  - [pid=7948] <will force kill>
+  - [pid=7948] taskkill stderr: ERROR: no se encontró el proceso "7948".
+  - [pid=7948] <process did exit: exitCode=21, signal=null>
+  - [pid=7948] starting temporary directories cleanup
+  - [pid=7948] finished temporary directories cleanup
+  - [pid=7948] <gracefully close end>
+
+[04:21:35]    ✅ BROWSER_OK - Listo.
+[04:22:52] 🚀 WORKER INICIADO (live=True)
+[04:22:52] 1️⃣ Extrayendo cookies...
+[04:22:52]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:22:52]       auth_cookie: 0 chars
+[04:22:52]       vtex_session: 474 chars
+[04:22:52]       vtex_segment: 352 chars
+[04:22:52] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:22:52]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:22:52]    ✅ Headers sincronizados
+[04:22:52] 4️⃣ CAPA 1: Agregando al carrito...
+[04:22:52]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:22:53]    📡 Verificando estado del carrito...
+[04:22:53]    ✅ CARRITO OK: 1 items
+[04:22:53]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:22:53]    🏷️  SKU: UNKNOWN
+[04:22:53]    💰 Precio: $122,990 CLP
+[04:22:53]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:22:53]       Esperado: 188834
+[04:22:53]       Recibido: UNKNOWN
+[04:22:53]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:22:53] 5️⃣ CAPA 2: Esperando precio...
+[04:22:54]    🔒 PRECIO CAPTURADO
+[04:22:54]       💰 $122,990 CLP
+[04:22:54]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:22:54]       🏷️  SKU: UNKNOWN
+[04:22:54]    🧱 CART_LOCK activado - Carrito congelado
+[04:22:54]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:22:54]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:22:54] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:22:54]    🚀 Intento 1/2
+[04:22:54]    🖥️ Lanzando navegador...
+[04:22:54]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:22:54]    🖥️ Lanzando Chrome...
+[04:22:54]    ❌ ERROR: BrowserType.launch_persistent_context: Target page, context or browser has been closed
+Browser logs:
+
+<launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+<launched> pid=23332
+Call log:
+  - <launching> C:\Users\beriann\AppData\Local\ms-playwright\chromium-1200\chrome-win64\chrome.exe --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=AcceptCHFrame,AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --enable-automation --disable-infobars --disable-search-engine-choice-screen --disable-sync --no-sandbox --disable-blink-features=AutomationControlled --no-sandbox --user-data-dir=c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw --remote-debugging-pipe about:blank
+  - <launched> pid=23332
+  - [pid=23332] <gracefully close start>
+  - [pid=23332] <kill>
+  - [pid=23332] <will force kill>
+  - [pid=23332] taskkill stderr: ERROR: no se encontró el proceso "23332".
+  - [pid=23332] <process did exit: exitCode=21, signal=null>
+  - [pid=23332] starting temporary directories cleanup
+  - [pid=23332] finished temporary directories cleanup
+  - [pid=23332] <gracefully close end>
+
+[04:22:54]    ✅ BROWSER_OK - Listo.
+[04:23:20] 🚀 WORKER INICIADO (live=True)
+[04:23:20] 1️⃣ Extrayendo cookies...
+[04:23:20]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:23:20]       auth_cookie: 0 chars
+[04:23:20]       vtex_session: 474 chars
+[04:23:20]       vtex_segment: 352 chars
+[04:23:20] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:23:20]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:23:20]    ✅ Headers sincronizados
+[04:23:20] 4️⃣ CAPA 1: Agregando al carrito...
+[04:23:20]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:23:22]    📡 Verificando estado del carrito...
+[04:23:22]    ✅ CARRITO OK: 1 items
+[04:23:22]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:23:22]    🏷️  SKU: UNKNOWN
+[04:23:22]    💰 Precio: $122,990 CLP
+[04:23:22]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:23:22]       Esperado: 188834
+[04:23:22]       Recibido: UNKNOWN
+[04:23:22]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:23:22] 5️⃣ CAPA 2: Esperando precio...
+[04:23:22]    🔒 PRECIO CAPTURADO
+[04:23:22]       💰 $122,990 CLP
+[04:23:22]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:23:22]       🏷️  SKU: UNKNOWN
+[04:23:22]    🧱 CART_LOCK activado - Carrito congelado
+[04:23:22]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:23:22]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:23:22] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:23:22]    🚀 Intento 1/2
+[04:23:22]    🖥️ Lanzando navegador...
+[04:23:22]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:23:23]    🖥️ Lanzando Chrome...
+[04:23:23]    ✅ Chrome ABIERTO
+[04:23:23]    ✅ 3 cookies inyectadas
+[04:23:23]    🛒 Entrando al Carrito (Zona Segura)...
+[04:23:28]    💉 Inyectando CSS para matar modales...
+[04:23:28]    ✅ CSS Inyectado: Modales asesinados
+[04:23:29]    ⏳ Espera humana (evita recálculo de VTEX)...
+[04:23:30]    🚶 Navegando a /payment...
+[04:23:30]    ✅ /payment cargado
+[04:23:31]    ❄️ Bloqueando interacción para evitar recálculo...
+[04:23:31]    ✅ Formulario de checkout bloqueado (pago sigue activo)
+[04:23:31] 
+   ════════════════════════════════════════
+[04:23:31]    🏁 HANDOVER COMPLETADO
+[04:23:31]    ════════════════════════════════════════
+[04:23:31]    ✅ Precio CONGELADO
+[04:23:31]    ✅ Carrito CONGELADO
+[04:23:31]    ✅ Backend MUERTO
+[04:23:31]    ✅ Tu turno para PAGAR
+[04:23:31]    
+   🟢 Tu Chrome personal sigue normal.
+
+[04:23:32]    ❌ ERROR: 'Browser' object has no attribute 'pages'
+[04:23:32]    ✅ BROWSER_OK - Listo.
+[04:26:02] 🚀 WORKER INICIADO (live=True)
+[04:26:02] 1️⃣ Extrayendo cookies...
+[04:26:02]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:26:02]       auth_cookie: 0 chars
+[04:26:02]       vtex_session: 474 chars
+[04:26:02]       vtex_segment: 352 chars
+[04:26:02] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:26:02]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:26:02]    ✅ Headers sincronizados
+[04:26:02] 4️⃣ CAPA 1: Agregando al carrito...
+[04:26:02]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:26:03]    📡 Verificando estado del carrito...
+[04:26:04]    ✅ CARRITO OK: 1 items
+[04:26:04]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:26:04]    🏷️  SKU: UNKNOWN
+[04:26:04]    💰 Precio: $122,990 CLP
+[04:26:04]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:26:04]       Esperado: 188834
+[04:26:04]       Recibido: UNKNOWN
+[04:26:04]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:26:04] 5️⃣ CAPA 2: Esperando precio...
+[04:26:04]    🔒 PRECIO CAPTURADO
+[04:26:04]       💰 $122,990 CLP
+[04:26:04]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:26:04]       🏷️  SKU: UNKNOWN
+[04:26:04]    🧱 CART_LOCK activado - Carrito congelado
+[04:26:04]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:26:04]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:26:04] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:26:04]    🚀 Intento 1/2
+[04:26:04]    🖥️ Lanzando navegador...
+[04:26:04]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:26:05]    🖥️ Lanzando Chrome...
+[04:26:05]    ✅ Chrome ABIERTO
+[04:26:05]    ✅ 3 cookies inyectadas
+[04:26:05]    🛒 Entrando al Carrito (Zona Segura)...
+[04:26:10]    💉 Inyectando CSS para matar modales...
+[04:26:10]    ✅ CSS Inyectado: Modales asesinados
+[04:26:11]    ⏳ Espera humana (evita recálculo de VTEX)...
+[04:26:12]    🚶 Navegando a /payment...
+[04:26:12]    ✅ /payment cargado
+[04:26:13]    ❄️ Bloqueando interacción para evitar recálculo...
+[04:26:13]    ✅ Formulario de checkout bloqueado (pago sigue activo)
+[04:26:13] 
+   ════════════════════════════════════════
+[04:26:13]    🏁 HANDOVER COMPLETADO
+[04:26:13]    ════════════════════════════════════════
+[04:26:13]    ✅ Precio CONGELADO
+[04:26:13]    ✅ Carrito CONGELADO
+[04:26:13]    ✅ Backend MUERTO
+[04:26:13]    ✅ Tu turno para PAGAR
+[04:26:13]    
+   🟢 Tu Chrome personal sigue normal.
+
+[04:26:52] 🚀 WORKER INICIADO (live=True)
+[04:26:52] 1️⃣ Extrayendo cookies...
+[04:26:52]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:26:52]       auth_cookie: 0 chars
+[04:26:52]       vtex_session: 474 chars
+[04:26:52]       vtex_segment: 352 chars
+[04:26:52] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:26:52]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:26:52]    ✅ Headers sincronizados
+[04:26:52] 4️⃣ CAPA 1: Agregando al carrito...
+[04:26:52]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:26:53]    📡 Verificando estado del carrito...
+[04:26:53]    ✅ CARRITO OK: 1 items
+[04:26:53]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:26:53]    🏷️  SKU: UNKNOWN
+[04:26:53]    💰 Precio: $122,990 CLP
+[04:26:53]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:26:53]       Esperado: 188834
+[04:26:53]       Recibido: UNKNOWN
+[04:26:53]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:26:53] 5️⃣ CAPA 2: Esperando precio...
+[04:26:54]    🔒 PRECIO CAPTURADO
+[04:26:54]       💰 $122,990 CLP
+[04:26:54]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:26:54]       🏷️  SKU: UNKNOWN
+[04:26:54]    🧱 CART_LOCK activado - Carrito congelado
+[04:26:54]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:26:54]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:26:54] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:26:54]    🚀 Intento 1/2
+[04:26:54]    🖥️ Lanzando navegador...
+[04:26:54]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:48:16] WORKER INICIADO (live=True)
+[04:48:16] 1️⃣ Extrayendo cookies...
+[04:48:16]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:48:16]       auth_cookie: 0 chars
+[04:48:16]       vtex_session: 474 chars
+[04:48:16]       vtex_segment: 352 chars
+[04:48:16] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:48:16]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:48:16]    ✅ Headers sincronizados
+[04:48:16] 4️⃣ CAPA 1: Agregando al carrito...
+[04:48:16]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:48:17]    📡 Verificando estado del carrito...
+[04:48:17]    ✅ CARRITO OK: 1 items
+[04:48:17]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:48:17]    🏷️  SKU: UNKNOWN
+[04:48:17]    💰 Precio: $122,990 CLP
+[04:48:17]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:48:17]       Esperado: 188834
+[04:48:17]       Recibido: UNKNOWN
+[04:48:17]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:48:17] 5️⃣ CAPA 2: Esperando precio...
+[04:48:17]    🔒 PRECIO CAPTURADO
+[04:48:17]       💰 $122,990 CLP
+[04:48:17]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:48:17]       🏷️  SKU: UNKNOWN
+[04:48:17]    🧱 CART_LOCK activado - Carrito congelado
+[04:48:17]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:48:17]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:48:17] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:48:17]    🚀 Intento 1/2
+[04:48:17]    🖥️ Lanzando navegador...
+[04:48:17]    🍪 Cookies calientes capturadas: 5 items
+[04:48:17]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:48:18]    🔫 Buscando zombies en: c:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2
+[04:48:18]    ℹ️ No había zombies bloqueando (ok)
+[04:48:19]    🖥️ Lanzando Chrome...
+[04:48:20]    ✅ Chrome ABIERTO
+[04:48:20]    💉 5 cookies inyectadas (PUENTE DE SESIÓN)
+[04:48:20]       ✅ Sesión del carrito sincronizada a navegador
+[04:48:20]    🛒 Entrando al Carrito (Zona Segura)...
+[04:48:25]    💉 Inyectando CSS para matar modales...
+[04:48:25]    ✅ CSS Inyectado: Modales asesinados
+[04:48:26]    ⏳ Espera humana (evita recálculo de VTEX)...
+[04:48:27]    🚶 Navegando a /payment...
+[04:48:27]    ✅ /payment cargado
+[04:48:28]    ❄️ Bloqueando interacción para evitar recálculo...
+[04:48:28]    ✅ Formulario de checkout bloqueado (pago sigue activo)
+[04:48:28] 
+   ════════════════════════════════════════
+[04:48:28]    🏁 HANDOVER COMPLETADO
+[04:48:28]    ════════════════════════════════════════
+[04:48:28]    ✅ Precio CONGELADO
+[04:48:28]    ✅ Carrito CONGELADO
+[04:48:28]    ✅ Backend MUERTO
+[04:48:28]    ✅ Tu turno para PAGAR
+[04:48:28]    
+   🟢 Tu Chrome personal sigue normal.
+
+[04:51:51] WORKER INICIADO (live=True)
+[04:51:51] 1️⃣ Extrayendo cookies...
+[04:51:51]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:51:51]       auth_cookie: 0 chars
+[04:51:51]       vtex_session: 474 chars
+[04:51:51]       vtex_segment: 352 chars
+[04:51:51] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:51:51]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:51:51]    ✅ Headers sincronizados
+[04:51:51] 4️⃣ CAPA 1: Agregando al carrito...
+[04:51:51]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:51:51]    📡 Verificando estado del carrito...
+[04:51:52]    ✅ CARRITO OK: 1 items
+[04:51:52]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:51:52]    🏷️  SKU: UNKNOWN
+[04:51:52]    💰 Precio: $122,990 CLP
+[04:51:52]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:51:52]       Esperado: 188834
+[04:51:52]       Recibido: UNKNOWN
+[04:51:52]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:51:52] 5️⃣ CAPA 2: Esperando precio...
+[04:51:52]    🔒 PRECIO CAPTURADO
+[04:51:52]       💰 $122,990 CLP
+[04:51:52]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:51:52]       🏷️  SKU: UNKNOWN
+[04:51:52]    🧱 CART_LOCK activado - Carrito congelado
+[04:51:52]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:51:52]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:51:52] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:51:52]    🚀 Intento 1/2
+[04:51:52]    🖥️ Lanzando navegador...
+[04:51:52]    🍪 Cookies calientes capturadas: 5 items
+[04:51:52]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[04:58:21] WORKER INICIADO (live=True)
+[04:58:21] 1️⃣ Extrayendo cookies...
+[04:58:21]    ✅ Cookies cargadas desde tokens.json (3 items)
+[04:58:21]       auth_cookie: 0 chars
+[04:58:21]       vtex_session: 474 chars
+[04:58:21]       vtex_segment: 352 chars
+[04:58:21] 2️⃣ Cliente VTEX (TLS spoofed)...
+[04:58:21]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[04:58:21]    ✅ Headers sincronizados
+[04:58:21] 4️⃣ CAPA 1: Agregando al carrito...
+[04:58:21]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[04:58:22]    📡 Verificando estado del carrito...
+[04:58:22]    ✅ CARRITO OK: 1 items
+[04:58:22]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:58:22]    🏷️  SKU: UNKNOWN
+[04:58:22]    💰 Precio: $122,990 CLP
+[04:58:22]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[04:58:22]       Esperado: 188834
+[04:58:22]       Recibido: UNKNOWN
+[04:58:22]    🔒 CART_LOCKED - No se tocará más el carrito
+[04:58:22] 5️⃣ CAPA 2: Esperando precio...
+[04:58:22]    🔒 PRECIO CAPTURADO
+[04:58:22]       💰 $122,990 CLP
+[04:58:22]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[04:58:22]       🏷️  SKU: UNKNOWN
+[04:58:22]    🧱 CART_LOCK activado - Carrito congelado
+[04:58:22]    🎛️ HANDOVER MODE activado - Backend desconectado
+[04:58:22]    ✅ PRICE_LOCKED - Abriendo navegador...
+[04:58:22] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[04:58:22]    🚀 Intento 1/2
+[04:58:22]    🖥️ Lanzando navegador...
+[04:58:22]    🍪 Cookies calientes capturadas: 5 items
+[04:58:23]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[05:06:23] WORKER INICIADO (live=True)
+[05:06:23] 1️⃣ Extrayendo cookies...
+[05:06:23]    ✅ Cookies cargadas desde tokens.json (3 items)
+[05:06:23]       auth_cookie: 0 chars
+[05:06:23]       vtex_session: 474 chars
+[05:06:23]       vtex_segment: 352 chars
+[05:06:23] 2️⃣ Cliente VTEX (TLS spoofed)...
+[05:06:23]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[05:06:23]    ✅ Headers sincronizados
+[05:06:23] 4️⃣ CAPA 1: Agregando al carrito...
+[05:06:23]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[05:06:24]    📡 Verificando estado del carrito...
+[05:06:24]    ✅ CARRITO OK: 1 items
+[05:06:24]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[05:06:24]    🏷️  SKU: UNKNOWN
+[05:06:24]    💰 Precio: $122,990 CLP
+[05:06:24]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[05:06:24]       Esperado: 188834
+[05:06:24]       Recibido: UNKNOWN
+[05:06:24]    🔒 CART_LOCKED - No se tocará más el carrito
+[05:06:24] 5️⃣ CAPA 2: Esperando precio...
+[05:06:25]    🔒 PRECIO CAPTURADO
+[05:06:25]       💰 $122,990 CLP
+[05:06:25]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[05:06:25]       🏷️  SKU: UNKNOWN
+[05:06:25]    🧱 CART_LOCK activado - Carrito congelado
+[05:06:25]    🎛️ HANDOVER MODE activado - Backend desconectado
+[05:06:25]    ✅ PRICE_LOCKED - Abriendo navegador...
+[05:06:25] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[05:06:25]    🚀 Intento 1/2
+[05:06:25]    🖥️ Lanzando navegador...
+[05:06:25]    🍪 Cookies calientes capturadas: 5 items
+[05:06:25]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[05:06:26]    🔫 Buscando zombies en: c:\users\beriann\documents\repos\nike_bot_pro\auth\cuenta2
+[05:06:26]    ℹ️ No había zombies (ok)
+[05:06:27]    ESTRATEGIA: Navegador independiente (NO cierra tu Chrome)...
+[05:06:27]    Lanzando Chromium...
+[05:06:27]    Chromium ABIERTO (ventana azul)
+[05:06:27]    Cookies inyectadas: 5 items
+[05:06:27]    Navegando a magic_url...
+[05:06:32] 
+   ════════════════════════════════════════
+[05:06:32]    HANDOVER COMPLETADO
+[05:06:32]    ════════════════════════════════════════
+[05:06:32]    Precio CONGELADO
+[05:06:32]    Carrito CONGELADO
+[05:06:32]    Backend MUERTO
+[05:06:32]    Tu turno para PAGAR
+[05:06:32]    
+   Si ves el carro, dale a Pagar.
+[05:06:32]    Tu Chrome personal está a salvo.
+
+[05:08:38] WORKER INICIADO (live=True)
+[05:08:38] 1️⃣ Extrayendo cookies...
+[05:08:38]    ✅ Cookies cargadas desde tokens.json (3 items)
+[05:08:38]       auth_cookie: 0 chars
+[05:08:38]       vtex_session: 474 chars
+[05:08:38]       vtex_segment: 352 chars
+[05:08:38] 2️⃣ Cliente VTEX (TLS spoofed)...
+[05:08:38]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[05:08:38]    ✅ Headers sincronizados
+[05:08:38] 4️⃣ CAPA 1: Agregando al carrito...
+[05:08:38]    📤 Enviando: SKU=188834, Qty=1, Seller=1
+[05:08:39]    📡 Verificando estado del carrito...
+[05:08:39]    ✅ CARRITO OK: 1 items
+[05:08:39]    📦 Producto: Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[05:08:39]    🏷️  SKU: UNKNOWN
+[05:08:39]    💰 Precio: $122,990 CLP
+[05:08:39]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[05:08:39]       Esperado: 188834
+[05:08:39]       Recibido: UNKNOWN
+[05:08:39]    🔒 CART_LOCKED - No se tocará más el carrito
+[05:08:39] 5️⃣ CAPA 2: Esperando precio...
+[05:08:40]    🔒 PRECIO CAPTURADO
+[05:08:40]       💰 $122,990 CLP
+[05:08:40]       📦 Nike Premier 3 Talla: H 7.5 / M 9 - Color: Rojo
+[05:08:40]       🏷️  SKU: UNKNOWN
+[05:08:40]    🧱 CART_LOCK activado - Carrito congelado
+[05:08:40]    🎛️ HANDOVER MODE activado - Backend desconectado
+[05:08:40]    ✅ PRICE_LOCKED - Abriendo navegador...
+[05:08:40] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[05:08:40]    🚀 Intento 1/2
+[05:08:40]    🖥️ Lanzando navegador...
+[05:08:40]    🍪 Cookies calientes capturadas: 5 items
+[05:08:40]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[05:08:41]    🔫 Buscando zombies en: c:\users\beriann\documents\repos\nike_bot_pro\auth\cuenta2
+[05:08:41]    ℹ️ No había zombies (ok)
+[05:08:42]    ESTRATEGIA: Navegador independiente (NO cierra tu Chrome)...
+[05:08:42]    Lanzando Chromium...
+[05:08:42]    Chromium ABIERTO (ventana azul)
+[05:08:42]    Cookies inyectadas: 5 items
+[05:08:42]    Navegando a magic_url...
+[05:08:47]    Buscando boton para avanzar a payment...
+[05:08:52]    No encontro boton (ok, esperando URL change)
+[05:08:52]    Esperando navegacion a /payment...
+[05:09:00]    Timeout esperando /payment, navegando directo...
+[05:09:00]    ERROR: Page.wait_for_timeout: Target page, context or browser has been closed
+[05:09:00]    ✅ BROWSER_OK - Listo.
+[05:09:05] WORKER INICIADO (live=True)
+[05:10:57] WORKER INICIADO (live=True)
+[05:10:57] 1️⃣ Extrayendo cookies...
+[05:10:57]    ✅ Cookies cargadas desde tokens.json (3 items)
+[05:10:57]       auth_cookie: 0 chars
+[05:10:57]       vtex_session: 474 chars
+[05:10:57]       vtex_segment: 352 chars
+[05:10:57] 2️⃣ Cliente VTEX (TLS spoofed)...
+[05:10:57]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[05:10:57]    ✅ Headers sincronizados
+[05:10:57] 4️⃣ CAPA 1: Agregando al carrito...
+[05:10:57]    📤 Enviando: SKU=176816, Qty=1, Seller=1
+[05:10:58]    📡 Verificando estado del carrito...
+[05:10:59]    ✅ CARRITO OK: 1 items
+[05:10:59]    📦 Producto: Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[05:10:59]    🏷️  SKU: UNKNOWN
+[05:10:59]    💰 Precio: $122,990 CLP
+[05:10:59]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[05:10:59]       Esperado: 176816
+[05:10:59]       Recibido: UNKNOWN
+[05:10:59]    🔒 CART_LOCKED - No se tocará más el carrito
+[05:10:59] 5️⃣ CAPA 2: Esperando precio...
+[05:10:59]    🔒 PRECIO CAPTURADO
+[05:10:59]       💰 $122,990 CLP
+[05:10:59]       📦 Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[05:10:59]       🏷️  SKU: UNKNOWN
+[05:10:59]    🧱 CART_LOCK activado - Carrito congelado
+[05:10:59]    🎛️ HANDOVER MODE activado - Backend desconectado
+[05:10:59]    ✅ PRICE_LOCKED - Abriendo navegador...
+[05:10:59] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[05:10:59]    🚀 Intento 1/2
+[05:10:59]    🖥️ Lanzando navegador...
+[05:10:59]    🍪 Cookies calientes capturadas: 5 items
+[05:10:59]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[05:38:11] WORKER INICIADO (live=True)
+[05:38:11] 1️⃣ Extrayendo cookies...
+[05:38:11]    ✅ Cookies cargadas desde tokens.json (3 items)
+[05:38:11]       auth_cookie: 0 chars
+[05:38:11]       vtex_session: 474 chars
+[05:38:11]       vtex_segment: 352 chars
+[05:38:11] 2️⃣ Cliente VTEX (TLS spoofed)...
+[05:38:11]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[05:38:11]    ✅ Headers sincronizados
+[05:38:11] 4️⃣ CAPA 1: Agregando al carrito...
+[05:38:11]    📤 Enviando: SKU=176816, Qty=1, Seller=1
+[05:38:12]    📡 Verificando estado del carrito...
+[05:38:12]    ✅ CARRITO OK: 1 items
+[05:38:12]    📦 Producto: Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[05:38:12]    🏷️  SKU: UNKNOWN
+[05:38:12]    💰 Precio: $122,990 CLP
+[05:38:12]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[05:38:12]       Esperado: 176816
+[05:38:12]       Recibido: UNKNOWN
+[05:38:12]    🔒 CART_LOCKED - No se tocará más el carrito
+[05:38:12] 5️⃣ CAPA 2: Esperando precio...
+[05:38:12]    🔒 PRECIO CAPTURADO
+[05:38:12]       💰 $122,990 CLP
+[05:38:12]       📦 Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[05:38:12]       🏷️  SKU: UNKNOWN
+[05:38:12]    🧱 CART_LOCK activado - Carrito congelado
+[05:38:12]    🎛️ HANDOVER MODE activado - Backend desconectado
+[05:38:12]    ✅ PRICE_LOCKED - Abriendo navegador...
+[05:38:12] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[05:38:12]    🚀 Intento 1/2
+[05:38:12]    🖥️ Lanzando navegador...
+[05:38:12]    🍪 Cookies calientes capturadas: 5 items
+[05:38:12]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[05:41:39] WORKER INICIADO (live=True)
+[05:41:39] 1️⃣ Extrayendo cookies...
+[05:41:39]    ✅ Cookies cargadas desde tokens.json (3 items)
+[05:41:39]       auth_cookie: 0 chars
+[05:41:39]       vtex_session: 474 chars
+[05:41:39]       vtex_segment: 352 chars
+[05:41:39] 2️⃣ Cliente VTEX (TLS spoofed)...
+[05:41:39]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[05:41:39]    ✅ Headers sincronizados
+[05:41:39] 4️⃣ CAPA 1: Agregando al carrito...
+[05:41:39]    📤 Enviando: SKU=176816, Qty=1, Seller=1
+[05:41:39]    📡 Verificando estado del carrito...
+[05:41:40]    ✅ CARRITO OK: 1 items
+[05:41:40]    📦 Producto: Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[05:41:40]    🏷️  SKU: UNKNOWN
+[05:41:40]    💰 Precio: $122,990 CLP
+[05:41:40]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[05:41:40]       Esperado: 176816
+[05:41:40]       Recibido: UNKNOWN
+[05:41:40]    🔒 CART_LOCKED - No se tocará más el carrito
+[05:41:40] 5️⃣ CAPA 2: Esperando precio...
+[05:41:40]    🔒 PRECIO CAPTURADO
+[05:41:40]       💰 $122,990 CLP
+[05:41:40]       📦 Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[05:41:40]       🏷️  SKU: UNKNOWN
+[05:41:40]    🧱 CART_LOCK activado - Carrito congelado
+[05:41:40]    🎛️ HANDOVER MODE activado - Backend desconectado
+[05:41:40]    ✅ PRICE_LOCKED - Abriendo navegador...
+[05:41:40] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[05:41:40]    🚀 Intento 1/2
+[05:41:40]    🖥️ Lanzando navegador...
+[05:41:40]    🍪 Cookies calientes capturadas: 5 items
+[05:41:40]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[05:58:42] WORKER INICIADO (live=True)
+[05:58:42] 1️⃣ Extrayendo cookies...
+[05:58:42]    ✅ Cookies cargadas desde tokens.json (3 items)
+[05:58:42]       auth_cookie: 0 chars
+[05:58:42]       vtex_session: 474 chars
+[05:58:42]       vtex_segment: 352 chars
+[05:58:42] 2️⃣ Cliente VTEX (TLS spoofed)...
+[05:58:42]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[05:58:42]    ✅ Headers sincronizados
+[05:58:42] 4️⃣ CAPA 1: Agregando al carrito...
+[05:58:42]    📤 Enviando: SKU=176816, Qty=1, Seller=1
+[05:58:42]    📡 Verificando estado del carrito...
+[05:58:43]    ✅ CARRITO OK: 1 items
+[05:58:43]    📦 Producto: Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[05:58:43]    🏷️  SKU: UNKNOWN
+[05:58:43]    💰 Precio: $122,990 CLP
+[05:58:43]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[05:58:43]       Esperado: 176816
+[05:58:43]       Recibido: UNKNOWN
+[05:58:43]    🔒 CART_LOCKED - No se tocará más el carrito
+[05:58:43] 5️⃣ CAPA 2: Esperando precio...
+[05:58:43]    🔒 PRECIO CAPTURADO
+[05:58:43]       💰 $122,990 CLP
+[05:58:43]       📦 Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[05:58:43]       🏷️  SKU: UNKNOWN
+[05:58:43]    🧱 CART_LOCK activado - Carrito congelado
+[05:58:43]    🎛️ HANDOVER MODE activado - Backend desconectado
+[05:58:43]    ✅ PRICE_LOCKED - Abriendo navegador...
+[05:58:43] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[05:58:43]    🚀 Intento 1/2
+[05:58:43]    🖥️ Lanzando navegador...
+[05:58:43]    🍪 Cookies calientes capturadas: 5 items
+[05:58:43]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[06:00:01] WORKER INICIADO (live=True)
+[06:00:01] 1️⃣ Extrayendo cookies...
+[06:00:01]    ✅ Cookies cargadas desde tokens.json (3 items)
+[06:00:01]       auth_cookie: 0 chars
+[06:00:01]       vtex_session: 474 chars
+[06:00:01]       vtex_segment: 352 chars
+[06:00:01] 2️⃣ Cliente VTEX (TLS spoofed)...
+[06:00:01]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[06:00:01]    ✅ Headers sincronizados
+[06:00:01] 4️⃣ CAPA 1: Agregando al carrito...
+[06:00:01]    📤 Enviando: SKU=176816, Qty=1, Seller=1
+[06:00:02]    📡 Verificando estado del carrito...
+[06:00:03]    ✅ CARRITO OK: 1 items
+[06:00:03]    📦 Producto: Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[06:00:03]    🏷️  SKU: UNKNOWN
+[06:00:03]    💰 Precio: $122,990 CLP
+[06:00:03]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[06:00:03]       Esperado: 176816
+[06:00:03]       Recibido: UNKNOWN
+[06:00:03]    🔒 CART_LOCKED - No se tocará más el carrito
+[06:00:03] 5️⃣ CAPA 2: Esperando precio...
+[06:00:03]    🔒 PRECIO CAPTURADO
+[06:00:03]       💰 $122,990 CLP
+[06:00:03]       📦 Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[06:00:03]       🏷️  SKU: UNKNOWN
+[06:00:03]    🧱 CART_LOCK activado - Carrito congelado
+[06:00:03]    🎛️ HANDOVER MODE activado - Backend desconectado
+[06:00:03]    ✅ PRICE_LOCKED - Abriendo navegador...
+[06:00:03] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[06:00:03]    🚀 Intento 1/2
+[06:00:03]    🖥️ Lanzando navegador...
+[06:00:03]    🍪 Cookies calientes capturadas: 5 items
+[06:00:03]    🔥 ESTRATEGIA FINAL: Cart Entry + CSS Kill + Auto-Advance
+[06:05:30] WORKER INICIADO (live=True)
+[06:05:30] 1️⃣ Extrayendo cookies...
+[06:05:30]    ✅ Cookies cargadas desde tokens.json (3 items)
+[06:05:30]       auth_cookie: 0 chars
+[06:05:30]       vtex_session: 474 chars
+[06:05:30]       vtex_segment: 352 chars
+[06:05:30] 2️⃣ Cliente VTEX (TLS spoofed)...
+[06:05:30]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[06:05:30]    ✅ Headers sincronizados
+[06:05:30] 4️⃣ CAPA 1: Agregando al carrito...
+[06:05:30]    📤 Enviando: SKU=176816, Qty=1, Seller=1
+[06:05:30]    📡 Verificando estado del carrito...
+[06:05:30]    ✅ CARRITO OK: 1 items
+[06:05:30]    📦 Producto: Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[06:05:30]    🏷️  SKU: UNKNOWN
+[06:05:30]    💰 Precio: $122,990 CLP
+[06:05:30]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[06:05:30]       Esperado: 176816
+[06:05:30]       Recibido: UNKNOWN
+[06:05:30]    🔒 CART_LOCKED - No se tocará más el carrito
+[06:05:30] 5️⃣ CAPA 2: Esperando precio...
+[06:05:31]    🔒 PRECIO CAPTURADO
+[06:05:31]       💰 $122,990 CLP
+[06:05:31]       📦 Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[06:05:31]       🏷️  SKU: UNKNOWN
+[06:05:31]    🧱 CART_LOCK activado - Carrito congelado
+[06:05:31]    🎛️ HANDOVER MODE activado - Backend desconectado
+[06:05:31]    ✅ PRICE_LOCKED - Abriendo navegador...
+[06:05:31] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[06:05:31]    🚀 Intento 1/2
+[06:05:31]    🖥️ Lanzando navegador...
+[06:05:31]    🍪 Cookies calientes capturadas: 5 items
+[06:05:31]    🖥️ MODE B – Checkout con click real
+[06:09:45] WORKER INICIADO (live=True)
+[06:09:45] 1️⃣ Extrayendo cookies...
+[06:09:45]    ✅ Cookies cargadas desde tokens.json (3 items)
+[06:09:45]       auth_cookie: 0 chars
+[06:09:45]       vtex_session: 474 chars
+[06:09:45]       vtex_segment: 352 chars
+[06:09:45] 2️⃣ Cliente VTEX (TLS spoofed)...
+[06:09:45]    🔐 Chrome 124 + Sec-Ch-Ua blindados
+[06:09:45]    ✅ Headers sincronizados
+[06:09:45] 4️⃣ CAPA 1: Agregando al carrito...
+[06:09:45]    📤 Enviando: SKU=176816, Qty=1, Seller=1
+[06:09:47]    📡 Verificando estado del carrito...
+[06:09:47]    ✅ CARRITO OK: 1 items
+[06:09:47]    📦 Producto: Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[06:09:47]    🏷️  SKU: UNKNOWN
+[06:09:47]    💰 Precio: $122,990 CLP
+[06:09:47]    ⚠️⚠️ ALERTA: SKU MISMATCH
+[06:09:47]       Esperado: 176816
+[06:09:47]       Recibido: UNKNOWN
+[06:09:47]    🔒 CART_LOCKED - No se tocará más el carrito
+[06:09:47] 5️⃣ CAPA 2: Esperando precio...
+[06:09:47]    🔒 PRECIO CAPTURADO
+[06:09:47]       💰 $122,990 CLP
+[06:09:47]       📦 Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[06:09:47]       🏷️  SKU: UNKNOWN
+[06:09:47]    🧱 CART_LOCK activado - Carrito congelado
+[06:09:47]    🎛️ HANDOVER MODE activado - Backend desconectado
+[06:09:47]    ✅ PRICE_LOCKED - Abriendo navegador...
+[06:09:47] 6️⃣ CAPA 3: Abriendo navegador para pago...
+[06:09:47]    🚀 Intento 1/2
+[06:09:47]    🖥️ Lanzando navegador...
+[06:09:47]    🍪 Cookies calientes capturadas: 5 items
+[06:09:47]    � ESTRATEGIA: MODO VOLÁTIL (Sin perfil, sin bloqueos)
+[06:09:47]    Buscando zombies en: c:\users\beriann\documents\repos\nike_bot_pro\auth\cuenta2
+[06:09:47]    No había zombies (ok)
+[06:09:48]    🖥️ Lanzando navegador VOLÁTIL (RAM, sin disco)...
+[09:45:21] WORKER INICIADO (live=True)
+[09:45:21] 1 Extrayendo cookies...
+[09:45:21]    Cookies cargadas (3 items)
+[09:45:21] 2 Cliente VTEX (TLS spoofed)...
+[09:45:21]    Headers sincronizados
+[09:45:21] 4 CAPA 1: Agregando al carrito...
+[09:45:21]    Enviando: SKU=176816, Qty=1, Seller=1
+[09:45:22]    Verificando carrito...
+[09:45:22]    CARRITO OK
+[09:45:22]    Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[09:45:22]    $122,990 CLP
+[09:45:22]    CART_LOCKED
+[09:45:22] 5 CAPA 2: Esperando precio...
+[09:45:22]    PRECIO CAPTURADO: $122,990 CLP
+[09:45:22]    PRICE_LOCKED - Abriendo navegador...
+[09:45:22] 6 CAPA 3: Abriendo navegador para pago...
+[09:45:22]    Intento 1/2
+[09:45:22]    Lanzando navegador...
+[09:45:22]    Cookies: 5 items
+[09:45:22]    ESTRATEGIA: MODO VOLATIL (thread no-bloqueante)
+[09:45:22]    Buscando zombies...
+[09:45:22]    No habia zombies (ok)
+[09:45:23]    Lanzando navegador VOLATIL (RAM, sin disco)...
+[09:45:23]    Thread navegador iniciado (no-bloqueante)
+[09:45:25]    BROWSER_OK - Listo.
+[09:53:32] WORKER INICIADO (live=True)
+[09:53:32] 1 Extrayendo cookies...
+[09:53:32]    Cookies cargadas (3 items)
+[09:53:32] 2 Cliente VTEX (TLS spoofed)...
+[09:53:32]    Headers sincronizados
+[09:53:32] 4 CAPA 1: Agregando al carrito...
+[09:53:32]    Enviando: SKU=176816, Qty=1, Seller=1
+[09:53:32]    Verificando carrito...
+[09:53:33]    CARRITO OK
+[09:53:33]    Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[09:53:33]    $122,990 CLP
+[09:53:33]    CART_LOCKED
+[09:53:33] 5 CAPA 2: Esperando precio...
+[09:53:33]    PRECIO CAPTURADO: $122,990 CLP
+[09:53:33]    PRICE_LOCKED - Abriendo navegador...
+[09:53:33] 6 CAPA 3: Abriendo navegador para pago...
+[09:53:33]    Intento 1/2
+[09:53:33]    Lanzando navegador...
+[09:53:33]    Cookies: 5 items
+[09:53:33]    Abriendo Playwright Chromium para pagar
+[09:53:33]    Buscando zombies...
+[09:53:33]    No habia zombies (ok)
+[09:59:42] WORKER INICIADO (live=True)
+[09:59:42] 1 Extrayendo cookies...
+[09:59:42]    Cookies cargadas (3 items)
+[09:59:42] 2 Cliente VTEX (TLS spoofed)...
+[09:59:42]    Headers sincronizados
+[09:59:42] 4 CAPA 1: Agregando al carrito...
+[09:59:42]    Enviando: SKU=176816, Qty=1, Seller=1
+[09:59:42]    Verificando carrito...
+[09:59:42]    CARRITO OK
+[09:59:42]    Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[09:59:42]    $122,990 CLP
+[09:59:42]    CART_LOCKED
+[09:59:42] 5 CAPA 2: Esperando precio...
+[09:59:43]    PRECIO CAPTURADO: $122,990 CLP
+[09:59:43]    PRICE_LOCKED - Abriendo navegador...
+[09:59:43] 6 CAPA 3: Abriendo navegador para pago...
+[09:59:43]    Intento 1/2
+[09:59:43]    Lanzando navegador...
+[09:59:43]    Cookies: 5 items
+[09:59:43]    Lanzando proceso de pago externo...
+[09:59:43]    Handover completado - Paga en Chrome
+[09:59:45]    BROWSER_OK - Listo.
+[10:04:27] WORKER INICIADO (live=True)
+[10:04:27] 1 Extrayendo cookies...
+[10:04:27]    Cookies cargadas (3 items)
+[10:04:27] 2 Cliente VTEX (TLS spoofed)...
+[10:04:27]    Headers sincronizados
+[10:04:27] 4 CAPA 1: Agregando al carrito...
+[10:04:27]    Enviando: SKU=176816, Qty=1, Seller=1
+[10:04:27]    Verificando carrito...
+[10:04:27]    CARRITO OK
+[10:04:27]    Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[10:04:27]    $122,990 CLP
+[10:04:27]    CART_LOCKED
+[10:04:27] 5 CAPA 2: Esperando precio...
+[10:04:28]    PRECIO CAPTURADO: $122,990 CLP
+[10:04:28]    PRICE_LOCKED - Abriendo navegador...
+[10:04:28] 6 CAPA 3: Abriendo navegador para pago...
+[10:04:28]    Intento 1/2
+[10:04:28]    Lanzando navegador...
+[10:04:28]    Cookies: 5 items
+[10:04:28]    Lanzando navegador con perfil real...
+[10:04:28]    Handover completado
+[10:04:30]    BROWSER_OK - Listo.
+[10:13:08] WORKER INICIADO (live=True)
+[10:13:08] 1 Extrayendo cookies...
+[10:13:08]    Cookies cargadas (3 items)
+[10:13:08] 2 Cliente VTEX (TLS spoofed)...
+[10:13:08]    Headers sincronizados
+[10:13:08] 4 CAPA 1: Agregando al carrito...
+[10:13:08]    Enviando: SKU=176816, Qty=1, Seller=1
+[10:13:08]    Verificando carrito...
+[10:13:08]    CARRITO OK
+[10:13:08]    Air Jordan 1 Low SE Talla: 3.5Y - Color: Marrón
+[10:13:08]    $122,990 CLP
+[10:13:08]    CART_LOCKED
+[10:13:08] 5 CAPA 2: Esperando precio...
+[10:13:09]    PRECIO CAPTURADO: $122,990 CLP
+[10:13:09]    PRICE_LOCKED - Abriendo navegador...
+[10:13:09] 6 CAPA 3: Abriendo navegador para pago...
+[10:13:09]    Intento 1/2
+[10:13:09]    Lanzando navegador...
+[10:13:09]    Cookies: 5 items
+[10:13:09]    Lanzando navegador con perfil real...
+[10:13:09]    Handover completado
+[10:13:11]    BROWSER_OK - Listo.
+[10:22:26] WORKER INICIADO (live=True)
+[10:22:26] 0 Verificando sesion Nike...
+[10:22:26]    Obteniendo orderForm...
+[10:22:27]    ERROR: Usuario NO logueado en Nike
+[10:22:27]    Requiere LOGIN antes de PLAY
+[10:22:41] WORKER INICIADO (live=True)
+[10:22:41] 0 Verificando sesion Nike...
+[10:22:41]    Obteniendo orderForm...
+[10:22:41]    ERROR: Usuario NO logueado en Nike
+[10:22:41]    Requiere LOGIN antes de PLAY
+[10:33:21] WORKER INICIADO (live=True)
+[10:33:21] 0 Verificando sesion Nike...
+[10:33:21]    Obteniendo orderForm...
+[10:33:21]    ERROR: Usuario NO logueado en Nike
+[10:33:21]    Requiere LOGIN antes de PLAY
+[11:17:18] WORKER INICIADO (live=True)
+[11:17:18] 0 Verificando sesion Nike...
+[11:17:18]    Obteniendo orderForm...
+[11:17:19]    ERROR: Usuario NO logueado en Nike
+[11:17:19]    Requiere LOGIN antes de PLAY
+[11:18:27] WORKER INICIADO (live=True)
+[11:18:27] 0 Verificando sesion Nike...
+[11:18:27]    Obteniendo orderForm...
+[11:18:27]    ERROR: Usuario NO logueado en Nike
+[11:18:27]    Requiere LOGIN antes de PLAY
+[11:43:16] WORKER INICIADO (live=True)
+[11:43:16] 0 Verificando sesion Nike...
+[11:43:16]    ERROR: No hay cookies válidas
+[11:43:16]    Necesita hacer LOGIN primero (profile_pw vacío)
+[02:18:04] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[02:18:04] 1️⃣ Preparando sesión...
+[02:18:04]    ❌ ERROR: No hay cookies válidas
+[02:18:04]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[04:14:41] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[04:14:41] 1️⃣ Preparando sesión...
+[04:14:41]    ❌ ERROR: No hay cookies válidas
+[04:14:41]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[04:52:58] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[04:52:58] 1️⃣ Preparando sesión...
+[04:52:58]    ❌ ERROR: No hay cookies válidas
+[04:52:58]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[14:05:33] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[14:05:33] 1️⃣ Preparando sesión...
+[14:05:33]    ❌ ERROR: No hay cookies válidas
+[14:05:33]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[15:13:58] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[15:13:58] 1️⃣ Preparando sesión...
+[15:13:58]    ❌ ERROR: No hay cookies válidas
+[15:13:58]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[15:14:00] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[15:14:00] 1️⃣ Preparando sesión...
+[15:14:00]    ❌ ERROR: No hay cookies válidas
+[15:14:00]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[15:43:15] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[15:43:15] 1️⃣ Preparando sesión...
+[15:43:15]    ❌ ERROR: No hay cookies válidas
+[15:43:15]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[15:57:08] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[15:57:08] 1️⃣ Preparando sesión...
+[15:57:08]    ❌ ERROR: No hay cookies válidas
+[15:57:08]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[15:59:47] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[15:59:47] 1️⃣ Preparando sesión...
+[15:59:47]    ❌ ERROR: No hay cookies válidas
+[15:59:47]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[16:14:43] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[16:14:43] 1️⃣ Preparando sesión...
+[16:14:43]    ❌ ERROR: No hay cookies válidas
+[16:14:43]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[16:14:44] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[16:14:44] 1️⃣ Preparando sesión...
+[16:14:44]    ❌ ERROR: No hay cookies válidas
+[16:14:44]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[16:36:14] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[16:36:14] 1️⃣ Preparando sesión...
+[16:36:14]    ❌ ERROR: No hay cookies válidas
+[16:36:14]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[21:51:54] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[21:51:54] 1️⃣ Preparando sesión...
+[21:51:56]    ❌ ERROR: No hay cookies válidas
+[21:51:56]    📌 Necesita hacer LOGIN primero (profile_pw vacío)
+[21:56:28] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[21:56:28] 1️⃣ Preparando sesión...
+[21:56:28]    ℹ️  Sin cookies locales (usuario puede estar logueando)
+[21:56:28]    ✅ Sesión lista
+[21:56:28] 2️⃣ Abriendo navegador...
+[21:56:28]    Buscando zombies...
+[21:56:28]    No habia zombies (ok)
+[22:17:56] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[22:17:56] 1️⃣ Preparando sesión...
+[22:17:56]    ℹ️  Sin cookies locales (usuario puede estar logueando)
+[22:17:56]    ✅ Sesión lista
+[22:17:56] 2️⃣ Abriendo navegador...
+[22:17:56]    Buscando zombies...
+[22:17:56]    No habia zombies (ok)
+[22:36:52] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[22:36:52] 1️⃣ Preparando sesión...
+[22:36:52]    ℹ️  Sin cookies válidas (pero continuando - confianza ciega)
+[22:36:52]    ✅ Sesión lista
+[22:36:52] 2️⃣ Abriendo navegador...
+[22:36:52]    Buscando zombies...
+[22:36:52]    No habia zombies (ok)
+[22:40:09] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[22:40:09] 1️⃣ Preparando sesión...
+[22:40:09]    ℹ️  Sin cookies válidas (pero continuando - confianza ciega)
+[22:40:09]    ✅ Sesión lista
+[22:40:09] 2️⃣ Abriendo navegador...
+[22:40:09]    Buscando zombies...
+[22:40:09]    No habia zombies (ok)
+[22:46:10] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[22:46:10] 1️⃣ Preparando sesión...
+[22:46:10]    ✅ Cookies encontradas en profile_pw (perfil válido)
+[22:46:10]    ✅ Sesión lista
+[22:46:10] 2️⃣ Abriendo navegador...
+[22:46:10]    Buscando zombies...
+[22:46:10]    No habia zombies (ok)
+[22:46:10]    [DEBUG] 2.0 Entrando a sync_playwright()...
+[22:46:10]    [DEBUG] 2.0b Profile dir: C:\Users\beriann\Documents\Repos\nike_bot_pro\auth\cuenta2\profile_pw
+[22:46:10]    [DEBUG] 2.0c Iniciando Playwright...
+[22:46:10]    [DEBUG] 2.0d Playwright iniciado
+[23:06:20] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[23:06:20] 1️⃣ Preparando sesión...
+[23:06:20]    ✅ Cookies encontradas en profile_pw (perfil válido)
+[23:06:20]    ✅ Sesión lista
+[23:06:20] 2️⃣ Abriendo navegador...
+[23:06:20]    Buscando zombies...
+[23:06:20]    No habia zombies (ok)
+[00:15:21] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[00:15:21] 1️⃣ Preparando sesión...
+[00:15:21]    ✅ Cookies encontradas en profile_pw (perfil válido)
+[00:15:21]    ✅ Sesión lista
+[00:15:21] 2️⃣ Abriendo navegador...
+[00:15:21]    Buscando zombies...
+[00:15:21]    No habia zombies (ok)
+[00:40:26] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[00:40:26] 1️⃣ Preparando sesión...
+[00:40:26]    ✅ Cookies encontradas en profile_pw (perfil válido)
+[00:40:26]    ✅ Sesión lista
+[00:40:26] 2️⃣ Abriendo navegador...
+[00:40:26]    Buscando zombies...
+[00:40:26]    No habia zombies (ok)
+[00:40:26]    [DEBUG] 2.0a ANTES de asyncio.run()
+[00:40:26]    [DEBUG] 2.0b DENTRO del try - antes de asyncio.run()
+[00:41:50] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[00:41:50] 1️⃣ Preparando sesión...
+[00:41:50]    ✅ Cookies encontradas en profile_pw (perfil válido)
+[00:41:50]    ✅ Sesión lista
+[00:41:50] 2️⃣ Abriendo navegador...
+[00:41:50]    Buscando zombies...
+[00:41:50]    No habia zombies (ok)
+[00:41:50]    [DEBUG] 2.0a ANTES de asyncio.run()
+[00:41:50]    [DEBUG] 2.0b DENTRO del try - antes de asyncio.run()
+[00:57:31] 🚀 WORKER REFACTORIZADO: Llamando StateMachine.run()
+[00:57:31] 1️⃣ Preparando sesión...
+[00:57:31]    ✅ Cookies encontradas en profile_pw (perfil válido)
+[00:57:31]    ✅ Sesión lista
+[00:57:31] 2️⃣ Abriendo navegador...
+[00:57:31]    Buscando zombies...
+[00:57:31]    No habia zombies (ok)
+[00:57:31]    [DEBUG] 2.0 SYNC: Lanzando navegador...
+[00:57:31]    [DEBUG] 2.0a: Iniciando sync_playwright...

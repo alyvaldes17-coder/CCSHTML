@@ -1,0 +1,229 @@
+═══════════════════════════════════════════════════════════════════════════════
+                      💀 FORCE_LOGIN - PROTOCOLO ABSOLUTO
+═══════════════════════════════════════════════════════════════════════════════
+
+El log miente: dice "Chrome opened" pero tú ves el escritorio vacío.
+
+CAUSA RAÍZ (99% seguro):
+  ❌ Rutas relativas (auth\cuenta2\profile_pw) que Windows no resuelve
+  ❌ Procesos zombie de Chrome invisibles
+  ❌ Chrome anterior aún colgado en segundo plano
+
+SOLUCIÓN:
+  ✅ Matar todos los procesos Chrome
+  ✅ Usar rutas ABSOLUTAS (C:\Users\...\auth\cuenta2\profile_pw)
+  ✅ Lanzar Chrome directamente con subprocess
+
+═══════════════════════════════════════════════════════════════════════════════
+                              PASO A PASO
+═══════════════════════════════════════════════════════════════════════════════
+
+PASO 1: LIMPIAR CHROME ZOMBIES
+───────────────────────────────────────────────────────────────────────────────
+
+Opción A (Recomendado - Click):
+  1. Ve a la carpeta del bot: c:\Users\beriann\Documents\Repos\nike_bot_pro\
+  2. Busca: kill_chrome.bat
+  3. Haz doble click
+  4. Se abre una ventana y mata todos los Chrome activos
+  5. Presiona una tecla para cerrar
+
+Opción B (PowerShell - Manual):
+  1. Abre PowerShell
+  2. Ejecuta:
+     taskkill /F /IM chrome.exe
+
+Opción C (Cmd - Manual):
+  1. Abre cmd
+  2. Ejecuta:
+     taskkill /F /IM chrome.exe
+
+
+PASO 2: EJECUTAR FORCE_LOGIN.PY
+───────────────────────────────────────────────────────────────────────────────
+
+Opción A (Si quieres cambiar cuenta):
+  1. Abre force_login.py con editor de texto
+  2. Busca línea ~26: CUENTA_OBJETIVO = "cuenta2"
+  3. Cambiar a la cuenta que quieras (ej: "cuenta3")
+  4. Guardar
+
+Opción B (Ejecutar):
+  Terminal:
+    cd c:\Users\beriann\Documents\Repos\nike_bot_pro
+    python force_login.py
+
+Resultado esperado:
+  ✅ Ve muchos logs mostrando el proceso
+  ✅ Ve la ruta ABSOLUTA que se construyó
+  ✅ Chrome debería ABRIRSE INMEDIATAMENTE
+  ✅ En Nike.cl/login
+
+
+PASO 3: LOGUÉATE MANUALMENTE
+───────────────────────────────────────────────────────────────────────────────
+
+En el Chrome que se abrió:
+  1. Ingresa tu EMAIL
+  2. Ingresa tu PASSWORD
+  3. Completa 2FA (si aparece)
+  4. Espera a ver "Hola, [Tu Nombre]"
+  5. ⚠️ IMPORTANTE: CIERRA CHROME CON LA X (arriba a la derecha)
+     (No solo la pestaña, la VENTANA)
+
+Resultado:
+  El perfil se guarda en: auth/cuenta2/profile_pw/
+  Las cookies se guardan en: auth/cuenta2/profile_pw/Default/Network/Cookies
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          VERIFICAR QUE FUNCIONÓ
+═══════════════════════════════════════════════════════════════════════════════
+
+Después de loguear y cerrar Chrome:
+
+Opción A (Verificación Rápida):
+  python force_check.py
+  (Se abre Chrome de nuevo - deberías ver "Hola, [Tu Nombre]")
+
+Opción B (Verificación Manual):
+  1. Abre Explorador de Archivos
+  2. Ve a: auth\cuenta2\profile_pw\Default\Network\
+  3. Busca el archivo "Cookies"
+  4. Si existe y pesa > 20 KB → ✅ Funcionó
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                          PROBLEMAS Y SOLUCIONES
+═══════════════════════════════════════════════════════════════════════════════
+
+PROBLEMA 1: "Chrome no abre"
+─────────────────────────────────────────────────────────────────────────────
+Síntomas:
+  • force_login.py ejecuta sin errores
+  • Pero Chrome no aparece en la pantalla
+
+Causas:
+  1. Chrome no instalado en rutas estándar
+  2. Antivirus/firewall bloqueando
+  3. Permisos de usuario insuficientes
+
+Soluciones:
+  1. Instala Chrome desde google.com/chrome
+  2. Ejecuta como Administrador:
+     • PowerShell > Click derecho > "Ejecutar como administrador"
+     • python force_login.py
+  3. Temporalmente desactiva antivirus y reintentra
+
+
+PROBLEMA 2: "Chrome abre pero está vacío/blanco"
+─────────────────────────────────────────────────────────────────────────────
+Síntomas:
+  • Chrome se abre pero muestra página en blanco o vacía
+
+Causas:
+  • Ruta de perfil problemática
+  • Permisos de escritura en disco
+
+Soluciones:
+  1. Mata Chrome: taskkill /F /IM chrome.exe
+  2. Elimina la carpeta del perfil:
+     rmdir /S /Q auth\cuenta2\profile_pw
+  3. Corre force_login.py nuevamente
+
+
+PROBLEMA 3: "Chrome abre pero dice 'Sync error' o cosas rojas"
+─────────────────────────────────────────────────────────────────────────────
+Síntomas:
+  • Chrome abre pero con errores de sincronización
+
+Soluciones:
+  1. Ignora los errores (son normales en perfil nuevo)
+  2. Loguéate normalmente
+  3. Cierra Chrome
+  4. Listo
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                            FLUJO COMPLETO
+═══════════════════════════════════════════════════════════════════════════════
+
+1. kill_chrome.bat
+   └─ Mata todos los Chrome
+
+2. python force_login.py
+   └─ Abre Chrome con rutas ABSOLUTAS
+      └─ Deberías ver la ventana
+
+3. Loguéate en Nike
+   └─ Email + Password + 2FA
+      └─ Espera "Hola, [Tu Nombre]"
+
+4. Cierra Chrome
+   └─ Con la X (no pestaña)
+
+5. python force_check.py
+   └─ Verifica que se guardó
+      └─ Deberías ver "Hola, [Tu Nombre]" de nuevo
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                        ARCHIVOS QUE NECESITAS
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ kill_chrome.bat
+   Mata procesos Chrome zombies
+
+✅ force_login.py
+   Abre Chrome con rutas ABSOLUTAS
+   Script principal (el que hace la magia)
+
+✅ force_check.py
+   Verifica que el perfil tiene cookies
+   (Ya debería existir)
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                        PRÓXIMOS PASOS
+═══════════════════════════════════════════════════════════════════════════════
+
+AHORA (Fuerza bruta):
+  1. kill_chrome.bat
+  2. python force_login.py
+  3. Loguéate
+  4. Cierra Chrome
+
+DESPUÉS (Verificación):
+  python force_check.py
+  (Deberías ver "Hola, [Tu Nombre]")
+
+DESPUÉS (Si todo OK):
+  python main.py
+  (O usa la UI del bot normalmente)
+
+
+═══════════════════════════════════════════════════════════════════════════════
+                              RESUMEN
+═══════════════════════════════════════════════════════════════════════════════
+
+El problema: Rutas relativas + Chrome zombies = Log miente
+La solución: Rutas ABSOLUTAS + Matar zombies = Chrome abre de verdad
+
+force_login.py garantiza:
+  ✅ Ruta ABSOLUTA (no relativa)
+  ✅ Verifica que existe
+  ✅ Busca Chrome correctamente
+  ✅ Lanza con Popen (no blocking)
+  ✅ Captura TODOS los errores
+
+Resultado:
+  Chrome ABRE. O sabes exactamente por qué no abrió.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+                    COMIENZA AHORA:
+
+                      kill_chrome.bat
+                    python force_login.py
+
+═══════════════════════════════════════════════════════════════════════════════

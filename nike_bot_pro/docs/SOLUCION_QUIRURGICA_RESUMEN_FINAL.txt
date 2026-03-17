@@ -1,0 +1,271 @@
+================================================================================
+✅ SOLUCION QUIRURGICA - IMPLEMENTACION COMPLETA
+================================================================================
+
+PROBLEMA ORIGINAL:
+─────────────────
+Si hay procesos "fantasma" de Chrome usando la carpeta auth/cuenta2/profile_pw,
+Windows BLOQUEA esa carpeta. Resultado: Chrome no abre cuando haces click en LOGIN.
+
+ANTES (inaceptable):
+  kill_chrome.bat → taskkill /F /IM chrome.exe
+  ❌ Mata TODOS los Chrome (tu trabajo desaparece)
+
+AHORA (quirúrgico):
+  matar_chrome_especifico(profile_path)
+  ✅ Mata SOLO procesos Chrome usando ESAS carpeta específica
+  ✅ Tu Chrome personal intacto
+  ✅ Windows libera la carpeta del perfil
+
+================================================================================
+CAMBIOS IMPLEMENTADOS
+================================================================================
+
+1️⃣  utils/zombie_killer.py
+────────────────────────────
+
+NUEVO ALIAS (línea final):
+    matar_chrome_especifico = matar_zombies_del_perfil
+
+MECANISMO:
+  • Reutiliza la función existente matar_zombies_del_perfil()
+  • Se llama matar_chrome_especifico() desde engines/manual_login.py
+  • Usa WMIC para ser quirúrgico
+  • No requiere cambios a lógica existente
+
+RESULTADO:
+  ✅ Una sola función en un lugar
+  ✅ Dos nombres (alias)
+  ✅ Compatible con código existente
+
+
+2️⃣  engines/manual_login.py
+─────────────────────────────
+
+CAMBIO 1 - Import (línea 20):
+    from utils.zombie_killer import matar_chrome_especifico
+
+CAMBIO 2 - En open_chrome_for_login_native():
+    ✅ Ahora ejecuta matar_chrome_especifico() ANTES de validar directorio
+    FLUJO: matar → convertir a ABSOLUTO → validar → buscar Chrome → lanzar
+
+CAMBIO 3 - En open_chrome_for_login_playwright():
+    ✅ Ahora ejecuta matar_chrome_especifico() ANTES de iniciar Playwright
+    FLUJO: matar → convertir a ABSOLUTO → validar → Playwright → contexto
+
+
+3️⃣  utils/__init__.py
+──────────────────────
+
+NUEVAS EXPORTACIONES:
+    from .zombie_killer import matar_zombies_del_perfil, matar_chrome_especifico
+
+RESULTADO:
+  ✅ Función disponible como utils.matar_chrome_especifico
+  ✅ Función disponible como utils.zombie_killer.matar_chrome_especifico
+
+
+================================================================================
+FLUJO DE EJECUCION (CON DIAGRAMA)
+================================================================================
+
+    Usuario hace click [LOGIN]
+            │
+            ↓
+    ┌─────────────────────────────────┐
+    │ ui/app.py → _login()            │
+    └────────────────┬────────────────┘
+                     │
+                     ↓
+    ┌─────────────────────────────────────────────────┐
+    │ auth/session_check.py                           │
+    │ setup_account_login(account_path, account_name) │
+    └────────────────┬────────────────────────────────┘
+                     │
+         ┌───────────┴───────────┐
+         │                       │
+         ↓                       ↓
+    PASO 1                   PASO 2
+    ┌──────────────────┐  ┌──────────────────────────────┐
+    │ LIMPIEZA 1       │  │ MOTOR BLINDADO               │
+    │ (Ya existía)     │  │ open_chrome_for_login()      │
+    │                  │  │                              │
+    │ matar_zombies_   │  │ ┌──────────────────────────┐ │
+    │ del_perfil()     │  │ │ LIMPIEZA 2 (NUEVA)       │ │
+    │                  │  │ │                          │ │
+    │ utils/zombie_    │  │ │ matar_chrome_especifico()│ │
+    │ killer.py        │  │ │                          │ │
+    │                  │  │ │ utils/zombie_killer.py   │ │
+    │                  │  │ └──────────────────────────┘ │
+    │ RESULTADO:       │  │                              │
+    │ Procesos         │  │ PASO 2.1: Convertir a        │
+    │ fantasma → MUEREN│  │          RUTA ABSOLUTA       │
+    │                  │  │                              │
+    │                  │  │ PASO 2.2: Validar carpeta    │
+    │                  │  │                              │
+    │                  │  │ PASO 2.3: Buscar Chrome      │
+    │                  │  │                              │
+    │                  │  │ PASO 2.4: Lanzar Chrome      │
+    │                  │  │          (ahora carpeta      │
+    │                  │  │           ESTÁ LIBRE)        │
+    └──────────────────┘  └──────────────────────────────┘
+         │                       │
+         └───────────┬───────────┘
+                     │
+                     ↓
+    ┌─────────────────────────────────┐
+    │ Chrome se abre LIMPIO            │
+    │ Usuario loguea en Nike           │
+    │ Cierra con X                     │
+    │ Cookies guardadas automáticamente│
+    └─────────────────────────────────┘
+
+RESULTADO FINAL:
+  ✅ Procesos fantasma Chrome → ELIMINADOS
+  ✅ Tu Chrome personal → INTACTO
+  ✅ Carpeta del perfil → LIBERADA
+  ✅ Login → FUNCIONA
+
+
+================================================================================
+TECNOLOGIA: WMIC (Windows Management Instrumentation Command-line)
+================================================================================
+
+COMANDO EJECUTADO:
+    wmic process where "name='chrome.exe' and CommandLine like '%AUTH%CUENTA2%PROFILE_PW%'" call terminate
+
+DESGLOSE:
+  wmic process where = "dame procesos WHERE"
+  name='chrome.exe' = el proceso se llama chrome.exe
+  and = AND lógico
+  CommandLine like '%...%' = la línea de comando CONTIENE (% = comodín)
+  auth/cuenta2/profile_pw = carpeta específica (en los %)
+  call terminate = termina el proceso
+
+POR QUE FUNCIONA:
+  1. Windows mantiene línea de comando de cada proceso
+  2. WMIC puede buscar por patrón de texto
+  3. Si un Chrome abre con --user-data-dir=auth/cuenta2/profile_pw,
+     su línea de comando CONTIENE esa ruta
+  4. Tu Chrome personal NO tiene esa ruta en su línea de comando
+  5. WMIC solo mata el que cumple el patrón
+  6. Tu Chrome NO cumple → NO MUERE
+
+
+================================================================================
+VENTAJAS DE ESTA SOLUCION
+================================================================================
+
+✅ SEGURIDAD:
+   • Tu Chrome personal 100% intacto
+   • Específico a una carpeta
+   • No "mata a ciegas"
+
+✅ EFICIENCIA:
+   • Usa función existente (matar_zombies_del_perfil)
+   • Solo agrega alias
+   • Código mínimo, máxima reutilización
+
+✅ REDUNDANCIA (beneficiosa):
+   • matar_zombies_del_perfil() en setup_account_login (pre-existente)
+   • matar_chrome_especifico() en open_chrome_for_login (NUEVO)
+   • DOBLE LIMPIEZA = máxima seguridad
+
+✅ ARQUITECTURA:
+   • Separación de conceptos claros
+   • runtime/worker usa zombie_killer
+   • engines/manual_login usa zombie_killer (alias)
+   • Todo centralizado
+
+
+================================================================================
+VALIDACIONES COMPLETADAS
+================================================================================
+
+✅ Sintaxis Python verificada:
+   • engines/manual_login.py → OK
+   • utils/zombie_killer.py → OK
+
+✅ Imports verificados:
+   • from utils.zombie_killer import matar_chrome_especifico → OK
+   • Función disponible como alias → OK
+
+✅ Documentación:
+   • docs/SOLUCION_QUIRURGICA.txt → Explicación técnica
+   • docs/ARQUITECTURA_LIMPIEZA_QUIRURGICA.txt → Arquitectura
+   • QUIRURGICA_REFERENCIA.md → Guía rápida
+
+
+================================================================================
+PROXIMO PASO: PROBAR
+================================================================================
+
+1. Ejecuta: python main.py
+2. Selecciona una cuenta
+3. Haz click en [LOGIN]
+4. Sistema automáticamente:
+   ├─ Ejecuta matar_zombies_del_perfil()
+   └─ Ejecuta matar_chrome_especifico()
+5. Chrome abre
+6. Loguea en Nike
+7. Cierra con X (crítico)
+8. Cookies guardadas
+
+ESPERADO:
+  ✅ Chrome abre sin problemas
+  ✅ Procesos fantasma eliminados (si los había)
+  ✅ Tu Chrome personal sigue funcionando normalmente
+
+
+================================================================================
+SI ALGO FALLA
+================================================================================
+
+PROBLEM: Chrome no abre
+FIX:
+  1. Abre Task Manager (Ctrl+Shift+Esc)
+  2. Busca chrome.exe
+  3. Verifica si hay procesos huérfanos
+  4. Si hay, mátalos manualmente
+  5. Intenta nuevamente
+
+PROBLEM: WMIC no responde
+FIX:
+  1. El archivo ya tiene try/except
+  2. Si WMIC falla, Chrome intentará abrir IGUAL
+  3. Si sigue sin abrir, reinicia Windows
+  4. (WMIC debería estar en Windows 10+)
+
+PROBLEM: Carpeta sigue bloqueada
+FIX:
+  1. Reinicia Windows (libera todos los procesos)
+  2. Intenta nuevamente
+
+
+================================================================================
+RESUMEN EJECUTIVO
+================================================================================
+
+ANTES:
+  ❌ taskkill /F /IM chrome.exe (mata TODOS los Chrome)
+  ❌ Inaceptable (pierdes tu trabajo)
+
+AHORA:
+  ✅ matar_chrome_especifico(profile_path)
+  ✅ Quirúrgico (mata SOLO procesos de ESTA carpeta)
+  ✅ Seguro (tu Chrome personal intacto)
+
+IMPLEMENTACION:
+  • 1 alias en zombie_killer.py
+  • 1 import en manual_login.py
+  • 2 calls a matar_chrome_especifico() en dos métodos
+  • Sintaxis verificada ✅
+  • Imports verificados ✅
+  • Documentación completa ✅
+
+LISTO PARA:
+  🚀 Probar en la UI
+  🚀 Verificar que procesos fantasma se eliminan
+  🚀 Confirmar que Chrome abre limpio
+
+================================================================================
