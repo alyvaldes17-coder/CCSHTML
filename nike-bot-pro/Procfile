@@ -1,0 +1,1 @@
+web: cd auth_server && python main.py
