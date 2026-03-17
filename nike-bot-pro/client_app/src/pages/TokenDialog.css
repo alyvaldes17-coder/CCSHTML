@@ -1,0 +1,130 @@
+.token-dialog-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+  padding: 20px;
+}
+
+.token-dialog {
+  background: #1e1e1e;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+}
+
+.dialog-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.dialog-header h1 {
+  margin: 0;
+  font-size: 28px;
+  background: linear-gradient(135deg, #ff6b00 0%, #ff8f00 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dialog-header p {
+  margin: 5px 0 0 0;
+  color: #888;
+  font-size: 14px;
+}
+
+.token-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.token-form label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ddd;
+}
+
+.token-form textarea {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 6px;
+  padding: 12px;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  resize: none;
+  transition: border-color 0.2s;
+}
+
+.token-form textarea:focus {
+  outline: none;
+  border-color: #ff6b00;
+  background: #2d2d2d;
+}
+
+.token-form textarea:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.error-message {
+  background: rgba(255, 59, 48, 0.1);
+  border: 1px solid #ff3b30;
+  border-radius: 6px;
+  padding: 12px;
+  color: #ff6b6b;
+  font-size: 13px;
+  text-align: center;
+}
+
+.submit-btn {
+  background: linear-gradient(135deg, #ff6b00 0%, #ff8f00 100%);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.1s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+.submit-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.token-info {
+  text-align: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+  font-size: 13px;
+  color: #888;
+}
+
+.token-info p {
+  margin: 0 0 8px 0;
+}
+
+.token-info a {
+  color: #ff6b00;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.token-info a:hover {
+  color: #ff8f00;
+  text-decoration: underline;
+}
