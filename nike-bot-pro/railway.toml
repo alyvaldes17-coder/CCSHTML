@@ -1,8 +1,6 @@
 [build]
 builder = "nixpacks"
-buildCommand = "pip install -r requirements.txt"
 
 [deploy]
-startCommand = "cd nike-bot-pro && uvicorn auth_server.main:app --host 0.0.0.0 --port 8080"
-restartPolicyType = "on_failure"
-restartPolicyMaxRetries = 3
+startCommand = "uvicorn main:app --host 0.0.0.0 --port 8080"
+
