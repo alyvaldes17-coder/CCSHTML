@@ -30,7 +30,6 @@ function App() {
 
   const handleTokenSubmit = async (token: string) => {
     const tokenMgr = new TokenManager()
-    const tokenMgr = new TokenManager() 
     const saved = await tokenMgr.saveToken(token)
     
     if (saved) {

@@ -8,7 +8,7 @@ export interface TokenValidationResult {
 }
 
 export class TokenManager {
-  private apiUrl: string = 'http://localhost:8000'
+  private apiUrl: string = 'https://nike-bot-pro-production.up.railway.app'
 
   async validateToken(token?: string): Promise<TokenValidationResult | null> {
     try {
@@ -21,11 +21,13 @@ export class TokenManager {
         return null
       }
 
-      // Try online validation
+      // Try online validation with correct endpoint
       try {
-        const response = await axios.post(`${this.apiUrl}/auth/validate-token`, {
-          token,
-        }, {
+        const response = await axios.get(`${this.apiUrl}/auth/validate`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'X-HWID': '00000000-0000-0000-0000-000000000000'
+          },
           timeout: 5000
         })
 
