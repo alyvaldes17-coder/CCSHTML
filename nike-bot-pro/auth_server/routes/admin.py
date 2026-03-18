@@ -1,9 +1,9 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlmodel import Session
-from models import User, PlanType
-from schemas import UserResponse, UpdatePlanRequest
-from services import UserService
-from database import get_session
+from auth_server.models import User, PlanType
+from auth_server.schemas import UserResponse, UpdatePlanRequest
+from auth_server.services import UserService
+from auth_server.database import get_session
 
 router = APIRouter(prefix="/admin", tags=["admin"])
 

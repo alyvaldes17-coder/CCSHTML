@@ -1,9 +1,9 @@
 """
 User management service
 """
-from models import User, PlanType
+from auth_server.models import User, PlanType
 from sqlmodel import Session, select
-from services.auth_service import hash_password, verify_password
+from auth_server.services.auth_service import hash_password, verify_password
 
 class UserService:
     

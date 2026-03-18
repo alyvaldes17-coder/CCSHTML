@@ -5,15 +5,15 @@ from sqlmodel import Session
 from datetime import datetime
 from typing import Optional
 
-from ...database import get_session
-from ...models import User, PlanType
-from ...schemas import (
+# Use absolute imports - proper for FastAPI/Uvicorn context
+from auth_server.database import get_session
+from auth_server.models import User, PlanType
+from auth_server.schemas import (
     RegisterRequest, LoginRequest, 
     TokenResponse, LoginResponse, ValidateResponse, RevokeResponse
 )
-from ...services import UserService
-from ...core.security import TokenManager, HWIDManager, get_token_manager
-import os
+from auth_server.services import UserService
+from auth_server.core.security import TokenManager, HWIDManager, get_token_manager
 
 router = APIRouter(prefix="/auth", tags=["authentication"])
 security = HTTPBearer()

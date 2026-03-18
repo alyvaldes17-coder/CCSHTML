@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request, HTTPException
-from services import handle_payment_success
+from auth_server.services import handle_payment_success
 
 router = APIRouter(prefix="/webhook", tags=["webhooks"])
 

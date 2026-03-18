@@ -3,9 +3,9 @@ from fastapi.middleware.cors import CORSMiddleware
 import os
 from dotenv import load_dotenv
 
-from database import create_db_and_tables
-from features.auth import routes as auth_routes
-from routes import admin, stripe, nike
+from auth_server.database import create_db_and_tables
+from auth_server.features.auth.routes import router as auth_router
+from auth_server.routes import admin, stripe, nike
 
 # Load env
 load_dotenv()
@@ -34,7 +34,7 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(auth_routes.router)
+app.include_router(auth_router)
 app.include_router(admin.router)
 app.include_router(stripe.router)
 app.include_router(nike.router)

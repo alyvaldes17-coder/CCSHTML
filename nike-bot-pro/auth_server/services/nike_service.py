@@ -3,7 +3,7 @@ import logging
 from typing import Optional
 import httpx
 
-from vtex import VTEXClient
+from auth_server.vtex import VTEXClient
 
 logger = logging.getLogger(__name__)
 

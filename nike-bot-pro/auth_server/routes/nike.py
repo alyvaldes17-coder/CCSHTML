@@ -1,6 +1,6 @@
 """Nike/VTEX API Endpoints"""
 from fastapi import APIRouter
-from services.nike_service import NikeService
+from auth_server.services.nike_service import NikeService
 
 router = APIRouter(prefix="/api/nike", tags=["nike"])
 nike_service = NikeService()
