@@ -1,4 +1,4 @@
 # Placeholder for routes initialization
-from . import auth
+from . import auth, nike
 
-__all__ = ["auth"]
+__all__ = ["auth", "nike"]
