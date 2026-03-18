@@ -92,7 +92,7 @@ def root():
 
 @app.get("/health")
 def health():
-    return {"status": "ok"}
+    return {"status": "ok", "version": "1.0"}
 
 @app.post("/auth/register", response_model=TokenResponse)
 def register(req: RegisterRequest, session: Session = Depends(get_session)):
