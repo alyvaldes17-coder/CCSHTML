@@ -50,7 +50,15 @@ Necesitas hacer `git pull` y listo.
 
 ### Endpoints Disponibles
 
-Todos estos endpoints están **LISTOS Y FUNCIONANDO**:
+⚠️ **ACLARACIÓN IMPORTANTE:**
+
+- ✅ **GET `/auth/validate`** = Endpoint que la app Tauri realmente usa
+- ❌ **POST `/auth/register`** y **POST `/auth/login`** = NO son usados por la app
+  - Estos endpoints existen solo para TESTEAR (generar tokens via Swagger UI)
+  - En el futuro, si hacemos un web frontend, ahí sí se usarían
+  - Por ahora: solo se usan para generar tokens de test que Aly pega en TokenDialog
+
+Todos están **LISTOS Y FUNCIONANDO**, pero solo **GET `/auth/validate`** es el que la app consume realmente.
 
 #### 📝 POST `/auth/register`
 **Registrar usuario nuevo**
@@ -199,44 +207,61 @@ const tokenMgr = new TokenManager()  // Una sola instancia
 ## 3. Flujo de Funcionamiento
 
 ```
-┌─────────────────────────────┐
-│  1. Usuario abre app Tauri  │
-└──────────────┬──────────────┘
+┌──────────────────────────────────────────────────────┐
+│  1. SEBA registra usuario en Swagger UI              │
+│     https://.../docs → POST /auth/register           │
+│     (Para generar tokens de test)                    │
+└──────────────┬───────────────────────────────────────┘
                │
                ▼
-┌─────────────────────────────────────────┐
-│  2. App carga TokenDialog                │
-│     (pantalla para pegar token)          │
-└──────────────┬──────────────────────────┘
+┌──────────────────────────────────────────────────────┐
+│  2. Copia el token JWT generado                      │
+│     (El único paso que valida backend)               │
+└──────────────┬───────────────────────────────────────┘
                │
                ▼
-┌─────────────────────────────────────────┐
-│  3. Usuario pega JWT token               │
-└──────────────┬──────────────────────────┘
+┌──────────────────────────────────────────────────────┐
+│  3. ALY abre app Tauri                               │
+│                                                      │
+│     ❌ NO hay pantalla de login en la app            │
+│     ❌ NO hace POST /auth/login desde la app        │
+│                                                      │
+│     ✅ Solo muestra TokenDialog                     │
+└──────────────┬───────────────────────────────────────┘
                │
                ▼
-┌─────────────────────────────────────────┐
-│  4. TokenManager valida contra backend   │
-│     GET /auth/validate (con Bearer)      │
-└──────────────┬──────────────────────────┘
+┌──────────────────────────────────────────────────────┐
+│  4. ALY pega el token en TokenDialog                 │
+│     (El token WA existe, no se crea aquí)            │
+└──────────────┬───────────────────────────────────────┘
+               │
+               ▼
+┌──────────────────────────────────────────────────────┐
+│  5. TokenManager valida contra backend               │
+│     GET /auth/validate (con bearer token)            │
+│     ← Este es el ÚNICO endpoint que la app usa      │
+└──────────────┬───────────────────────────────────────┘
                │
         ┌──────┴──────┐
         │             │
         ▼             ▼
     ✅ VÁLIDO    ❌ INVÁLIDO
         │             │
-        │             ├─→ Intenta offline validation
-        │             │
-        │             ├─→ Si funciona → Acceso
-        │             │
-        │             └─→ Si falla → Error
+        │             ├─→ Fallback offline
+        │             └─→ Si expira → Error
         │
         ▼
    ┌──────────────────┐
-   │ Dashboard Aly    │
+   │ Dashboard        │
    │ (Acceso total)   │
    └──────────────────┘
 ```
+
+**Resumen:**
+- ✅ **Login/Register endpoints** = Existen en backend, pero la app NO los usa
+- ✅ **TokenDialog** = Único "login" de la app (pegar token pre-generado)
+- ✅ **GET /auth/validate** = Único endpoint que la app realmente consume
+- ✅ **Offline mode** = Valida JWT localmente sin tocar servidor
 
 ---
 
@@ -261,27 +286,49 @@ npm run tauri dev
 
 ### Paso 4: Probar la integración
 
-**Opción A: Swagger UI (Recomendado)**
+**IMPORTANTE: La app NO hace login. Solo valida tokens pre-generados.**
+
+El flujo es:
+1. GENERAR token en Swagger UI (o línea de comandos)
+2. PEGAR token en la app Tauri
+3. APP valida contra backend
+
+**Opción A: Swagger UI (Para GENERAR tokens)**
 1. Ve a: `https://nike-bot-pro-production.up.railway.app/docs`
-2. Haz Click en POST `/auth/register`
-3. Registra un usuario:
+2. **Registra un usuario** en POST `/auth/register`:
    ```json
    {
      "email": "aly_test@example.com",
      "password": "test123456"
    }
    ```
-4. Copia el `token` de la respuesta
-5. En la app Tauri, pega el token en el dialog
-6. ✅ Debería validarse y llevar al Dashboard
+3. Copia el `token` de la respuesta
+4. **En la app Tauri** (TokenDialog), pega ese token
+5. ✅ La app lo valida contra backend en GET `/auth/validate`
+6. ✅ Si es válido → Acceso al Dashboard
 
-**Opción B: Credenciales de Test Predefinidas**
+⚠️ **Nota:** La app NO tiene un form de login/register. Solo pega tokens existentes.
 
-Si alguien ya registró `test@example.com`:
+**Opción B: Credenciales de Test Predefinidas (si alguien ya registró)**
+
+Si alguien ya crió `test@example.com`:
 - **Email:** `test@example.com`
 - **Password:** `test123456`
 
-Genera un token y pruébalo en la app.
+Genera un token en Swagger UI y pruébalo en la app.
+
+**Opción C: Curl (Para generar tokens sin GUI)**
+```bash
+curl -X POST https://nike-bot-pro-production.up.railway.app/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "test_otro@example.com",
+    "password": "test123456"
+  }'
+
+# Copia el "token" de la respuesta
+# Pégalo en el TokenDialog de la app Tauri
+```
 
 ---
 
@@ -360,14 +407,30 @@ Allí puedes:
 
 ## 9. Checklist para Aly
 
+✅ **Paso 1: Setup**
 - [ ] Hacer `git pull origin feat/auth-stripe`
 - [ ] Ejecutar `npm install` en client_app (si es primera vez)
 - [ ] Ejecutar `npm run tauri dev`
-- [ ] Probar un registro en Swagger UI (`/docs`)
-- [ ] Copiar token generado
-- [ ] Pegar token en TokenDialog de la app Tauri
+
+✅ **Paso 2: Generar Token (en Swagger UI, NO en la app)**
+- [ ] Ir a `https://nike-bot-pro-production.up.railway.app/docs`
+- [ ] POST `/auth/register` con un email/password
+- [ ] Copiar el JWT token de la respuesta
+
+✅ **Paso 3: Validar en la App**
+- [ ] En TokenDialog de Tauri, pegar el token
+- [ ] App hace GET `/auth/validate` contra backend
 - [ ] Verificar que el token se valida y lleva al Dashboard
-- [ ] Confirmar que funciona offline (desactivar internet y refrescar)
+- [ ] ✅ ¡Listo!
+
+✅ **Paso 4: Testing Offline**
+- [ ] Desactivar internet
+- [ ] Refrescar la app
+- [ ] Verificar que AccesoWork en offline mode (fallback JWT decode)
+- [ ] Reactivar internet
+- [ ] Verificar que vuelve a validar contra servidor
+
+**Resumen:** No hay login en la app. Solo: generar token en Swagger → pegar en app → listo.
 
 ---
 
