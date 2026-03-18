@@ -1,1 +1,0 @@
-"""SKUs Feature - SKU Management"""
