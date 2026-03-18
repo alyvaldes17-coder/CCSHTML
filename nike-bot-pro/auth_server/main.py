@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 
 from auth_server.database import create_db_and_tables
-from auth_server.routes.auth_routes import router as auth_router
+from auth_server.routes.auth import router as auth_router
 from auth_server.routes import admin, stripe, nike
 
 # Load env
