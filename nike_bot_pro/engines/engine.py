@@ -402,7 +402,7 @@ class NikeBotEngine:
                             "params": {"url": "https://www.nike.cl/checkout/#/payment"}}))
 
         ok, ms = self._escuchar(ws, "Network.responseReceived", "orderForm", timeout=8.0)
-        time.sleep(1.5)
+        time.sleep(0.8)
 
         url_actual = self._get_current_url(ws)
         print(f"[EV2] URL: {url_actual}")
@@ -476,9 +476,30 @@ class NikeBotEngine:
 
                 if (url.includes('orderPlaced')) return 'ORDER_PLACED';
 
+                // Detección Fintoc multicapa
                 const fintocFrame = document.querySelector('iframe[src*="fintoc"]');
                 if (fintocFrame && fintocFrame.offsetHeight > 0)
                     return 'FINTOC_OPEN|' + fintocFrame.src;
+                const fintocWidget = document.querySelector(
+                    '[class*="fintoc"], [id*="fintoc"], .fintoc-widget__container'
+                );
+                if (fintocWidget && fintocWidget.offsetHeight > 50)
+                    return 'FINTOC_OPEN|modal';
+                const bankSelector = document.querySelector('[class*="institution"], [class*="bank-list"]');
+                if (bankSelector && bankSelector.offsetHeight > 0)
+                    return 'FINTOC_OPEN|banklist';
+                const bankContent = [...document.querySelectorAll('div, section')]
+                    .find(el => el.offsetHeight > 200 && 
+                                (el.textContent || '').includes('Banco BCI') &&
+                                (el.textContent || '').includes('Banco Scotiabank'));
+                if (bankContent) return 'FINTOC_OPEN|banklist';
+                const fintocOverlay = [...document.querySelectorAll('div')].find(d => {{
+                    const s = getComputedStyle(d);
+                    return s.position === 'fixed' && 
+                           parseFloat(s.zIndex) > 100 &&
+                           d.offsetHeight > 200;
+                }});
+                if (fintocOverlay) return 'FINTOC_OPEN|overlay';
 
                 if (hash.startsWith('#/cart')) {{
                     window.location.hash = '#/payment';
@@ -510,7 +531,13 @@ class NikeBotEngine:
                         radio.checked = true;
                         radio.dispatchEvent(new Event('change', {{bubbles: true}}));
                     }}
+                    window.__method_selected_at = Date.now();
                     return 'METHOD_SELECTED';
+                }}
+
+                if (window.__method_selected_at &&
+                    Date.now() - window.__method_selected_at < 600) {{
+                    return 'WAITING_VTEX_RESPONSE';
                 }}
 
                 const totalNodo  = document.querySelector('.summary-totalizers__total-value, .monetary');
@@ -537,14 +564,20 @@ class NikeBotEngine:
                 if (window.__bot_clicked && (Date.now() - window.__bot_clicked < 8000))
                     return 'WAITING_VTEX_RESPONSE';
 
-                const btn = [...document.querySelectorAll('button')].find(b => {{
+                let btn = null;
+                const allBtns = [...document.querySelectorAll('button')].filter(b => {{
                     if (b.disabled || b.offsetParent === null) return false;
                     const txt = (b.innerText || b.textContent || '').trim().toLowerCase();
-                    if (txt.includes('guardar')) return false;
+                    if (txt.includes('guardar') || txt.includes('editar')) return false;
                     return b.id === 'payment-data-submit' ||
                            (b.hasAttribute('data-testid') && b.getAttribute('data-testid') === 'place-order-button') ||
-                           txt.includes('finalizar');
+                           txt === 'finalizar compra' ||
+                           txt === 'finalizar la compra' ||
+                           txt.startsWith('finalizar');
                 }});
+                btn = allBtns.sort((a,b) =>
+                    b.getBoundingClientRect().width - a.getBoundingClientRect().width
+                )[0] || null;
                 if (!btn) return 'NO_BTN_FINALIZAR';
 
                 btn.scrollIntoView({{behavior: 'instant', block: 'center'}});
@@ -583,7 +616,7 @@ class NikeBotEngine:
                                 print(".", end="", flush=True)
 
                             state_counts[val] = state_counts.get(val, 0) + 1
-                            max_loops = 15 if val in ("NO_BTN_FINALIZAR", "WAITING_FOR_DOM") else 8
+                            max_loops = 60 if val == "WAITING_VTEX_RESPONSE" else (20 if val in ("NO_BTN_FINALIZAR", "WAITING_FOR_DOM") else 12)
                             if state_counts.get(val, 0) > max_loops:
                                 print(f"\n[EV4] ❌ Loop infinito en '{val}' — abortando")
                                 return False, ""
@@ -608,8 +641,9 @@ class NikeBotEngine:
                                 time.sleep(0.5)
                                 break
                             elif val.startswith("CLICKED"):
-                                print(f"\n[EV4] 🔥 Click ejecutado")
-                                # Sin sleep — escanear Fintoc inmediatamente
+                                print(f"\n[EV4] 🔥 Click ejecutado — esperando Fintoc...")
+                                state_counts["WAITING_VTEX_RESPONSE"] = 0
+                                time.sleep(0.3)
                                 break
 
                     elif method == "Runtime.consoleAPICalled":
