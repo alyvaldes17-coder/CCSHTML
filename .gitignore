@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+*.egg
+dist/
+build/
+*.whl
+
+# Virtual environments
+nike_bot_pro/env/
+nike_bot_pro/.venv/
+.venv/
+venv/
+
+# Sensitive data - DO NOT COMMIT
+nike_bot_pro/auth/cuenta*/
+nike_bot_pro/auth/trysnkrs*
+nike_bot_pro/auth/**/profile_login/
+nike_bot_pro/profiles/
+nike_bot_pro/profile_pw/
+nike_bot_pro/cookies_extracted.json
+nike_bot_pro/session_token.json
+nike_bot_pro/accounts.json
+nike_bot_pro/config.json
+nike_bot_pro/settings.json
+nike_bot_pro/start_idx
+*.bak
+
+# Logs
+logs/
+*.log
+nike_bot_pro/logs/
+
+# Node / Tauri
+node_modules/
+client_app/node_modules/
+client_app/dist/
+client_app/dist-ssr/
+client_app/src-tauri/target/
+*.local
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS
+Thumbs.db
+Desktop.ini
