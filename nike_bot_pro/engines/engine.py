@@ -185,6 +185,34 @@ class NikeBotEngine:
             print(f"[CDP] Error: {e}")
             return None
 
+    def _send_cdp(self, ws, payload: dict, stage: str = "CDP",
+                  reconnect_once: bool = True):
+        """Envio robusto por CDP: si el socket se cierra, reconecta una vez."""
+        try:
+            ws.send(json.dumps(payload))
+            return ws, True
+        except Exception as e:
+            msg = str(e).lower()
+            is_closed = "socket is already closed" in msg
+            print(f"[{stage}] ⚠️ send falló: {e}")
+
+            if not reconnect_once or not is_closed:
+                return ws, False
+
+            print(f"[{stage}] Reintentando con nueva conexión CDP...")
+            ws2 = self._conectar()
+            if not ws2:
+                print(f"[{stage}] ❌ No se pudo reconectar CDP")
+                return None, False
+
+            try:
+                ws2.send(json.dumps(payload))
+                print(f"[{stage}] ✅ Reconectado")
+                return ws2, True
+            except Exception as e2:
+                print(f"[{stage}] ❌ Reconexión falló: {e2}")
+                return ws2, False
+
     def _escuchar(self, ws, metodo: str, substring: str = "",
                   timeout: float = 5.0) -> tuple[bool, float]:
         t0 = time.time()
@@ -396,10 +424,17 @@ class NikeBotEngine:
             print(f"[EV1] Availability: '{availability}' — continuando")
             return True
 
-    def evento_navegacion(self, ws) -> bool:
+    def evento_navegacion(self, ws):
         print("[EV2] Navegando a /#/payment...")
-        ws.send(json.dumps({"id": 20, "method": "Page.navigate",
-                            "params": {"url": "https://www.nike.cl/checkout/#/payment"}}))
+        ws, sent = self._send_cdp(
+            ws,
+            {"id": 20, "method": "Page.navigate",
+             "params": {"url": "https://www.nike.cl/checkout/#/payment"}},
+            stage="EV2"
+        )
+        if not sent or not ws:
+            print("[EV2] ❌ No se pudo navegar: CDP no disponible")
+            return None
 
         ok, ms = self._escuchar(ws, "Network.responseReceived", "orderForm", timeout=8.0)
         time.sleep(0.8)
@@ -409,7 +444,7 @@ class NikeBotEngine:
 
         if "orderPlaced" in url_actual:
             print("[EV2] ⚡ Ya en orderPlaced")
-            return True
+            return ws
 
         if "#/payment" not in url_actual:
             print("[EV2] ⚠️ Forzando via JS hash...")
@@ -417,7 +452,7 @@ class NikeBotEngine:
             time.sleep(1.0)
 
         print(f"[EV2] ✅ DOM_READY:{ms:.0f}ms")
-        return True
+        return ws
 
     def evento_inyeccion(self, ws, payment_mode: str, card_data: dict) -> str:
         print(f"[EV3] Inyectando '{payment_mode}'...")
@@ -435,11 +470,17 @@ class NikeBotEngine:
             senal      = HANDSHAKE_OK
             js_wrapped = "console.log('[BOT] 🔥 MEGA-PRO: transfer (EV4 controla)');"
 
-        ws.send(json.dumps({
-            "id": 30,
-            "method": "Runtime.evaluate",
-            "params": {"expression": js_wrapped, "awaitPromise": False}
-        }))
+        ws, sent = self._send_cdp(
+            ws,
+            {
+                "id": 30,
+                "method": "Runtime.evaluate",
+                "params": {"expression": js_wrapped, "awaitPromise": False}
+            },
+            stage="EV3"
+        )
+        if not sent:
+            print("[EV3] ⚠️ No se pudo inyectar script")
         print(f"[EV3] Señal: {senal}")
         return senal
 
@@ -454,8 +495,14 @@ class NikeBotEngine:
         label = PAYMENT_LABELS.get(payment_mode, "Transferencia con tu banco")
 
         try:
-            ws.send(json.dumps({"id": 99, "method": "Runtime.enable", "params": {}}))
-            ws.send(json.dumps({"id": 98, "method": "Log.enable",     "params": {}}))
+            ws, _ = self._send_cdp(
+                ws, {"id": 99, "method": "Runtime.enable", "params": {}},
+                stage="EV4", reconnect_once=True
+            )
+            ws, _ = self._send_cdp(
+                ws, {"id": 98, "method": "Log.enable", "params": {}},
+                stage="EV4", reconnect_once=False
+            )
         except Exception:
             pass
 
@@ -783,7 +830,10 @@ class NikeBotEngine:
             print(f"[PRE-EV2] {shipping_ok}")
 
             t0 = time.time()
-            self.evento_navegacion(ws)
+            ws = self.evento_navegacion(ws)
+            if not ws:
+                resultado["fallo_en"] = "EV2_CDP"
+                return resultado
             resultado["telemetria"]["ev2_ms"] = int((time.time()-t0)*1000)
 
             # EV3 solo para tarjetas — transfer usa EV4 directo
@@ -791,11 +841,20 @@ class NikeBotEngine:
                 senal = self.evento_inyeccion(ws, payment_mode, card_data)
             else:
                 senal = HANDSHAKE_OK
-                ws.send(json.dumps({
-                    "id": 30, "method": "Runtime.evaluate",
-                    "params": {"expression": "console.log('[BOT] 🔥 MEGA-PRO: transfer (EV4 controla)');",
-                               "awaitPromise": False}
-                }))
+                ws, sent = self._send_cdp(
+                    ws,
+                    {
+                        "id": 30, "method": "Runtime.evaluate",
+                        "params": {
+                            "expression": "console.log('[BOT] 🔥 MEGA-PRO: transfer (EV4 controla)');",
+                            "awaitPromise": False
+                        }
+                    },
+                    stage="EV3"
+                )
+                if not sent or not ws:
+                    resultado["fallo_en"] = "EV3_CDP"
+                    return resultado
 
             t0 = time.time()
             ev4ok, payment_url = self.evento_handshake(
