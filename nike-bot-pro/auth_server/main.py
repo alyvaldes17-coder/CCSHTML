@@ -4,7 +4,8 @@ import os
 from dotenv import load_dotenv
 
 from database import create_db_and_tables
-from routes import auth, admin, stripe, nike
+from features.auth import routes as auth_routes
+from routes import admin, stripe, nike
 
 # Load env
 load_dotenv()
@@ -33,7 +34,7 @@ app.add_middleware(
 )
 
 # Include routers
-app.include_router(auth.router)
+app.include_router(auth_routes.router)
 app.include_router(admin.router)
 app.include_router(stripe.router)
 app.include_router(nike.router)
