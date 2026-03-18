@@ -1,252 +1,264 @@
-# PROMPT PARA ALY — Tu Área de Trabajo Independiente
-## Nike Bot Pro — App Tauri (React + Rust + Python)
+# PROMPT PARA ALY — Área SKUs (Frontend + Backend)
+## Nike Bot Pro — Trabajo en Paralelo
+
+---
+
+## CÓMO TRABAJAMOS
+
+Trabajamos **en paralelo**, cada uno con su vista completa (UI + backend):
+
+| Quién | Área | Frontend | Backend |
+|-------|------|----------|---------|
+| **Yo (Brian)** | **DROP** — Motor del bot | `Drop.tsx` | `bot_api.py`, `stock_monitor.py` |
+| **Tú (Aly)** | **SKUs** — Búsqueda y catálogo | `Skus.tsx` | Lógica VTEX |
+
+Así cada uno ve su progreso en su pantalla sin interferir con el otro.
 
 ---
 
 ## CONTEXTO GENERAL
 
-Estamos migrando el Nike Bot de CustomTkinter a una app de escritorio Tauri (React frontend + Rust backend nativo + Python bot engine). La app tiene 6 secciones: **Login, Home, SKUs, Drop, Wallet, Config**.
+App de escritorio Tauri (React + Rust + Python) para Nike bot. 6 secciones: Login, Home, SKUs, Drop, Wallet, Config.
 
-### Arquitectura actual
 ```
 client_app/          ← App Tauri (React + TypeScript + Rust)
-├── src/
-│   ├── pages/       ← Páginas principales (Login, Home, SKUs, Drop, Wallet, Config)
-│   ├── services/    ← api.ts (Railway auth), botSocket.ts (WebSocket local)
-│   ├── components/  ← Sidebar, Toast, SnakeLogo
-│   └── App.tsx      ← Router principal + estado de sesión
-├── src-tauri/       ← Backend Rust (comandos nativos)
-│   └── src/lib.rs   ← Comandos: get_hwid, greet
+├── src/pages/       ← Páginas: Login, Home, SKUs, Drop, Wallet, Config
+├── src/services/    ← api.ts (auth Railway), botSocket.ts (WebSocket)
+├── src/components/  ← Sidebar, Toast, SnakeLogo
+└── src/App.tsx      ← Router + estado sesión
 
 nike_bot_pro/        ← Bot engine Python
-├── bot_api.py       ← FastAPI server local (localhost:8000) — WebSocket + REST
-├── stock_monitor.py ← Monitor de stock VTEX async
-├── auth/            ← Módulo de autenticación (tokens, cookies, sesiones)
-├── core/            ← Lógica de cuentas y estados
-├── engines/         ← Motor de compra (Selenium/Playwright)
-├── runtime/         ← Controller del bot
-└── config/          ← Settings
+├── bot_api.py       ← FastAPI localhost:8000 (WebSocket + REST) — LO MANEJO YO
+├── stock_monitor.py ← Monitor stock VTEX — LO MANEJO YO
+└── ...
 ```
 
-### Servidores
-| Servidor | URL | Propósito |
-|----------|-----|-----------|
-| Railway (remoto) | `https://nike-bot-pro-production.up.railway.app` | Auth/licencias JWT |
-| Bot API (local) | `http://127.0.0.1:8000` | Control del bot, WebSocket |
-| VTEX Nike.cl | `https://www.nike.cl/api/catalog_system/pub/products/search` | Catálogo productos |
-
----
-
-## TU ÁREA DE TRABAJO (ALY)
-
-### Archivos que TÚ modificas:
+### API externa disponible
 ```
-client_app/src/pages/Home.tsx      ← Dashboard (actualmente placeholder estático)
-client_app/src/pages/Wallet.tsx    ← Gestión de cuentas (actualmente placeholder)
-client_app/src/pages/Config.tsx    ← Configuración (60% implementado)
-client_app/src/components/         ← Componentes compartidos si necesitas crear nuevos
-```
-
-### Archivos que NO debes tocar (los manejo yo):
-```
-client_app/src/pages/Drop.tsx       ← Bot control panel (implementado)
-client_app/src/pages/Skus.tsx       ← Búsqueda VTEX (implementado)
-client_app/src/pages/Login.tsx      ← Auth JWT (implementado)
-client_app/src/services/api.ts      ← API Railway + Tauri Store
-client_app/src/services/botSocket.ts ← WebSocket bot_api.py
-client_app/src/App.tsx              ← Router principal (compartido, consultar antes de editar)
-client_app/src-tauri/               ← Backend Rust
-nike_bot_pro/bot_api.py             ← FastAPI server
-nike_bot_pro/stock_monitor.py       ← Monitor stock
+VTEX Nike.cl: https://www.nike.cl/api/catalog_system/pub/products/search
+  - Por SKU:    ?fq=skuId:134427
+  - Por nombre: ?ft=air+max&_from=0&_to=9
+  - Por marca:  ?fq=B:nike
 ```
 
 ---
 
-## TAREAS CONCRETAS PARA ALY
+## TU ÁREA DE TRABAJO
 
-### 1. HOME.tsx — Dashboard Real (Prioridad ALTA)
-**Estado actual:** 4 widgets con datos hardcoded, 3 botones que no hacen nada.
+### Archivos que TÚ manejas:
+```
+client_app/src/pages/Skus.tsx       ← Tu vista principal (ya funcional, mejorar)
+```
 
-**Lo que necesita:**
-- Conectar con `bot_api.py` para obtener datos reales:
-  - Número real de cuentas (`GET http://127.0.0.1:8000/accounts`)
-  - Cuentas autenticadas vs no autenticadas
-  - Estado general del bot (corriendo/detenido)
-- Los 3 botones de acción rápida deben navegar a las secciones correspondientes:
-  - "Buscar SKU" → navegar a SKUs (`onNavigate("skus")`)
-  - "Lanzar Drop" → navegar a Drop (`onNavigate("drop")`)
-  - "Limpiar Carrito" → puede ser un `fetch POST` al bot_api
-- Mostrar último evento de stock si hay uno guardado
-- El plan y expiración del token ya vienen en `session.plan` y `session.exp`
+### Archivos que puedes crear si necesitas:
+```
+client_app/src/services/skuApi.ts   ← Si quieres extraer la lógica VTEX a un servicio aparte
+client_app/src/components/SkuXXX.tsx ← Componentes auxiliares de SKU que necesites
+```
 
-**Props disponibles:** `{ session: UserSession, theme: string }`
-Para navegar entre secciones, necesitas recibir `onNavigate` como prop desde App.tsx. Pide que se te pase.
+### Archivos que NO debes tocar:
+```
+client_app/src/pages/Drop.tsx        ← MI ÁREA
+client_app/src/pages/Login.tsx       ← Compartido (no tocar)
+client_app/src/services/botSocket.ts ← MI ÁREA
+client_app/src/services/api.ts       ← Compartido (no tocar)
+client_app/src/App.tsx               ← Compartido (pedir antes de editar)
+nike_bot_pro/bot_api.py              ← MI ÁREA
+nike_bot_pro/stock_monitor.py        ← MI ÁREA
+```
 
-### 2. WALLET.tsx — CRUD de Cuentas Nike (Prioridad ALTA)
-**Estado actual:** Tabla estática con 7 cuentas mockeadas.
+---
 
-**Lo que necesita:**
-- **Listar cuentas reales** desde `GET http://127.0.0.1:8000/accounts`
-- **Agregar cuenta**: Formulario modal con email + password + SKU target
-- **Editar cuenta**: Modal para cambiar SKU target, talla, etc.
-- **Eliminar cuenta**: Con confirmación
-- **Importar/Exportar**: Botón para cargar JSON con múltiples cuentas
-- Estado de cada cuenta: `NO_AUTH`, `AUTHENTICATED`, `RUNNING`, `SUCCESS`, `ERROR`
-- **API endpoints disponibles** (ya existen en bot_api.py):
-  ```
-  GET  /accounts          → Lista todas las cuentas
-  POST /accounts          → Agregar cuenta { email, password, sku? }
-  PUT  /accounts/{email}  → Editar cuenta
-  DELETE /accounts/{email} → Eliminar cuenta
-  ```
+## ESTADO ACTUAL DE Skus.tsx
 
-### 3. CONFIG.tsx — Completar Funcionalidades (Prioridad MEDIA)
-**Estado actual:** 60% implementado. Logout funciona. Theme toggle funciona.
+La página **ya funciona**. Lo que tiene ahora:
 
-**Lo que falta:**
-- **Botón "Copiar token"**: Implementar `navigator.clipboard.writeText(session.token)` con feedback Toast
-- **Botón "Renovar plan"**: Puede redirigir a un link externo o mostrar info de contacto
-- **Sección de configuración del bot** (NUEVA):
-  - Delay entre intentos (ms)
-  - Número máximo de reintentos
-  - Región/país target
-  - Proxy settings (host:port:user:pass)
-  - Guardar config en `POST http://127.0.0.1:8000/config`
-  - Cargar config con `GET http://127.0.0.1:8000/config`
-- **Info del sistema**: Versión de la app, HWID (ya disponible con `invoke("get_hwid")`)
+- Busca en Nike.cl por SKU numérico o nombre de producto
+- Muestra imagen del producto, precio, marca
+- Tabla de tallas con stock en tiempo real (disponible/agotado, cantidad, precio)
+- Chips de "SKUs guardados" en sessionStorage
+- Botón + para guardar SKU, × para eliminar
+
+### Código actual simplificado:
+```tsx
+// Búsqueda dual
+const isSkuId = /^\d+$/.test(query);
+const url = isSkuId
+  ? `${NIKE_CATALOG}?fq=skuId:${query}`
+  : `${NIKE_CATALOG}?ft=${encodeURIComponent(query)}&_from=0&_to=0`;
+
+// Parseo de respuesta VTEX
+item.sellers?.[0]?.commertialOffer → { IsAvailable, AvailableQuantity, Price }
+item.Talla?.[0] || item.Size?.[0] → talla
+item.images?.[0]?.imageUrl → imagen
+```
+
+### Tipos que usa:
+```tsx
+interface SkuItem {
+  itemId: string; name: string; size: string;
+  available: boolean; quantity: number; price: number; image: string;
+}
+interface ProductResult {
+  productName: string; brand: string; link: string; items: SkuItem[];
+}
+```
+
+---
+
+## MEJORAS QUE NECESITA Skus.tsx
+
+### Prioridad ALTA
+
+1. **Búsqueda múltiple de productos** — Ahora solo muestra 1 producto. Si buscas por nombre ("air max"), VTEX devuelve un array. Mostrar TODOS los resultados en una grilla/lista, no solo `data[0]`.
+
+2. **Paginación** — La API VTEX soporta `_from=0&_to=9`. Implementar botones "Cargar más" o paginación para navegar resultados.
+
+3. **Filtros** — Agregar filtros útiles:
+   - Solo con stock disponible
+   - Rango de precios (min-max)
+   - Por talla específica
+   - Por categoría (`fq=C:/Hombre/Zapatillas/`)
+
+4. **Auto-refresh / Polling** — Botón o toggle para re-chequear stock cada X segundos en los SKUs guardados. Esto es crucial para drops: el usuario guarda SKUs y quiere que se actualicen solos.
+
+5. **Detalle expandible por talla** — Click en una talla para ver más datos: seller info, precio de lista vs precio con descuento, EAN, etc.
+
+### Prioridad MEDIA
+
+6. **Exportar SKUs guardados** — Botón para copiar lista de SKUs al clipboard o exportar como JSON. El Drop necesita recibir estos SKUs.
+
+7. **Historial de búsquedas** — Guardar las últimas N búsquedas para acceso rápido.
+
+8. **Vista grid vs lista** — Toggle entre vista actual (tabla) y vista grid (cards con imagen grande).
+
+9. **Indicador visual de cambio de stock** — Si un SKU pasa de 0 a disponible, destacarlo con animación/color. Esto es el "stock alert" visual.
+
+10. **Link directo al producto** — Botón que abra `product.link` en el navegador externo.
+
+### Prioridad BAJA
+
+11. **Comparador** — Seleccionar 2-3 productos para comparar lado a lado.
+
+12. **Notificaciones** — Integrar con el sistema de Toast cuando cambia stock de un SKU guardado.
+
+---
+
+## CÓMO COMUNICAR SKUs AL DROP
+
+Cuando yo necesite los SKUs guardados desde Drop.tsx, los voy a leer de `sessionStorage.getItem("aoda_skus")`. Ese es nuestro **contrato de datos**:
+
+```tsx
+// En sessionStorage, clave "aoda_skus"
+// Formato: JSON string de array de strings
+// Ejemplo: ["134427", "155832", "201445"]
+
+// TÚ escribes (ya lo haces):
+sessionStorage.setItem("aoda_skus", JSON.stringify(savedSkus));
+
+// YO leo desde Drop.tsx:
+const skus = JSON.parse(sessionStorage.getItem("aoda_skus") || "[]");
+```
+
+Si quieres enviar más info (nombre, talla seleccionada), podemos usar otro key:
+```tsx
+// sessionStorage key "aoda_sku_details"
+// Formato: { [skuId]: { name, size, price } }
+```
+Proponme el formato si necesitas algo distinto.
 
 ---
 
 ## REGLAS TÉCNICAS
 
-### Stack y Convenciones
-- **React 19** + **TypeScript** (strict)
-- **NO usar librerías UI** adicionales — todo es CSS inline con el objeto `theme` de [theme.ts](client_app/src/theme.ts)
-- Tema dark/light via prop `theme` (tipo `"dark" | "light"`)
-- Para colores: `import { getTheme } from "../theme"` → `const t = getTheme(theme)`
-- Toast notifications: `import Toast from "../components/Toast"`
-- **NO usar localStorage** — usar `@tauri-apps/plugin-store` (ver api.ts para ejemplo)
-- Para llamadas IPC a Rust: `import { invoke } from "@tauri-apps/api/core"`
+### Stack
+- **React 19** + **TypeScript** strict
+- **CSS inline** con objeto `t` del theme — NO librerías UI
+- `import { T } from "../theme"` → tu componente recibe `{ t }: { t: T }`
+- Toast: `import Toast from "../components/Toast"`
+- **NO usar localStorage** en Tauri — usa `sessionStorage` para datos temporales o `@tauri-apps/plugin-store` para persistencia
 
-### Cómo hacer fetch al bot (localhost:8000)
+### Estructura de componente
 ```tsx
-// GET
-const res = await fetch("http://127.0.0.1:8000/accounts");
-const accounts = await res.json();
+import { useState, useCallback } from "react";
+import { T } from "../theme";
 
-// POST
-await fetch("http://127.0.0.1:8000/accounts", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ email, password, sku })
-});
-```
-
-### Tipos disponibles (types.ts)
-```tsx
-interface UserSession {
-  user: string;
-  plan: string;
-  token: string;
-  exp: number;
-  hwid: string;
-}
-
-interface BotAccount {
-  email: string;
-  state: string;
-  sku?: string;
-  size?: string;
+export function SKUs({ t }: { t: T }) {
+  // tu código...
+  return <div style={{ padding: 28, color: t.text }}>...</div>;
 }
 ```
 
-### Estructura de un componente página
-```tsx
-import React, { useState, useEffect } from "react";
-import { getTheme } from "../theme";
-import Toast from "../components/Toast";
-import type { UserSession } from "../types";
-
-interface Props {
-  session: UserSession;
-  theme: "dark" | "light";
-}
-
-export default function MiPagina({ session, theme }: Props) {
-  const t = getTheme(theme);
-  const [toast, setToast] = useState<{ msg: string; type: "ok" | "err" } | null>(null);
-
-  return (
-    <div style={{ padding: 32, color: t.text }}>
-      {toast && <Toast message={toast.msg} type={toast.type} onClose={() => setToast(null)} />}
-      {/* tu contenido */}
-    </div>
-  );
-}
+### Colores del theme (lo que tiene `t`)
+```
+t.text       — texto principal
+t.textDim    — texto secundario
+t.textMed    — texto medio
+t.bg         — fondo
+t.panel      — fondo de paneles
+t.row        — fondo de filas
+t.border     — bordes
+t.green      — color de éxito/acción
+t.greenDim   — fondo verde suave
+t.red        — color de error
+t.redDim     — fondo rojo suave
 ```
 
 ---
 
 ## GIT WORKFLOW
 
-### Rama de trabajo
+### Rama
 ```bash
-git checkout feat/tauri-client     # Trabaja siempre en esta rama
-git pull origin feat/tauri-client   # Antes de empezar, actualiza
-```
-
-### Antes de commitear
-```bash
-cd client_app
-npm run build                      # Verificar que compila sin errores
+git checkout feat/tauri-client
+git pull origin feat/tauri-client   # SIEMPRE antes de empezar
 ```
 
 ### Commit
 ```bash
-git add client_app/src/pages/Home.tsx client_app/src/pages/Wallet.tsx client_app/src/pages/Config.tsx
-git commit -m "feat(wallet): CRUD de cuentas Nike con API local"
+git add client_app/src/pages/Skus.tsx client_app/src/services/skuApi.ts  # etc
+git commit -m "feat(skus): búsqueda múltiple + paginación VTEX"
 git push origin feat/tauri-client
 ```
 
-### Prefijos de commit
-- `feat(home):` para Home.tsx
-- `feat(wallet):` para Wallet.tsx
-- `feat(config):` para Config.tsx
-- `fix(page):` para correcciones
-- `style(page):` para cambios visuales
+### Prefijos
+- `feat(skus):` para nuevas funcionalidades
+- `fix(skus):` para correcciones
+- `style(skus):` para cambios visuales
+
+### Antes de push
+```bash
+cd client_app
+npm run build    # Verificar que compila
+```
 
 ---
 
 ## CÓMO PROBAR
 
-### 1. Levantar el bot API (en una terminal)
 ```bash
-cd nike_bot_pro
-python bot_api.py
-# Debería decir: Uvicorn running on http://127.0.0.1:8000
-```
-
-### 2. Levantar la app Tauri (en otra terminal)
-```bash
-cd client_app
-npm run tauri dev
-# Abre la ventana de la app
-```
-
-### 3. O solo el frontend (más rápido, sin Rust)
-```bash
+# Terminal 1 — Solo frontend (rápido, sin Rust)
 cd client_app
 npm run dev
-# Abre http://localhost:1420 en el navegador
+# Abre http://localhost:1420
+
+# Terminal 2 — App completa con Tauri
+cd client_app
+npm run tauri dev
 ```
 
----
-
-## CONTACTO / DUDAS
-- Si necesitas que `App.tsx` te pase props adicionales (como `onNavigate`), mándame mensaje y lo agrego.
-- Si necesitas un nuevo endpoint en `bot_api.py`, descríbeme qué necesitas y lo creo.
-- **NO modifiques** archivos fuera de tu área — si algo te bloquea, avísame.
+La página de SKUs no necesita bot_api.py para funcionar — habla directo con Nike.cl.
 
 ---
 
-*Última actualización: $(date). Rama: `feat/tauri-client`*
+## REGLAS DE CONVIVENCIA
+
+1. **NO toques archivos fuera de tu área** — si algo te bloquea, avísame
+2. **Pull antes de empezar** cada sesión de trabajo
+3. **Commits atómicos** — un commit por feature, no mega-commits
+4. Si necesitas que App.tsx te pase props nuevos → pídeme
+5. El contrato de datos entre SKUs y Drop es via `sessionStorage("aoda_skus")` — si quieres cambiarlo, coordinamos
+
+---
+
+*Rama: `feat/tauri-client` | Repo: CCSHTML*
