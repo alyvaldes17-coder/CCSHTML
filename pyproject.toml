@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "nike-bot-pro"
+version = "1.0.0"
+description = "Nike Bot Pro Auth Server"
+
+[tool.nixpacks]
+providers = ["python"]
+
+[tool.nixpacks.python]
+version = "3.11"
