@@ -3,12 +3,13 @@ from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel, Field, create_engine, Session, select
 from pydantic import BaseModel, EmailStr
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 import os
 from nike_bot import NikeBot
+from nike_scraper import NikeScraper
 
 # Config
 SECRET_KEY = os.getenv("JWT_SECRET_KEY", "dev-secret")
@@ -34,6 +35,17 @@ class SKUSize(SQLModel, table=True):
     sku: str = Field(unique=True, index=True)
     size: str
     created_at: datetime = Field(default_factory=datetime.utcnow)
+
+class NikeProduct(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    sku: str = Field(unique=True, index=True)
+    name: str
+    price: Optional[int] = None
+    sizes: str = Field(default="[]")  # JSON string de lista
+    image: Optional[str] = None
+    url: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+    updated_at: datetime = Field(default_factory=datetime.utcnow)
 
 # Schemas
 class RegisterRequest(BaseModel):
@@ -61,6 +73,17 @@ class SKUSizeResponse(BaseModel):
 class NikeAddToCartRequest(BaseModel):
     url: str  # URL completa del producto: https://nike.cl/products/12345
     headless: bool = False  # Si True, ejecuta sin mostrar navegador
+
+class NikeProductRequest(BaseModel):
+    url: str  # URL de producto a scrapear
+
+class NikeProductResponse(BaseModel):
+    sku: str
+    name: str
+    price: Optional[int] = None
+    sizes: List[str]
+    image: Optional[str] = None
+    url: str
 
 # Security
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -222,6 +245,85 @@ def nike_add_to_cart(req: NikeAddToCartRequest, session: Session = Depends(get_s
             "size": size
         }
         
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.post("/nike/scrape", response_model=NikeProductResponse)
+def scrape_nike_product(req: NikeProductRequest, session: Session = Depends(get_session)):
+    """
+    Scrappea un producto de Nike.cl usando BeautifulSoup
+    
+    Extrae: SKU, nombre, precio, tallas disponibles, imagen
+    Guarda en BD para consulta posterior
+    """
+    try:
+        # Scrappear producto
+        scraper = NikeScraper()
+        product = scraper.scrape_product(req.url)
+        
+        if not product:
+            raise HTTPException(status_code=400, detail="Error al scrappear el producto. Verifica la URL.")
+        
+        # Guardar en BD (o actualizar si existe)
+        existing = session.exec(select(NikeProduct).where(NikeProduct.sku == product['sku'])).first()
+        
+        if existing:
+            # Actualizar
+            existing.name = product['name']
+            existing.price = product['price']
+            existing.sizes = str(product['sizes'])  # Convertir lista a string JSON
+            existing.image = product['image']
+            existing.url = product['url']
+            existing.updated_at = datetime.utcnow()
+            session.add(existing)
+        else:
+            # Crear nuevo
+            nike_prod = NikeProduct(
+                sku=product['sku'],
+                name=product['name'],
+                price=product['price'],
+                sizes=str(product['sizes']),
+                image=product['image'],
+                url=product['url']
+            )
+            session.add(nike_prod)
+        
+        session.commit()
+        
+        # Retornar en formato response
+        return NikeProductResponse(
+            sku=product['sku'],
+            name=product['name'],
+            price=product['price'],
+            sizes=product['sizes'],
+            image=product['image'],
+            url=product['url']
+        )
+    
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error scrappearing: {str(e)}")
+
+@app.get("/nike/products")
+def get_nike_products(session: Session = Depends(get_session), sku: Optional[str] = None):
+    """
+    Lista todos los productos scrapeados
+    
+    Parámetros:
+    - sku (opcional): Filtrar por SKU específico
+    """
+    try:
+        if sku:
+            products = session.exec(select(NikeProduct).where(NikeProduct.sku == sku)).first()
+            if not products:
+                raise HTTPException(status_code=404, detail=f"SKU {sku} no encontrado")
+            return [products]
+        else:
+            products = session.exec(select(NikeProduct).order_by(NikeProduct.created_at.desc())).all()
+            return products
     except HTTPException:
         raise
     except Exception as e:
