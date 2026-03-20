@@ -8,4 +8,6 @@ python-jose[cryptography]==3.3.0
 passlib[bcrypt]==1.7.4
 sqlmodel==0.0.21
 sqlalchemy==2.0.36
-# Build version: v3 - Clean rebuild without stripe dependencies
+selenium==4.25.0
+webdriver-manager==4.0.1
+# Build version: v4 - Added Selenium for Nike automation

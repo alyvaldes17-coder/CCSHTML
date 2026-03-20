@@ -1,5 +1,5 @@
 """Nike Bot Pro - Auth Server (Minimal)"""
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from sqlmodel import SQLModel, Field, create_engine, Session, select
 from pydantic import BaseModel, EmailStr
@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from jose import JWTError, jwt
 import os
+from nike_bot import NikeBot
 
 # Config
 SECRET_KEY = os.getenv("JWT_SECRET_KEY", "dev-secret")
@@ -28,6 +29,12 @@ class User(SQLModel, table=True):
     is_admin: bool = False
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
+class SKUSize(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    sku: str = Field(unique=True, index=True)
+    size: str
+    created_at: datetime = Field(default_factory=datetime.utcnow)
+
 # Schemas
 class RegisterRequest(BaseModel):
     email: EmailStr
@@ -40,6 +47,20 @@ class LoginRequest(BaseModel):
 class TokenResponse(BaseModel):
     access_token: str
     token_type: str = "bearer"
+
+class SKUSizeRequest(BaseModel):
+    sku: str
+    size: str
+
+class SKUSizeResponse(BaseModel):
+    id: int
+    sku: str
+    size: str
+    created_at: datetime
+
+class NikeAddToCartRequest(BaseModel):
+    url: str  # URL completa del producto: https://nike.cl/products/12345
+    headless: bool = False  # Si True, ejecuta sin mostrar navegador
 
 # Security
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -121,3 +142,80 @@ def validate(token: str, session: Session = Depends(get_session)):
     if not user:
         raise HTTPException(status_code=401, detail="User not found")
     return {"email": user.email, "id": user.id, "valid": True}
+
+# Nike Routes
+@app.post("/nike/sku/add", response_model=SKUSizeResponse)
+def add_sku_mapping(req: SKUSizeRequest, session: Session = Depends(get_session)):
+    """Agrega o actualiza el mapeo SKU → Talla"""
+    existing = session.exec(select(SKUSize).where(SKUSize.sku == req.sku)).first()
+    
+    if existing:
+        existing.size = req.size
+        session.add(existing)
+    else:
+        sku_size = SKUSize(sku=req.sku, size=req.size)
+        session.add(sku_size)
+    
+    session.commit()
+    session.refresh(existing or sku_size)
+    return existing or sku_size
+
+@app.get("/nike/sku/{sku}")
+def get_sku_size(sku: str, session: Session = Depends(get_session)):
+    """Obtiene la talla asociada a un SKU"""
+    sku_mapping = session.exec(select(SKUSize).where(SKUSize.sku == sku)).first()
+    if not sku_mapping:
+        raise HTTPException(status_code=404, detail=f"SKU {sku} no configurado")
+    return {"sku": sku_mapping.sku, "size": sku_mapping.size}
+
+@app.post("/nike/add-to-cart")
+def nike_add_to_cart(req: NikeAddToCartRequest, session: Session = Depends(get_session)):
+    """
+    Agrega un producto al carrito de Nike
+    
+    El proceso:
+    1. Abre el navegador con la URL del producto
+    2. Busca el SKU en la URL
+    3. Obtiene la talla asociada
+    4. Agrega al carrito
+    5. Navega a checkout
+    6. Se detiene en Fintoc para que completes manualmente
+    """
+    try:
+        # Extraer SKU de la URL
+        import re
+        match = re.search(r'/products/(\d+)', req.url)
+        if not match:
+            raise HTTPException(status_code=400, detail="URL inválida - no contiene SKU")
+        
+        sku = match.group(1)
+        
+        # Obtener talla del SKU
+        sku_mapping = session.exec(select(SKUSize).where(SKUSize.sku == sku)).first()
+        if not sku_mapping:
+            raise HTTPException(status_code=404, detail=f"SKU {sku} no configurado. Agrega primero con POST /nike/sku/add")
+        
+        size = sku_mapping.size
+        
+        # Inicializar bot y agregar al carrito
+        bot = NikeBot(headless=req.headless)
+        success = bot.add_to_cart(req.url, size)
+        
+        if not success:
+            bot.close()
+            raise HTTPException(status_code=500, detail="Error al agregar al carrito")
+        
+        # Mantener navegador abierto para que usuario complete pago
+        bot.keep_open()
+        
+        return {
+            "status": "success",
+            "message": "Producto agregado al carrito. Completa el pago en Fintoc manualmente.",
+            "sku": sku,
+            "size": size
+        }
+        
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
