@@ -1,0 +1,6 @@
+2026/03/20-15:45:03.101 3b7c Creating DB C:\Users\PrDes\CCSHTML\nike_profile\Default\IndexedDB\https_accounts.nike.com_0.indexeddb.leveldb since it was missing.
+2026/03/20-15:45:03.111 3b7c Reusing MANIFEST C:\Users\PrDes\CCSHTML\nike_profile\Default\IndexedDB\https_accounts.nike.com_0.indexeddb.leveldb/MANIFEST-000001
+2026/03/20-15:45:03.133 6f74 Level-0 table #5: started
+2026/03/20-15:45:03.137 6f74 Level-0 table #5: 639 bytes OK
+2026/03/20-15:45:03.140 6f74 Delete type=0 #3
+2026/03/20-15:45:03.141 46fc Manual compaction at level-0 from '\x00\x02\x00\x00\x00' @ 72057594037927935 : 1 .. '\x00\x03\x00\x00\x00' @ 0 : 0; will stop at (end)

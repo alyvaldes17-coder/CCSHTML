@@ -124,95 +124,152 @@ class NikeBot:
             # El perfil persistente mantiene la sesión automáticamente
             print(f"[Nike Bot] Abriendo: {url}")
             self.driver.get(url)
-            time.sleep(4)
+            time.sleep(5)  # Espera más tiempo para que cargue JavaScript
+            
+            # Scroll para asegurar visibilidad de elementos
+            self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+            time.sleep(2)
             
             print(f"[Nike Bot] Seleccionando talla: {size}")
             
-            # Estrategia 1: Buscar botones que contengan el texto de la talla
+            # Estrategia para encontrar selector de talla más robusto
+            found_size = False
+            
+            # 1. Buscar label + input (manera moderna de hacer selectores)
             try:
-                size_buttons = self.driver.find_elements(By.XPATH, f"//button[contains(text(), '{size}')]")
-                if size_buttons:
-                    size_buttons[0].click()
-                    print(f"[Nike Bot] ✓ Talla {size} seleccionada (método 1)")
+                print(f"[Nike Bot] Intentando por label/input...")
+                size_labels = self.driver.find_elements(By.XPATH, f"//label[contains(., '{size}')] | //*[contains(@class, 'size') and contains(text(), '{size}')]")
+                if size_labels:
+                    parent = size_labels[0].find_element(By.XPATH, "..")
+                    parent.click()
+                    print(f"[Nike Bot] ✓ Talla {size} seleccionada (por label)")
+                    found_size = True
                     time.sleep(1)
-                else:
-                    raise Exception("No encontrado")
-            except:
-                # Estrategia 2: Buscar por data-testid
-                try:
-                    size_buttons = self.driver.find_elements(By.XPATH, f"//*[contains(@data-testid, 'size') and contains(text(), '{size}')]")
-                    if size_buttons:
-                        size_buttons[0].click()
-                        print(f"[Nike Bot] ✓ Talla {size} seleccionada (método 2)")
-                        time.sleep(1)
-                    else:
-                        raise Exception("No encontrado")
-                except:
-                    # Estrategia 3: Buscar por aria-label
-                    try:
-                        size_buttons = self.driver.find_elements(By.XPATH, f"//button[contains(@aria-label, '{size}')]")
-                        if size_buttons:
-                            size_buttons[0].click()
-                            print(f"[Nike Bot] ✓ Talla {size} seleccionada (método 3)")
-                            time.sleep(1)
-                        else:
-                            raise Exception("No encontrado")
-                    except:
-                        # Estrategia 4: Buscar todos los botones y comparar texto
-                        print("[Nike Bot] Intentando método alternativo...")
-                        all_buttons = self.driver.find_elements(By.TAG_NAME, "button")
-                        for button in all_buttons:
-                            try:
-                                if size in button.text:
-                                    button.click()
-                                    print(f"[Nike Bot] ✓ Talla {size} seleccionada (método 4)")
-                                    time.sleep(1)
-                                    break
-                            except:
-                                continue
-                        else:
-                            print(f"[Nike Bot] ⚠ No se encontró botón de talla {size}")
-                            print("[Nike Bot] Intentando proceder sin seleccionar talla...")
-            
-            time.sleep(2)
-            
-            # Click en "Agregar al carrito" - varios intentos
-            print("[Nike Bot] Buscando botón 'Agregar al carrito'...")
-            try:
-                # Intentar por texto exacto
-                add_btn = self.driver.find_elements(By.XPATH, "//button[contains(text(), 'Agregar al carrito')]")
-                if add_btn:
-                    add_btn[0].click()
-                else:
-                    # Intentar variaciones
-                    add_btn = self.driver.find_elements(By.XPATH, "//button[contains(text(), 'Agregar') or contains(text(), 'Añadir')]")
-                    if add_btn:
-                        add_btn[0].click()
-                    else:
-                        raise Exception("No encontrado")
-                
-                print("[Nike Bot] ✓ Agregado al carrito")
-                time.sleep(3)
-            except Exception as e:
-                print(f"[Nike Bot] ⚠ No se pudo agregar al carrito: {e}")
-                print("[Nike Bot] Intentando ir directo al checkout...")
-            
-            # Proceder a checkout
-            print("[Nike Bot] Buscando botón de checkout...")
-            try:
-                checkout_btns = self.driver.find_elements(By.XPATH, "//button[contains(text(), 'Proceder al pago')] | //button[contains(text(), 'Ir al carrito')] | //button[contains(text(), 'Checkout')]")
-                if checkout_btns:
-                    checkout_btns[0].click()
-                    print("[Nike Bot] Navegando a checkout...")
-                    time.sleep(3)
             except:
                 pass
             
-            # Esperar a Fintoc
+            # 2. Buscar cualquier elemento clickeable con la talla
+            if not found_size:
+                try:
+                    print(f"[Nike Bot] Intentando por elemento clickeable...")
+                    # Busca radio buttons, checkboxes o buttons con la talla
+                    size_elements = self.driver.find_elements(By.XPATH, f"//*[(@role='radio' or @role='checkbox' or @type='radio' or @type='checkbox') and contains(., '{size}')] | //*[contains(text(), '{size}') and (@onclick or @data-testid)]")
+                    if size_elements:
+                        # Scroll el elemento a vista
+                        self.driver.execute_script("arguments[0].scrollIntoView(true);", size_elements[0])
+                        time.sleep(0.5)
+                        size_elements[0].click()
+                        print(f"[Nike Bot] ✓ Talla {size} seleccionada (elemento clickeable)")
+                        found_size = True
+                        time.sleep(1)
+                except:
+                    pass
+            
+            # 3. Buscar botones con texto exacto
+            if not found_size:
+                try:
+                    print(f"[Nike Bot] Buscando all buttons con talla...")
+                    all_buttons = self.driver.find_elements(By.TAG_NAME, "button")
+                    for button in all_buttons:
+                        try:
+                            btn_text = button.text.strip()
+                            if btn_text == size or btn_text == str(size):
+                                self.driver.execute_script("arguments[0].scrollIntoView(true);", button)
+                                time.sleep(0.3)
+                                button.click()
+                                print(f"[Nike Bot] ✓ Talla {size} seleccionada (botón)")
+                                found_size = True
+                                break
+                        except:
+                            continue
+                except:
+                    pass
+            
+            if not found_size:
+                print(f"[Nike Bot] ⚠ No se encontró selector de talla {size}")
+                print(f"[Nike Bot] ℹ Elementos encontrados en página:")
+                # Debug: mostrar qué elementos hay
+                try:
+                    all_text = self.driver.execute_script("return document.body.innerText")
+                    if size in all_text:
+                        print(f"[Nike Bot] ✓ Talla {size} EXISTE en la página")
+                    else:
+                        print(f"[Nike Bot] ✗ Talla {size} NO existe en la página")
+                except:
+                    pass
+            
+            time.sleep(2)
+            
+            # Buscar botón "Agregar al carrito" con múltiples estrategias
+            print("[Nike Bot] Buscando botón 'Agregar al carrito'...")
+            
+            buttons_found = False
+            
+            # 1. XPath simple por texto
+            try:
+                add_btns = self.driver.find_elements(By.XPATH, "//button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'agregar')]")
+                if add_btns:
+                    self.driver.execute_script("arguments[0].scrollIntoView(true);", add_btns[0])
+                    time.sleep(0.5)
+                    add_btns[0].click()
+                    print("[Nike Bot] ✓ Agregado al carrito (botón encontrado)")
+                    buttons_found = True
+            except:
+                pass
+            
+            # 2. Buscar por class name común
+            if not buttons_found:
+                try:
+                    add_btns = self.driver.find_elements(By.XPATH, "//*[contains(@class, 'add') or contains(@class, 'cart')]//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'agregar')] | //button[@type='submit']")
+                    if add_btns:
+                        self.driver.execute_script("arguments[0].scrollIntoView(true);", add_btns[0])
+                        time.sleep(0.5)
+                        add_btns[0].click()
+                        print("[Nike Bot] ✓ Agregado al carrito (por clase)")
+                        buttons_found = True
+                except:
+                    pass
+            
+            # 3. Buscar cualquier botón principal (último, más grande)
+            if not buttons_found:
+                try:
+                    all_buttons = self.driver.find_elements(By.TAG_NAME, "button")
+                    # Filtrar botones visibles
+                    visible_buttons = [b for b in all_buttons if b.is_displayed()]
+                    if visible_buttons:
+                        # Click el último botón visible (suele ser el principal)
+                        last_btn = visible_buttons[-1]
+                        self.driver.execute_script("arguments[0].scrollIntoView(true);", last_btn)
+                        time.sleep(0.5)
+                        last_btn.click()
+                        print("[Nike Bot] ✓ Agregado al carrito (último botón)")
+                        buttons_found = True
+                except:
+                    pass
+            
+            if not buttons_found:
+                print("[Nike Bot] ⚠ No se encontró botón de agregar al carrito")
+            
+            time.sleep(3)
+            
+            # Ir a checkout si es necesario
+            print("[Nike Bot] Navegando a checkout...")
+            try:
+                # Buscar botones de checkout
+                checkout_btns = self.driver.find_elements(By.XPATH, "//button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'checkout')] | //button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'pago')] | //button[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'carrito')]")
+                if checkout_btns:
+                    self.driver.execute_script("arguments[0].scrollIntoView(true);", checkout_btns[0])
+                    time.sleep(0.5)
+                    checkout_btns[0].click()
+                    print("[Nike Bot] ✓ Navegando a checkout...")
+            except:
+                pass
+            
+            # Esperar a Fintoc o pantalla de pago
             print("[Nike Bot] Esperando a pantalla de pago...")
             try:
                 self.wait.until(
-                    EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'Fintoc') or contains(text(), 'banco') or contains(text(), 'Banco')]"))
+                    EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'Fintoc') or contains(text(), 'banco') or contains(text(), 'Banco') or contains(text(), 'selecciona')]"))
                 )
                 print("[Nike Bot] ✓ LISTO PARA PAGO - Selecciona tu banco")
                 return True
@@ -228,6 +285,12 @@ class NikeBot:
                 
                 print("[Nike Bot] ⚠ No se detectó pantalla de pago")
                 return False
+            
+        except Exception as e:
+            print(f"[Nike Bot] ✗ Error: {str(e)}")
+            import traceback
+            traceback.print_exc()
+            return False
             
         except Exception as e:
             print(f"[Nike Bot] ✗ Error: {str(e)}")
