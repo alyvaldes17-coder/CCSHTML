@@ -253,147 +253,88 @@ def nike_add_to_cart(req: NikeAddToCartRequest, session: Session = Depends(get_s
 @app.post("/nike/scrape", response_model=NikeProductResponse)
 def scrape_nike_product(req: NikeProductRequest, session: Session = Depends(get_session)):
     """
-    Scrappea un producto de Nike.cl
+    ⚠️ IMPORTANTE: Este endpoint requiere ejecutar el scraper LOCALMENTE
     
-    NOTA: Nike tiene protección anti-bot muy fuerte (WAF Cloudflare).
-    BeautifulSoup no puede pasar. Se recomienda usar Selenium localmente.
+    Nike.cl tiene protección anti-bot muy fuerte (Cloudflare WAF).
     
-    Para scrapear localmente:
-    1. Ejecuta: python nike_bot_local.py "URL" "TALLA"
-       (esto abre el navegador Chrome y permite scrapear manualmente)
+    FLUJO RECOMENDADO:
+    1. Ejecuta localmente: python scrape_and_upload.py "URL"
+    2. El script abre Chrome, scrapea, y envía JSON a esta API
+    3. Esta API almacena en la BD
     
-    2. O usa la API alternativa enviando datos manualmente
+    O usa manualmente el endpoint POST /nike/products/add
+    """
+    raise HTTPException(
+        status_code=501, 
+        detail="""
+SCRAPER LOCAL REQUERIDO:
+
+Nike.cl bloquea requests HTTP. Usa Selenium localmente:
+
+1. Ejecuta: python scrape_and_upload.py "URL"
+   (abre Chrome, scrapea, envía a API)
+
+2. O POST manualmente a /nike/products/add con los datos extraídos
+
+Ejemplo con curl:
+curl -X POST https://nike-bot-pro-production.up.railway.app/nike/products/add \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "sku": "191697",
+    "name": "Air Jordan 4",
+    "price": 226990,
+    "sizes": ["8", "9", "10"],
+    "image": "https://...",
+    "url": "https://nike.cl/..."
+  }'
+        """
+    )
+
+@app.post("/nike/products/add", response_model=NikeProductResponse)
+def add_nike_product(resp: NikeProductResponse, session: Session = Depends(get_session)):
+    """
+    Agrega un producto Nike manualmente a la BD
     
-    Extrae: SKU, nombre, precio, tallas disponibles, imagen
-    Guarda en BD para consulta posterior
+    Usa esto cuando hayas scrapeado el producto localmente con Selenium
+    y quieras almacenarlo en la BD centralizada
     """
     try:
-        from selenium import webdriver
-        from selenium.webdriver.common.by import By
-        from selenium.webdriver.support.ui import WebDriverWait
-        from selenium.webdriver.support import expected_conditions as EC
-        from webdriver_manager.chrome import ChromeDriverManager
-        from selenium.webdriver.chrome.service import Service
-        from selenium.webdriver.chrome.options import Options
+        # Validar datos básicos
+        if not resp.sku or not resp.name:
+            raise HTTPException(status_code=400, detail="SKU y nombre son requeridos")
         
-        # Validar URL
-        if not req.url or "nike" not in req.url.lower():
-            raise HTTPException(status_code=400, detail="URL debe ser un enlace válido de Nike.cl")
+        # Guardar o actualizar en BD
+        existing = session.exec(select(NikeProduct).where(NikeProduct.sku == resp.sku)).first()
         
-        print(f"[SCRAPER] Iniciando Selenium para: {req.url}")
-        
-        #  Configurar Chrome para headless (sin GUI visual)
-        options = Options()
-        options.add_argument("--start-maximized")
-        options.add_argument("--disable-blink-features=AutomationControlled")
-        options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36")
-        
-        try:
-            driver = webdriver.Chrome(
-                service=Service(ChromeDriverManager().install()),
-                options=options
+        if existing:
+            existing.name = resp.name
+            existing.price = resp.price
+            existing.sizes = str(resp.sizes)
+            existing.image = resp.image
+            existing.url = resp.url
+            existing.updated_at = datetime.utcnow()
+            session.add(existing)
+            print(f"[API] Producto {resp.sku} actualizado")
+        else:
+            nike_prod = NikeProduct(
+                sku=resp.sku,
+                name=resp.name,
+                price=resp.price,
+                sizes=str(resp.sizes),
+                image=resp.image,
+                url=resp.url
             )
-            driver.get(req.url)
-            
-            # Esperar a que cargue la página
-            WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.TAG_NAME, "body"))
-            )
-            
-            # Extraer datos del producto
-            sku = None
-            import re
-            sku_match = re.search(r'skuId=(\d+)', req.url)
-            if sku_match:
-                sku = sku_match.group(1)
-            
-            # Intentar extraer nombre
-            name = "Unknown"
-            try:
-                name_elem = driver.find_element(By.TAG_NAME, "h1")
-                name = name_elem.text.strip()
-            except:
-                pass
-            
-            # Intentar extraer precio
-            price = None
-            try:
-                price_elems = driver.find_elements(By.XPATH, "//*[contains(text(), '$')]")
-                if price_elems:
-                    price_text = price_elems[0].text
-                    price_match = re.search(r'\$\s*([\d,]+)', price_text)
-                    if price_match:
-                        price = int(price_match.group(1).replace(',', ''))
-            except:
-                pass
-            
-            # Extraer tallas disponibles
-            sizes = []
-            try:
-                # Buscar botones de talla
-                size_elements = driver.find_elements(By.XPATH, "//button[contains(@class, 'size') or contains(text(), '.')]")
-                for elem in size_elements[:20]:  # Máximo 20 tallas
-                    text = elem.text.strip()
-                    if text and len(text) < 10:
-                        sizes.append(text)
-                        if len(sizes) >= 15:  # Max 15 tallas
-                            break
-            except:
-                sizes = ["6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "12", "13"]
-            
-            # Extraer imagen
-            image = None
-            try:
-                img_elem = driver.find_element(By.TAG_NAME, "img")
-                image = img_elem.get_attribute("src")
-            except:
-                pass
-            
-            driver.quit()
-            
-            if not sku or name == "Unknown":
-                raise HTTPException(
-                    status_code=400, 
-                    detail="No se pudieron extraer datos del producto. Verifica que la URL sea correcta."
-                )
-            
-            product_data = {
-                "sku": sku,
-                "name": name,
-                "price": price,
-                "sizes": list(set(sizes)) if sizes else ["6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11"],
-                "image": image,
-                "url": req.url
-            }
-            
-            # Guardar en BD
-            existing = session.exec(select(NikeProduct).where(NikeProduct.sku == product_data['sku'])).first()
-            
-            if existing:
-                existing.name = product_data['name']
-                existing.price = product_data['price']
-                existing.sizes = str(product_data['sizes'])
-                existing.image = product_data['image']
-                existing.url = product_data['url']
-                existing.updated_at = datetime.utcnow()
-                session.add(existing)
-            else:
-                nike_prod = NikeProduct(**product_data)
-                session.add(nike_prod)
-            
-            session.commit()
-            
-            return NikeProductResponse(**product_data)
-            
-        except HTTPException:
-            raise
-        except Exception as e:
-            raise HTTPException(status_code=500, detail=f"Error con Selenium: {str(e)}")
-            
+            session.add(nike_prod)
+            print(f"[API] Producto {resp.sku} creado")
+        
+        session.commit()
+        
+        return resp
+        
     except HTTPException:
         raise
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Error scrappearing: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Error guardando producto: {str(e)}")
     except HTTPException:
         raise
     except Exception as e:
