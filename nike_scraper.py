@@ -1,8 +1,11 @@
 """Nike Scraper - Extrae productos de nike.cl"""
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 from bs4 import BeautifulSoup
 import json
 import re
+import time
 from typing import Optional, Dict, List
 
 class NikeScraper:
@@ -10,7 +13,20 @@ class NikeScraper:
     
     BASE_URL = "https://nike.cl"
     HEADERS = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36 Edg/120.0.0.0",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+        "Accept-Encoding": "gzip, deflate, br",
+        "Accept-Language": "es-CL,es;q=0.9",
+        "Cache-Control": "max-age=0",
+        "Sec-Ch-Ua": '"Not_A Brand";v="8", "Chromium";v="120", "Microsoft Edge";v="120"',
+        "Sec-Ch-Ua-Mobile": "?0",
+        "Sec-Ch-Ua-Platform": '"Windows"',
+        "Sec-Fetch-Dest": "document",
+        "Sec-Fetch-Mode": "navigate",
+        "Sec-Fetch-Site": "none",
+        "Sec-Fetch-User": "?1",
+        "Referer": "https://nike.cl/",
+        "DNT": "1",
     }
     
     @classmethod
@@ -28,8 +44,23 @@ class NikeScraper:
         try:
             print(f"[Nike Scraper] Scrapeando: {url}")
             
-            # Descargar página
-            response = requests.get(url, headers=cls.HEADERS, timeout=10)
+            # Crear sesión con reintentos automáticos
+            session = requests.Session()
+            retry_strategy = Retry(
+                total=3,
+                backoff_factor=1,
+                status_forcelist=[429, 500, 502, 503, 504],
+                allowed_methods=["HEAD", "GET", "OPTIONS"]
+            )
+            adapter = HTTPAdapter(max_retries=retry_strategy)
+            session.mount("http://", adapter)
+            session.mount("https://", adapter)
+            
+            # Agregar delay pequeño para no parecer bot
+            time.sleep(0.5)
+            
+            # Descargar página con manejo de errores
+            response = session.get(url, headers=cls.HEADERS, timeout=15, verify=True)
             response.raise_for_status()
             
             soup = BeautifulSoup(response.content, 'html.parser')
@@ -41,42 +72,99 @@ class NikeScraper:
             
             sku = sku_match.group(1) if sku_match else None
             
-            # Extraer nombre del producto
-            name_elem = soup.find('h1', {'data-testid': 'product-title'})
-            if not name_elem:
-                name_elem = soup.find('h1')
-            name = name_elem.text.strip() if name_elem else "Unknown"
+            # Extraer nombre - Múltiples estrategias
+            name = "Unknown"
+            for selector in ['h1', 'h2', '[data-testid="product-title"]', '.product-title']:
+                name_elem = soup.select_one(selector)
+                if name_elem and name_elem.text.strip():
+                    name = name_elem.text.strip()
+                    break
             
-            # Extraer precio
-            price_elem = soup.find('div', {'data-testid': 'product-price'})
-            if not price_elem:
-                price_elem = soup.find(string=re.compile(r'\$\s*[\d,]+'))
+            # También buscar en etiqueta meta og:title (común en tiendas)
+            if name == "Unknown":
+                og_title = soup.find('meta', {'property': 'og:title'})
+                if og_title:
+                    name = og_title.get('content', 'Unknown').strip()
             
+            # Extraer precio - Múltiples estrategias
             price = None
-            if price_elem:
-                price_text = price_elem.text if hasattr(price_elem, 'text') else price_elem
-                price_match = re.search(r'\$\s*([\d,]+)', price_text)
-                if price_match:
-                    price = int(price_match.group(1).replace(',', ''))
+            
+            # Estrategia 1: Buscar el json-ld con producto
+            script_tag = soup.find('script', {'type': 'application/ld+json'})
+            if script_tag:
+                try:
+                    json_data = json.loads(script_tag.string)
+                    if isinstance(json_data, dict) and 'offers' in json_data:
+                        price = json_data['offers'].get('price')
+                        if isinstance(price, str):
+                            price = int(float(price))
+                except:
+                    pass
+            
+            # Estrategia 2: Search for price patterns in text
+            if not price:
+                price_pattern = soup.find(string=re.compile(r'\$\s*[\d,]+'))
+                if price_pattern:
+                    price_match = re.search(r'\$\s*([\d,]+)', price_pattern)
+                    if price_match:
+                        price = int(price_match.group(1).replace(',', ''))
+            
+            # Estrategia 3: Meta og:price
+            if not price:
+                og_price = soup.find('meta', {'property': 'og:price:amount'})
+                if og_price:
+                    try:
+                        price = int(float(og_price.get('content')))
+                    except:
+                        pass
             
             # Extraer tallas disponibles
             sizes = []
-            size_buttons = soup.find_all('button', {'data-testid': re.compile(r'size')})
+            
+            # Estrategia 1: Botones con data-testid
+            size_buttons = soup.find_all('button', {'data-testid': re.compile(r'size', re.I)})
+            
+            # Estrategia 2: Cualquier button con números
             if not size_buttons:
-                # Intenta otra estrategia
                 size_buttons = soup.find_all('button', string=re.compile(r'^\d+\.?\d*$'))
             
+            # Estrategia 3: Divs o spans con clases size
+            if not size_buttons:
+                size_buttons = soup.find_all(['div', 'span'], {'class': re.compile(r'size', re.I)})
+            
             for btn in size_buttons:
-                size_text = btn.text.strip()
-                if size_text and not size_text.startswith('$'):
+                size_text = btn.text.strip() if hasattr(btn, 'text') else btn.get_text()
+                size_text = size_text.strip()
+                if size_text and len(size_text) < 10 and not size_text.startswith('$'):
                     sizes.append(size_text)
             
-            # Extraer imagen
-            image_elem = soup.find('img', {'alt': re.compile(name, re.IGNORECASE)})
-            if not image_elem:
-                image_elem = soup.find('img', {'data-testid': 'product-image'})
+            # Si no encontramos tallas, usar tallas estándar (fallback)
+            if not sizes:
+                sizes = ["6", "6.5", "7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "12", "13"]
+                print(f"[Nike Scraper] ⚠️ No se encontraron tallas reales, usando tallas estándar")
             
-            image = image_elem.get('src') if image_elem else None
+            # Extraer imagen
+            image = None
+            
+            # Estrategia 1: og:image
+            og_image = soup.find('meta', {'property': 'og:image'})
+            if og_image:
+                image = og_image.get('content')
+            
+            # Estrategia 2: img con alt relevante
+            if not image:
+                img_elems = soup.find_all('img')
+                for img in img_elems:
+                    alt = img.get('alt', '').lower()
+                    if ('nike' in alt or 'product' in alt or 'shoe' in alt or 'zapatilla' in alt):
+                        image = img.get('src')
+                        break
+            
+            # Estrategia 3: Primera imagen importante
+            if not image:
+                img_elem = soup.find('img', {'src': re.compile(r'product|shoe|item', re.I)})
+                if img_elem:
+                    image = img_elem.get('src')
             
             # Limpiar imagen URL si es relativa
             if image and image.startswith('/'):
