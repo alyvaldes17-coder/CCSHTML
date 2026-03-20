@@ -39,11 +39,20 @@ class NikeBot:
         """
         Extrae el SKU de la URL de Nike
         
-        Ej: https://nike.cl/products/123456789 → 123456789
+        Soporta dos formatos:
+        - https://nike.cl/products/123456789 → 123456789
+        - https://nike.cl/product-name/p?skuId=191697 → 191697
         """
+        # Intenta primer formato: /products/SKU
         match = re.search(r'/products/(\d+)', url)
         if match:
             return match.group(1)
+        
+        # Intenta segundo formato: ?skuId=SKU
+        match = re.search(r'skuId=(\d+)', url)
+        if match:
+            return match.group(1)
+        
         raise ValueError(f"No se pudo extraer SKU de: {url}")
     
     def add_to_cart(self, url: str, size: str) -> bool:

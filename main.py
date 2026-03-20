@@ -182,18 +182,25 @@ def nike_add_to_cart(req: NikeAddToCartRequest, session: Session = Depends(get_s
     6. Se detiene en Fintoc para que completes manualmente
     """
     try:
-        # Extraer SKU de la URL
+        # Extraer SKU de la URL (soporta dos formatos)
         import re
-        match = re.search(r'/products/(\d+)', req.url)
-        if not match:
-            raise HTTPException(status_code=400, detail="URL inválida - no contiene SKU")
         
-        sku = match.group(1)
+        # Formato 1: /products/SKU
+        match = re.search(r'/products/(\d+)', req.url)
+        if match:
+            sku = match.group(1)
+        else:
+            # Formato 2: ?skuId=SKU
+            match = re.search(r'skuId=(\d+)', req.url)
+            if match:
+                sku = match.group(1)
+            else:
+                raise HTTPException(status_code=400, detail="URL inválida - No contiene SKU (/products/SKU o ?skuId=SKU)")
         
         # Obtener talla del SKU
         sku_mapping = session.exec(select(SKUSize).where(SKUSize.sku == sku)).first()
         if not sku_mapping:
-            raise HTTPException(status_code=404, detail=f"SKU {sku} no configurado. Agrega primero con POST /nike/sku/add")
+            raise HTTPException(status_code=404, detail=f"SKU {sku} no configurado. Primero agrega con POST /nike/sku/add")
         
         size = sku_mapping.size
         
