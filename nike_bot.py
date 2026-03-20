@@ -1,6 +1,8 @@
 """Nike Bot - Automatización de carrito en nike.cl"""
 import re
 import time
+import pickle
+import os
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -11,6 +13,8 @@ from webdriver_manager.chrome import ChromeDriverManager
 class NikeBot:
     """Bot para automatizar compras en nike.cl"""
     
+    PROFILE_DIR = "nike_profile"  # Directorio del perfil persistente
+    
     def __init__(self, headless=False):
         """
         Inicializa el bot de Nike
@@ -20,20 +24,70 @@ class NikeBot:
         """
         options = webdriver.ChromeOptions()
         
+        # Usar un perfil persistente que mantiene sesión, cookies, etc.
+        print(f"[Nike Bot] Usando perfil: {self.PROFILE_DIR}")
+        options.add_argument(f"--user-data-dir={os.path.abspath(self.PROFILE_DIR)}")
+        
         if headless:
             options.add_argument("--headless")
         
+        # Argumentos para ocultar que es automatizado y quitar banner
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--disable-gpu")
         options.add_argument("start-maximized")
-        options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        options.add_argument("--disable-blink-features=AutomationControlled")
+        options.add_experimental_option("excludeSwitches", ["enable-logging", "enable-automation"])
+        options.add_experimental_option("useAutomationExtension", False)
+        options.add_argument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36")
         
         self.driver = webdriver.Chrome(
             service=Service(ChromeDriverManager().install()),
             options=options
         )
+        
+        # Ocultar webdriver de forma adicional
+        try:
+            self.driver.execute_cdp_cmd('Page.addScriptToEvaluateOnNewDocument', {
+                "source": """
+                    Object.defineProperty(navigator, 'webdriver', {
+                        get: () => false,
+                    });
+                """
+            })
+        except:
+            pass  # Algunos navegadores no soportan CDP
+        
         self.wait = WebDriverWait(self.driver, 10)
+    
+    def load_cookies(self, filename: str = "nike_cookies.pkl") -> bool:
+        """Carga las cookies guardadas de una sesión anterior"""
+        if not os.path.exists(filename):
+            print(f"[Nike Bot] ⚠️ No hay cookies guardadas. Ejecuta: python nike_login.py")
+            return False
+        
+        try:
+            print(f"[Nike Bot] Cargando cookies de sesión anterior...")
+            # Primero navega a Nike para poder agregar cookies
+            self.driver.get("https://nike.cl")
+            time.sleep(1)
+            
+            # Cargar cookies
+            cookies = pickle.load(open(filename, "rb"))
+            for cookie in cookies:
+                try:
+                    # Algunos cookies pueden tener campos que Chrome no acepta
+                    if 'expiry' in cookie:
+                        cookie['expiry'] = int(cookie['expiry'])
+                    self.driver.add_cookie(cookie)
+                except Exception as e:
+                    pass  # Ignorar cookies que fallan
+            
+            print(f"[Nike Bot] ✓ {len(cookies)} cookies cargadas - Sesión activa")
+            return True
+        except Exception as e:
+            print(f"[Nike Bot] ✗ Error cargando cookies: {e}")
+            return False
     
     def extract_sku_from_url(self, url: str) -> str:
         """
@@ -67,6 +121,7 @@ class NikeBot:
             True si llegó hasta Fintoc, False si hubo error
         """
         try:
+            # El perfil persistente mantiene la sesión automáticamente
             print(f"[Nike Bot] Abriendo: {url}")
             self.driver.get(url)
             time.sleep(4)
