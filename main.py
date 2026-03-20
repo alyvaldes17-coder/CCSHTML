@@ -109,7 +109,7 @@ def startup():
 # Routes
 @app.get("/")
 def root():
-    return {"message": "Nike Bot Pro Auth Server - Fixed Deploy v2"}
+    return {"message": "Nike Bot Pro Auth Server - Nike Bot Module v2"}
 
 @app.get("/health")
 def health():
